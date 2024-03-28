@@ -1,7 +1,23 @@
-@import '../src/index.scss';
+@import "../src/index.scss";
 
 // testing that styling works
-body{
-  background-color: $black;
-  color: $light-grey;
+body {
+	background-color: $black;
+	color: $light-grey;
+}
+
+.borderContainer {
+	border: 2px black solid;
+  border-radius: 5px;
+}
+
+.login {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	margin-top: 30vh;
+  .borderContainer{
+    padding: 3%;
+  }
 }
