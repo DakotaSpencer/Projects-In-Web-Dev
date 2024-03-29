@@ -19,5 +19,19 @@ body {
 	margin-top: 30vh;
   .borderContainer{
     padding: 3%;
+    width: 45%;
+    .form{
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      flex-direction: column;
+      .inputs input{
+        width: 80%;
+      }
+    }
+    .buttons{
+      margin-top: 2%;
+    }
   }
+  
 }
