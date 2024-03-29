@@ -24,7 +24,6 @@ function App() {
             </Routes>
           </div>
       </BrowserRouter>
-      <h1>Pokedex Website</h1>
     </div>
   );
 }
