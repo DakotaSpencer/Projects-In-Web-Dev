@@ -62,10 +62,10 @@ const SelectedPokemon = () => {
                         </h2>
                         <section className='pokemonTypes'>
                             <h3>Types:
-                                { 
+                                {
                                     pokemonData.types?.map(type => (
-                                        " " +type.type.name?.charAt(0).toUpperCase() + type.type.name?.slice(1)+ " "
-                                    )) 
+                                        " " + type.type.name?.charAt(0).toUpperCase() + type.type.name?.slice(1)
+                                    )) + " "
                                 }
                             </h3>
                         </section>
