@@ -1,6 +1,7 @@
 import React, { useState, useEffect, } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
+import PokemonCard from '../components/PokemonCard';
 
 const SelectedPokemon = () => {
     const [queryParameters] = useSearchParams();
@@ -22,28 +23,29 @@ const SelectedPokemon = () => {
                         console.log('pokemonData:', pokemonAxiosData, 'descriptionResults:', descriptionAxiosResults)
                         setPokemonData(pokemonAxiosData.data);
                         setSpeciesData(descriptionAxiosResults);
+                        //setSprite(pokemonAxiosData.data.sprites.other.obj["official-artwork"].front_default)
                         setLoading(false);
+                        console.log(pokemonAxiosData.data.sprites)
                     }));
             }
-        console.log("species data: ", speciesData)
         if (pokemonData === null || pokemonData === undefined) {
             fetchPokemonData();
         }
         else{
-            console.log(pokemonData)
+            //console.log(pokemonData)
         }
     },[queryParameters, selectedPokemon, pokemonData, speciesData])
 
     useEffect(() => {
         if (speciesData) {
-            console.log("SD:Check", speciesData)
+            //console.log("SD:Check", speciesData)
             var tempArr = [];
             speciesData?.data?.flavor_text_entries?.forEach(element => {
                 if (element?.language?.name === "en"){
                     tempArr.push(element)
                 }
             });
-            console.log(tempArr)
+            //console.log(tempArr)
             setFlavorText(tempArr[Math.floor(Math.random()*tempArr.length)]);
         }
     }, [speciesData, flavorText])
@@ -71,13 +73,16 @@ const SelectedPokemon = () => {
                         </section>
                         <section className='pokemonImage'>
                             {
-                                <img src={pokemonData.sprites?.front_default} alt="Default front facing sprite for pokemon" width={360} height={360}/>
+                                <img src={pokemonData?.sprites?.other["official-artwork"].front_default} alt="Default front facing sprite for pokemon" width={360} height={360}/>
                             }
                         </section>
-                        <section className='flavoeText'>
+                        <section className='flavorText'>
                             {
                                 flavorText?.flavor_text
                             }
+                        </section>
+                        <section>
+                            <PokemonCard pokemon={pokemonData}/>
                         </section>
                     </div>
                 :<div>Loading...</div>}
