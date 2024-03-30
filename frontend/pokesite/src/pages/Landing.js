@@ -56,8 +56,7 @@ const Landing = () => {
       <div>
       {
           pokemonArray?.map(pokemon => (
-              <PokemonCard pokemon={pokemon.data}/>
-              
+              <PokemonCard pokemon={pokemon.data.name}/>
           ))
       }
       </div>

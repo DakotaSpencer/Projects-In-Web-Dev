@@ -9,6 +9,7 @@ const SelectedPokemon = () => {
     const [pokemonData, setPokemonData] = useState();
     const [speciesData, setSpeciesData] = useState();
     const [flavorText, setFlavorText] = useState('');
+    const [evolutionChain, setEvolutionChain] = useState();
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -20,12 +21,9 @@ const SelectedPokemon = () => {
                     axios.get(`https://pokeapi.co/api/v2/pokemon-species/${selectedPokemon}`)
                     ])
                     .then(axios.spread((pokemonAxiosData, descriptionAxiosResults) => {
-                        console.log('pokemonData:', pokemonAxiosData, 'descriptionResults:', descriptionAxiosResults)
                         setPokemonData(pokemonAxiosData.data);
                         setSpeciesData(descriptionAxiosResults);
                         //setSprite(pokemonAxiosData.data.sprites.other.obj["official-artwork"].front_default)
-                        setLoading(false);
-                        console.log(pokemonAxiosData.data.sprites)
                     }));
             }
         if (pokemonData === null || pokemonData === undefined) {
@@ -38,15 +36,26 @@ const SelectedPokemon = () => {
 
     useEffect(() => {
         if (speciesData) {
-            //console.log("SD:Check", speciesData)
+            //If species daya exists, then we can find evolution chain. For each item in evolution chain
+            // get that pokemons data and display it in the Evolution Chain section
+            axios.all([
+                axios.get(speciesData?.data?.evolution_chain?.url)
+                ])
+                .then(axios.spread((evolutionChainData) => {
+                    setEvolutionChain(evolutionChainData)
+                    setLoading(false);
+                    //First evolution: evolutionChainData.data.chain.species.name;
+                    //Second Evolution: evolutionChainData.data.chain.species.evolves_to.species.name;
+                    //Third Evolution: evolutionChainData.data.chain.species.evolves_to.evolves_to.species.name
+                }));
             var tempArr = [];
             speciesData?.data?.flavor_text_entries?.forEach(element => {
                 if (element?.language?.name === "en"){
                     tempArr.push(element)
                 }
             });
-            //console.log(tempArr)
             setFlavorText(tempArr[Math.floor(Math.random()*tempArr.length)]);
+            
         }
     }, [speciesData, flavorText])
     
@@ -59,9 +68,15 @@ const SelectedPokemon = () => {
                     <div>
                         <h2 className='pokemonName'>
                             {
+                                "#"+pokemonData.id + " - " + 
                                 pokemonData.name?.charAt(0).toUpperCase() + pokemonData.name?.slice(1)
                             }
                         </h2>
+                        <section className='pokemonGeneration'>
+                            <h3>
+                                Generation: {speciesData?.data.generation.name}
+                            </h3>
+                        </section>
                         <section className='pokemonTypes'>
                             <h3>Types:
                                 {
@@ -81,8 +96,14 @@ const SelectedPokemon = () => {
                                 flavorText?.flavor_text
                             }
                         </section>
-                        <section>
-                            <PokemonCard pokemon={pokemonData}/>
+                        <section className='evolutionChain'>{
+                            evolutionChain?
+                            <div>Evolution Chain: <PokemonCard pokemon={evolutionChain?.data.chain.species.name}/> 
+                            <PokemonCard pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.species?.name}/> 
+                            <PokemonCard pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name}/></div>:<p>Loading Evolution Chain...</p>} 
+                        </section>
+                        <section className='pokemonMoves'>
+                            This requires getting the type URL from speciesData, if two, 
                         </section>
                     </div>
                 :<div>Loading...</div>}
