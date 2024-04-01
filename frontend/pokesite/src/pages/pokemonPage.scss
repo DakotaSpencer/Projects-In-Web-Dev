@@ -1,0 +1,14 @@
+@import '../index.scss';
+
+.pokemonName{
+    background-color: $teal;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    color: $light-grey;
+}
+
+.evolutionChain{
+    display: flex;
+    flex-direction: row;
+}
