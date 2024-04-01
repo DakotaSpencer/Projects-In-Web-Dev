@@ -27,7 +27,7 @@ const PokemonCard = (props) => {
                     <a href={`/pokemon?pokemon=${pokemonData.id}`}>
                     <p className='pokemonName'>
                         {
-                            "#"+pokemonData.id + " - " + pokemonData.name?.charAt(0).toUpperCase() + pokemonData.name?.slice(1)
+                            "#"+pokemonData.id.toString().padStart(4, '0') + " - " + pokemonData.name?.charAt(0).toUpperCase() + pokemonData.name?.slice(1)
                         }
                     </p>
                     </a>

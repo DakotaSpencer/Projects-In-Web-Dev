@@ -29,9 +29,6 @@ const SelectedPokemon = () => {
         if (pokemonData === null || pokemonData === undefined) {
             fetchPokemonData();
         }
-        else{
-            //console.log(pokemonData)
-        }
     },[queryParameters, selectedPokemon, pokemonData, speciesData])
 
     useEffect(() => {
@@ -68,7 +65,7 @@ const SelectedPokemon = () => {
                     <div>
                         <h2 className='pokemonName'>
                             {
-                                "#"+pokemonData.id + " - " + 
+                                "#"+pokemonData.id.toString().padStart(4, '0') + " - " + 
                                 pokemonData.name?.charAt(0).toUpperCase() + pokemonData.name?.slice(1)
                             }
                         </h2>
@@ -98,12 +95,20 @@ const SelectedPokemon = () => {
                         </section>
                         <section className='evolutionChain'>{
                             evolutionChain?
-                            <div>Evolution Chain: <PokemonCard pokemon={evolutionChain?.data.chain.species.name}/> 
-                            <PokemonCard pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.species?.name}/> 
-                            <PokemonCard pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name}/></div>:<p>Loading Evolution Chain...</p>} 
+                            <div><h3>Evolution Chain: </h3>
+                            <PokemonCard pokemon={evolutionChain?.data.chain.species.name}/> 
+                            {
+                                evolutionChain?.data?.chain?.evolves_to[0]?.species?.name?<PokemonCard pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.species?.name}/> : <></>
+                            }
+                            {
+                                evolutionChain?.data?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name?
+                                <PokemonCard pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name}/>:
+                                <></>
+                            }
+                            </div>:<p>Loading Evolution Chain...</p>} 
                         </section>
                         <section className='pokemonMoves'>
-                            This requires getting the type URL from speciesData, if two, 
+                            Pokemon Moves: This requires getting the type URL from speciesData. This should show the pokemons starting moves.
                         </section>
                     </div>
                 :<div>Loading...</div>}
