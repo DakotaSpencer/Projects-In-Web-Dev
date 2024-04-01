@@ -2,6 +2,7 @@ import React, { useState, useEffect, } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import PokemonCard from '../components/PokemonCard';
+import './pokemonPage.scss'
 
 const SelectedPokemon = () => {
     const [queryParameters] = useSearchParams();
@@ -60,7 +61,7 @@ const SelectedPokemon = () => {
         return <div className="App">Loading...</div>;
     }else{
         return (
-            <div>
+            <div className='pokemonContainer'>
                 {pokemonData !==null && pokemonData!==undefined?
                     <div>
                         <h2 className='pokemonName'>
@@ -96,6 +97,7 @@ const SelectedPokemon = () => {
                         <section className='evolutionChain'>{
                             evolutionChain?
                             <div><h3>Evolution Chain: </h3>
+                            <div className='evolutionChain'>
                             <PokemonCard pokemon={evolutionChain?.data.chain.species.name}/> 
                             {
                                 evolutionChain?.data?.chain?.evolves_to[0]?.species?.name?<PokemonCard pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.species?.name}/> : <></>
@@ -105,6 +107,7 @@ const SelectedPokemon = () => {
                                 <PokemonCard pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name}/>:
                                 <></>
                             }
+                            </div>
                             </div>:<p>Loading Evolution Chain...</p>} 
                         </section>
                         <section className='pokemonMoves'>
