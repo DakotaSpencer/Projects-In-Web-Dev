@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const Login = () => {
+	const [showPassword, setShowPassword] = useState(false);
+
 	return (
 		<div className="login">
 			<div className="borderContainer">
@@ -13,8 +16,17 @@ const Login = () => {
 						<br />
 						<label htmlFor="password">Password</label>
 						<br />
-						<input name="password" type="password" placeholder="Password" />
+						<input
+							name="password"
+							type={showPassword ? "text" : "password"}
+							placeholder="Password"
+						/>
+						<i
+							className={`bi bi-eye${showPassword ? "-slash-fill" : "-fill"}`}
+							onClick={() => setShowPassword(!showPassword)}
+						></i>
 						<br />
+						<p className="forgot"><a href="/home" >Forgot Password</a></p>
 					</div>
 					<div className="buttons">
 						<button className="signup">Signup</button>

@@ -7,31 +7,76 @@ body {
 }
 
 .borderContainer {
-	border: 2px black solid;
-  border-radius: 5px;
+	border: 2px #1C1B1B solid;
+	border-radius: 5px;
+}
+
+a{
+  color: $teal;
+  &:hover{
+    color: $teal2;
+  }
+  &:active{
+    color: #256571;
+  }
+  &:visited{
+    color: $teal;
+  }
 }
 
 .login {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	@include flexCenter;
 	height: 100%;
-	margin-top: 30vh;
-  .borderContainer{
-    padding: 3%;
-    width: 45%;
-    .form{
-      display: flex;
-      align-items: center;
-      justify-items: center;
-      flex-direction: column;
-      .inputs input{
-        width: 80%;
+	margin-top: 20vh;
+	.borderContainer {
+    h1{
+      margin-bottom: 2%;
+    }
+		padding: 3%;
+		width: 45%;
+    background-color: #222121;
+		.form {
+			@include flexCenter;
+			flex-direction: column;
+			.inputs input {
+				width: 93%;
+        height: 35%;
+        margin-top: 1%;
+        margin-bottom: 3%;
+        border-radius: 2px;
+        &::placeholder{
+          font-style: italic;
+        }
+			}
+      .bi-eye-fill, .bi-eye-slash-fill{
+        margin-left: 1%;
+        color: $light-grey;
+        font-size: 1.4em;
+        cursor: pointer;
+        &:hover{
+          color: #BDBDBD;
+        }
       }
-    }
-    .buttons{
-      margin-top: 2%;
-    }
-  }
-  
+      .forgot{
+        text-align: right !important;
+        margin-top: -2.5% !important;
+        margin-right: 7% !important;
+      }
+		}
+		.buttons {
+			margin-top: 10%;
+			width: 100%;
+      @include flexCenter;
+			.loginBtn {
+        @include buttons($teal, #000)
+      }
+      .signup{
+        @include buttons($teal2, $light-grey)
+      }
+      button{
+        margin: 2%;
+        margin-right: 5%;
+      }
+		}
+	}
 }

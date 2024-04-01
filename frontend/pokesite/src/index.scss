@@ -2,6 +2,7 @@
 $black: #292828ff;
 $red: #bd3e3eff;
 $teal: #43b2c8ff;
+$teal2: #296F7C;
 $light-grey: #e5e5e5ff;
 
 // Other vars
@@ -10,3 +11,20 @@ $light-grey: #e5e5e5ff;
 @import "~bootstrap/scss/bootstrap";
 
 // Mixins
+@mixin flexCenter() {
+	display: flex;
+	align-content: center;
+	justify-content: center;
+}
+
+@mixin buttons($bgColor, $txtColor) {
+	padding: 2%;
+	border-radius: 5px;
+	background-color: $bgColor;
+	color: $txtColor;
+	border: none;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+}
