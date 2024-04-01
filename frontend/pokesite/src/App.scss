@@ -27,7 +27,7 @@ a{
 .login {
 	@include flexCenter;
 	height: 100%;
-	margin-top: 20vh;
+	margin-top: 17vh;
 	.borderContainer {
     h1{
       margin-bottom: 2%;
@@ -54,7 +54,7 @@ a{
         font-size: 1.4em;
         cursor: pointer;
         &:hover{
-          color: #BDBDBD;
+          color: $grey-hover;
         }
       }
       .forgot{
@@ -79,4 +79,35 @@ a{
       }
 		}
 	}
+}
+
+
+nav {
+	background-color: #1C1B1B !important;
+  height: 8vh;
+	.nav-link {
+		color: $light-grey !important;
+    &:hover{
+      color: $grey-hover !important;
+    }
+	}
+	.navbar-text, .navbar-brand {
+		margin-right: 1%;
+		color: $light-grey;
+    &:hover{
+      color: $grey-hover;
+    }
+	}
+}
+
+.navbar > .container {
+	max-width: 100%;
+	margin: 0;
+	padding: 0;
+  margin-left: .5%;
+}
+
+.navbar {
+	margin: 0;
+	padding: 0;
 }

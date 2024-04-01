@@ -1,18 +1,18 @@
 import "./App.scss";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Search from "./pages/Search";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import SelectedPokemon from "./pages/SelectedPokemon";
 import Profile from "./pages/Profile";
+import NavBar from "./components/NavBar";
 
 function App() {
 	return (
 		<div className="App">
 			<BrowserRouter>
-				<Navbar />
+				<NavBar />
 				<div className="pages">
 					<Routes>
 						<Route path="/" element={<Landing />} />
