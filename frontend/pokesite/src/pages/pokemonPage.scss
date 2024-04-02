@@ -1,7 +1,6 @@
 @import '../index.scss';
 
 .pokemonName{
-    background-color: $teal;
     margin-top: 0;
     margin-left: 0;
     margin-right: 0;
@@ -11,4 +10,19 @@
 .evolutionChain{
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-content: start;
+}
+
+.pokemonTypes{
+    display: flex;
+    flex-direction: row;
+}
+
+.pokemonType{
+    padding: 6px;
+    margin: 10px;
+    color: lighten($light-grey, 20%);
+    border-radius: 10px;
 }
