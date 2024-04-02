@@ -56,6 +56,31 @@ const SelectedPokemon = () => {
             
         }
     }, [speciesData, flavorText])
+
+    const getTypeColor = type => {
+        switch (type) {
+          case "normal": return '#A8A878'
+          case "fire": return '#F08030'
+          case "water": return '#6890F0'
+          case "electric": return '#F8D030'
+          case "grass": return '#78C850'
+          case "ice": return '#98D8D8'
+          case "fighting": return '#C03028'
+          case "poison": return '#A040A0'
+          case "ground": return '#E0C068'
+          case "flying": return '#A890F0'
+          case "psychic": return '#F85888'
+          case "bug": return '#A8B820'
+          case "rock": return '#B8A038'
+          case "ghost": return '#705898'
+          case "dragon": return '#7038F8'
+          case "dark": return '#705848'
+          case "steel": return '#B8B8D0'
+          case "fairy": return '#F0B6BC'
+          case "stellar": return '#35ACE7'
+          default: return '#fff'
+        }
+    }
     
     if (isLoading) {
         return <div className="App">Loading...</div>;
@@ -70,20 +95,21 @@ const SelectedPokemon = () => {
                                 pokemonData.name?.charAt(0).toUpperCase() + pokemonData.name?.slice(1)
                             }
                         </h2>
+                        <section>
+                            <div className='pokemonTypes'>
+                                {
+                                    pokemonData.types?.map(type => (
+                                        <p className='pokemonType' style={{backgroundColor:getTypeColor(type.type.name)}}>{" " + type.type.name?.charAt(0).toUpperCase() + type.type.name?.slice(1)}</p>
+                                    ))
+                                }
+                            </div>
+                        </section>
                         <section className='pokemonGeneration'>
                             <h3>
                                 Generation: {speciesData?.data.generation.name}
                             </h3>
                         </section>
-                        <section className='pokemonTypes'>
-                            <h3>Types:
-                                {
-                                    pokemonData.types?.map(type => (
-                                        " " + type.type.name?.charAt(0).toUpperCase() + type.type.name?.slice(1)
-                                    )) + " "
-                                }
-                            </h3>
-                        </section>
+                        
                         <section className='pokemonImage'>
                             {
                                 <img src={pokemonData?.sprites?.other["official-artwork"].front_default} alt="Default front facing sprite for pokemon" width={360} height={360}/>
@@ -94,19 +120,19 @@ const SelectedPokemon = () => {
                                 flavorText?.flavor_text
                             }
                         </section>
-                        <section className='evolutionChain'>{
+                        <section className='evolutionChainContainer'>{
                             evolutionChain?
                             <div><h3>Evolution Chain: </h3>
                             <div className='evolutionChain'>
-                            <PokemonCard pokemon={evolutionChain?.data.chain.species.name}/> 
-                            {
-                                evolutionChain?.data?.chain?.evolves_to[0]?.species?.name?<PokemonCard pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.species?.name}/> : <></>
-                            }
-                            {
-                                evolutionChain?.data?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name?
-                                <PokemonCard pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name}/>:
-                                <></>
-                            }
+                                <PokemonCard pokemon={evolutionChain?.data.chain.species.name}/> 
+                                {
+                                    evolutionChain?.data?.chain?.evolves_to[0]?.species?.name?<><p style={{fontSize: 32, fontWeight: 'bold'}}><span>&#62;</span></p><PokemonCard pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.species?.name}/></> : <></>
+                                }
+                                {
+                                    evolutionChain?.data?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name?
+                                    <><p style={{fontSize: 32, fontWeight: 'bold'}}><span>&#62;</span></p> <PokemonCard pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name}/></>:
+                                    <></>
+                                }
                             </div>
                             </div>:<p>Loading Evolution Chain...</p>} 
                         </section>
