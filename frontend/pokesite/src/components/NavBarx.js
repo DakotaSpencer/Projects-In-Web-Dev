@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Container, Nav, Form, Button } from "react-bootstrap";
 
-const NavBar = () => {
+const NavBarx = () => {
 	return (
 		<Navbar className="navBar">
 			<Container>
@@ -16,7 +16,8 @@ const NavBar = () => {
 								type="search"
 								placeholder="Search"
 								className="me-2"
-								aria-label="Search" />
+								aria-label="Search"
+							/>
 							<Button variant="outline-success">Search</Button>
 						</Form>
 					</Nav>
@@ -29,4 +30,4 @@ const NavBar = () => {
 	);
 };
 
-export default NavBar;
+export default NavBarx;

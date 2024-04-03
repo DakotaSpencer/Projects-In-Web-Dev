@@ -6,13 +6,13 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import SelectedPokemon from "./pages/SelectedPokemon";
 import Profile from "./pages/Profile";
-import NavBar from "./components/NavBar";
+import NavBarx from "./components/NavBarx";
 
 function App() {
 	return (
 		<div className="App">
 			<BrowserRouter>
-				<NavBar />
+			<NavBarx />
 				<div className="pages">
 					<Routes>
 						<Route path="/" element={<Landing />} />
