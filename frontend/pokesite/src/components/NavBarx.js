@@ -18,7 +18,7 @@ const NavBarx = () => {
 								className="me-2"
 								aria-label="Search"
 							/>
-							<Button variant="outline-success">Search</Button>
+							<Button className="button">Search</Button>
 						</Form>
 					</Nav>
 					<Navbar.Text>
