@@ -51,8 +51,8 @@ const PokemonCard = (props) => {
             {pokemonData !==null && pokemonData!==undefined?
                 <div className='pokemonCard'>
                     <a href={`/pokemon?pokemon=${pokemonData.id}`}>
-                        <section className=''>
-                            <p className=''>
+                        <section className='cardNameContainer'>
+                            <p className='cardName'>
                                 {
                                     "#"+pokemonData.id.toString().padStart(4, '0') + " - " + pokemonData.name?.charAt(0).toUpperCase() + pokemonData.name?.slice(1)
                                 }
@@ -60,9 +60,9 @@ const PokemonCard = (props) => {
                         </section>
                     </a>
                     
-                    <section className=''>
+                    <section className='pokemonCardImageContainer'>
                         {
-                            <img className='pokemonCardImage' src={pokemonData.sprites?.other.showdown.front_default} alt="showdown state animation for the pokemon"/>
+                            <img className='pokemonCardImage' src={pokemonData.sprites?.other.showdown.front_default} alt="showdown state animation for the pokemon" width={"75px"} height={"75px"}/>
                         }
                     </section>
                     

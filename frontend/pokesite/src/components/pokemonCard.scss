@@ -1,7 +1,28 @@
 @import '../index.scss';
 
 .pokemonCard{
-    width: max-content;
+    max-width: 150px;
+    background-color: $teal;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid $red;
+    border-radius: 25px;
+    max-height: 200px;
+    
+}
+
+.pokemonCard a{
+    text-decoration: none;
+    color: $light-grey;
+}
+
+.cardName{
+    
+}
+
+.cardNameContainer{
+    text-align: center;
+    
 }
 
 .pokemonCardTypes{
@@ -14,4 +35,14 @@
     padding: 6px;
     color: lighten($light-grey, 20%);
     border-radius: 10px;
+}
+
+.pokemonCardImage{
+    margin: auto;
+    display: block;
+}
+
+.pokemonCardImageContainer{
+    align-items: center;
+    text-align: center;
 }

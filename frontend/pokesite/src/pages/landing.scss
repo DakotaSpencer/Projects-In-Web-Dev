@@ -1,0 +1,14 @@
+@import '../index.scss';
+
+.pokemonArray{
+    display: grid;
+    grid-template-columns: repeat(5, 10rem);
+    justify-content: space-evenly;
+    // grid-template-rows:  1frmin-content 1fr min-content 1fr;
+
+    //display: grid;
+    //grid-template-columns: 10rem 10rem 10rem 10rem 10rem;
+    grid-template-rows: min-content 1fr;
+    // flex-wrap: wrap;
+    // flex-direction: row;
+}
