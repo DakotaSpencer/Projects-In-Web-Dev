@@ -24,7 +24,7 @@ a{
   }
 }
 
-.login {
+.login, .signup {
 	@include flexCenter;
 	height: 100%;
 	margin-top: 17vh;
@@ -81,6 +81,23 @@ a{
       }
 		}
 	}
+}
+
+.signup{
+  margin-top: 5vh;
+  .inputs input {
+    height: 25% !important;
+    border: none;
+    &::placeholder{
+      font-style: italic;
+    }
+  }
+
+  .borderContainer{
+    .buttons{
+      margin-top: 30%;
+    }
+  }
 }
 
 nav {
