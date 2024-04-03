@@ -2,8 +2,8 @@
 
 // testing that styling works
 body {
-	background-color: $black;
-	color: $light-grey;
+	background-color: $black !important;
+	color: $light-grey !important;
 }
 
 .borderContainer {
