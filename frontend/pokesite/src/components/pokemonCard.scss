@@ -8,21 +8,36 @@
     border: 1px solid $red;
     border-radius: 25px;
     max-height: 200px;
-    
+    display:block;
 }
 
 .pokemonCard a{
     text-decoration: none;
     color: $light-grey;
+    &:hover{
+        color: $teal2;
+    }
+    &:active{
+        color: #256571;
+    }
+    &:visited{
+        color: $teal;
+    }
+        
 }
 
 .cardName{
-    
+    padding: 10%;
 }
 
 .cardNameContainer{
     text-align: center;
-    
+    background-color: $red;
+    width: 100%;
+    border-radius: 25px 25px 0px 0px;
+    top: 0;
+    position: fixed;
+    z-index:100;
 }
 
 .pokemonCardTypes{
