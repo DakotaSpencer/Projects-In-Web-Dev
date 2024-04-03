@@ -69,6 +69,10 @@ const Landing = () => {
         }
       </div>
       <button className='loadMoreButton' onClick={handleLimitButtonClick}>Show More</button>
+      <div className='pokeball'>
+        <div className='pokeballTop'></div>
+        <div className='pokeballBottom'></div>
+      </div>
     </>
   )
 }

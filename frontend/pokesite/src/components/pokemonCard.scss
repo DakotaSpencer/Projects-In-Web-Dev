@@ -1,13 +1,12 @@
 @import '../index.scss';
 
 .pokemonCard{
-    max-width: 150px;
+    width: 150px;
     background-color: $teal;
-    margin: 5px;
-    padding: 5px;
     border: 1px solid $red;
+    margin: 10%;
     border-radius: 25px;
-    max-height: 200px;
+    max-height: 225px;
     display:block;
 }
 
@@ -27,7 +26,6 @@
 }
 
 .cardName{
-    padding: 10%;
 }
 
 .cardNameContainer{
@@ -35,9 +33,10 @@
     background-color: $red;
     width: 100%;
     border-radius: 25px 25px 0px 0px;
-    top: 0;
-    position: fixed;
-    z-index:100;
+    display: inline-block;
+    height: 25%;
+    margin-bottom: 10%;
+    vertical-align:top;
 }
 
 .pokemonCardTypes{
