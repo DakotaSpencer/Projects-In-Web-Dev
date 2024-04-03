@@ -126,11 +126,11 @@ const SelectedPokemon = () => {
                             <div className='evolutionChain'>
                                 <PokemonCard pokemon={evolutionChain?.data.chain.species.name}/> 
                                 {
-                                    evolutionChain?.data?.chain?.evolves_to[0]?.species?.name?<><p style={{fontSize: 32, fontWeight: 'bold'}}><span>&#62;</span></p><PokemonCard pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.species?.name}/></> : <></>
+                                    evolutionChain?.data?.chain?.evolves_to[0]?.species?.name?<><PokemonCard pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.species?.name}/></> : <></>
                                 }
                                 {
                                     evolutionChain?.data?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name?
-                                    <><p style={{fontSize: 32, fontWeight: 'bold'}}><span>&#62;</span></p> <PokemonCard pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name}/></>:
+                                    <><PokemonCard pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name}/></>:
                                     <></>
                                 }
                             </div>
