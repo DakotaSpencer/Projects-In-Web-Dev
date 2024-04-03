@@ -1,8 +1,136 @@
-@import '../src/index.scss';
+@import "../src/index.scss";
 
 // testing that styling works
-body{
-  background-color: $black;
-  color: $light-grey;
+body {
+	background-color: $black;
+	color: $light-grey;
 }
 
+.borderContainer {
+	border: 2px #1C1B1B solid;
+	border-radius: 5px;
+}
+
+a{
+  color: $teal;
+  &:hover{
+    color: $teal2;
+  }
+  &:active{
+    color: #256571;
+  }
+  &:visited{
+    color: $teal;
+  }
+}
+
+.login, .signup {
+	@include flexCenter;
+	height: 100%;
+	margin-top: 17vh;
+	.borderContainer {
+    h1{
+      margin-bottom: 2%;
+    }
+		padding: 3%;
+		width: 45%;
+    background-color: #222121;
+    box-shadow: 1px 1px 3px #1C1B1B;
+		.form {
+			@include flexCenter;
+			flex-direction: column;
+			.inputs input {
+				width: 93%;
+        height: 35%;
+        margin-top: 1%;
+        margin-bottom: 3%;
+        border-radius: 4px;
+        border: none;
+        &::placeholder{
+          font-style: italic;
+        }
+			}
+      .bi-eye-fill, .bi-eye-slash-fill{
+        margin-left: 1%;
+        color: $light-grey;
+        font-size: 1.4em;
+        cursor: pointer;
+        &:hover{
+          color: $grey-hover;
+        }
+      }
+      .forgot{
+        text-align: right !important;
+        margin-top: -2.5% !important;
+        margin-right: 7% !important;
+      }
+		}
+		.buttons {
+			margin-top: 10%;
+			width: 100%;
+      @include flexCenter;
+			.loginBtn {
+        @include buttons($teal, #000)
+      }
+      .signup{
+        @include buttons($teal2, $light-grey)
+      }
+      button{
+        margin: 2%;
+        margin-right: 5%;
+      }
+		}
+	}
+}
+
+.signup{
+  margin-top: 5vh;
+  .inputs input {
+    height: 25% !important;
+    border: none;
+    &::placeholder{
+      font-style: italic;
+    }
+  }
+
+  .borderContainer{
+    .buttons{
+      margin-top: 30%;
+    }
+  }
+}
+
+nav {
+	background-color: #1C1B1B !important;
+  height: 8vh;
+  border-bottom: #191919 2px solid;
+	.nav-link {
+		color: $light-grey !important;
+    &:hover{
+      color: $grey-hover !important;
+    }
+	}
+	.navbar-text, .navbar-brand {
+		margin-right: 1%;
+		color: $light-grey;
+    &:hover{
+      color: $grey-hover;
+    }
+	}
+  .button{
+  @include buttons($teal, #000);
+  }
+  
+}
+
+.navbar > .container {
+	max-width: 100%;
+	margin: 0;
+	padding: 0;
+  margin-left: .5%;
+}
+
+.navbar {
+	margin: 0;
+	padding: 0;
+}
