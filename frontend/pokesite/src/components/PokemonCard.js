@@ -16,7 +16,7 @@ const PokemonCard = (props) => {
             fetchPokemonData();
         }
         else{
-            //console.log(pokemonData)
+            console.log(pokemonData)
         }
     },[props.pokemon, pokemonData])
     
@@ -62,7 +62,7 @@ const PokemonCard = (props) => {
                     
                     <section className='pokemonCardImageContainer'>
                         {
-                            <img className='pokemonCardImage' src={pokemonData.sprites?.other.showdown.front_default} alt="showdown state animation for the pokemon" width={"75px"} height={"75px"}/>
+                            <img className='pokemonCardImage' style={{filter: `drop-shadow(5px 5px 15px ${pokemonData?getTypeColor(pokemonData?.types[0].type.name):"white"})`}} src={pokemonData.sprites?.other.showdown.front_default} alt="showdown state animation for the pokemon" width={"75px"} height={"75px"}/>
                         }
                     </section>
                     
