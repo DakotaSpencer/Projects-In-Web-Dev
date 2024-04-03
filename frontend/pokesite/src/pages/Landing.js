@@ -52,15 +52,15 @@ const Landing = () => {
     }
   return (
     <>
-      <h1>List of Pokemon:</h1>
+      <div></div>
       <div>
-      {
+        {
           pokemonArray?.map(pokemon => (
               <PokemonCard key={pokemon.data.id} pokemon={pokemon.data.name}/>
           ))
-      }
+        }
       </div>
-      <button onClick={handleLimitButtonClick}>Show More</button>
+      <button className='loadMoreButton' onClick={handleLimitButtonClick}>Show More</button>
     </>
   )
 }
