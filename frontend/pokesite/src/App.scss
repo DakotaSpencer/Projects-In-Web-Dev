@@ -134,3 +134,19 @@ nav {
 	margin: 0;
 	padding: 0;
 }
+
+.loader {
+  margin: auto;
+  border: 60px solid $light-grey;
+  border-radius: 50%;
+  border-top: 60px solid $red;
+  border-left: 60px solid $red;
+  width: 200px;
+  height: 200px;
+  animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

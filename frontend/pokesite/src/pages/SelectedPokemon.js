@@ -83,7 +83,7 @@ const SelectedPokemon = () => {
     }
     
     if (isLoading) {
-        return <div className="App">Loading...</div>;
+        return <div className='loader'></div>;
     }else{
         return (
             <div className='pokemonContainer'>
@@ -140,7 +140,7 @@ const SelectedPokemon = () => {
                             Pokemon Moves: This requires getting the type URL from speciesData. This should show the pokemons starting moves.
                         </section>
                     </div>
-                :<div>Loading...</div>}
+                :<p><div></div></p>}
             </div>
         );
     }
