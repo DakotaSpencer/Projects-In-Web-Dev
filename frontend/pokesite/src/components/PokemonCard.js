@@ -62,7 +62,7 @@ const PokemonCard = (props) => {
                     
                     <section className='pokemonCardImageContainer'>
                         {
-                            <img className='pokemonCardImage' style={{filter: `drop-shadow(5px 5px 15px ${pokemonData?getTypeColor(pokemonData?.types[0].type.name):"white"})`}} src={pokemonData.sprites?.other.showdown.front_default} alt="showdown state animation for the pokemon" width={"75px"} height={"75px"}/>
+                            <img className='pokemonCardImage' style={{filter: `drop-shadow(5px 5px 15px ${pokemonData?getTypeColor(pokemonData?.types[0].type.name):"white"})`}} src={pokemonData.sprites?.other.showdown.front_default!==null?pokemonData.sprites?.other.showdown.front_default:pokemonData.sprites?.other["official-artwork"].front_default} alt="showdown state animation for the pokemon" width={"100px"} height={"100px"}/>
                         }
                     </section>
                     
@@ -77,7 +77,7 @@ const PokemonCard = (props) => {
                     </section>
                     
                 </div>
-            :<div>Loading...</div>}
+            :<div className='loader'></div>}
         </>
     );
 }
