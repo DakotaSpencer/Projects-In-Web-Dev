@@ -60,7 +60,6 @@ const Landing = () => {
     }
   return (
     <>
-      <div></div>
       <div className='pokemonArray'>
         {
           pokemonArray?.map(pokemon => (
@@ -69,10 +68,10 @@ const Landing = () => {
         }
       </div>
       <button className='loadMoreButton' onClick={handleLimitButtonClick}>Show More</button>
-      <div className='pokeball'>
+      {/* <div className='pokeball'>
         <div className='pokeballTop'></div>
         <div className='pokeballBottom'></div>
-      </div>
+      </div> */}
     </>
   )
 }
