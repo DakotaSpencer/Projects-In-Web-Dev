@@ -8,7 +8,7 @@
     display:block;
 }
 
-.pokemonCard a{
+.pokemonCard > a{
     text-decoration: none;
     color: $light-grey;
     &:hover{
