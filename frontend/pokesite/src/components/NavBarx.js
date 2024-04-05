@@ -1,11 +1,12 @@
 import React from "react";
 import { Navbar, Container, Nav, Form, Button } from "react-bootstrap";
+import './navbar.scss';
 
 const NavBarx = () => {
 	return (
 		<Navbar className="navBar">
 			<Container>
-				<Navbar.Brand href="#home">[Name or image]</Navbar.Brand>
+				<Navbar.Brand href="/">[Name or image]</Navbar.Brand>
 				<Navbar.Toggle />
 				<Navbar.Collapse className="justify-content-end">
 					<Nav className="me-auto">
@@ -21,8 +22,10 @@ const NavBarx = () => {
 							<Button className="button">Search</Button>
 						</Form>
 					</Nav>
-					<Navbar.Text>
-						<Nav.Link href="/login">Signup / Login</Nav.Link>
+					<Navbar.Text className="navLoginSignup">
+						<Nav.Link href="/signup">Signup </Nav.Link>
+						/
+						<Nav.Link href="/login">Login</Nav.Link>
 					</Navbar.Text>
 				</Navbar.Collapse>
 			</Container>

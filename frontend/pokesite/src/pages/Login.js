@@ -1,8 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 const Login = () => {
 	const [showPassword, setShowPassword] = useState(false);
+	let navigate = useNavigate();
+	const routeChange = () => {
+		let path = `/signup`;
+		navigate(path);
+	};
 
 	return (
 		<div className="login">
@@ -26,10 +32,14 @@ const Login = () => {
 							onClick={() => setShowPassword(!showPassword)}
 						></i>
 						<br />
-						<p className="forgot"><a href="/home" >Forgot Password</a></p>
+						<p className="forgot">
+							<a href="/home">Forgot Password</a>
+						</p>
 					</div>
 					<div className="buttons">
-						<button className="signup">Signup</button>
+						<button className="signup" onClick={routeChange}>
+							Signup
+						</button>
 						<button className="loginBtn">Login</button>
 					</div>
 				</div>
