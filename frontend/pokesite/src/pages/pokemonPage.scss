@@ -1,28 +1,75 @@
-@import '../index.scss';
+@import "../index.scss";
 
-.pokemonName{
-    margin-top: 0;
-    margin-left: 0;
-    margin-right: 0;
-    color: $light-grey;
+.pokemonName {
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	color: $light-grey;
 }
 
-.evolutionChain{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-evenly;
-    align-content: start;
+.evolutionChain {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-content: start;
 }
 
-.pokemonTypes{
-    display: flex;
-    flex-direction: row;
+.pokemonTypes {
+	margin-top: 0;
+	@include flexCenter();
 }
 
-.pokemonType{
-    padding: 6px;
-    margin: 10px;
-    color: lighten($light-grey, 20%);
-    border-radius: 10px;
+.pokemonType {
+	padding: 6px;
+	margin: 10px;
+	color: lighten($light-grey, 20%);
+	border-radius: 10px;
+}
+
+.pokemonContainer {
+	margin-left: 5vw;
+	width: 90vw;
+	max-width: 90vw;
+	@include flexCenter();
+	margin-bottom: 2%;
+	.mainPokemonInfo {
+		@include flexCenter();
+		flex-direction: column;
+
+		width: 100% !important;
+		margin-top: 1%;
+		margin-bottom: 1%;
+		background-color: $container-BG;
+		padding: 1%;
+		border-radius: 5px;
+		border: $container-Border;
+		box-shadow: $container-shadow;
+		.inline {
+			@include flexCenter();
+			justify-content: space-evenly;
+			width: 100%;
+			.pokemonName {
+				display: flex;
+				justify-content: flex-start;
+				align-items: baseline;
+				margin-right: 2%;
+			}
+		}
+	}
+}
+
+.mainPokemonInfo > .pokemoninfo {
+	display: flex;
+	justify-self: center;
+	align-self: center;
+	flex-direction: column;
+	width: 40%;
+	padding: 1%;
+}
+
+.flavorText {
+	@include flexCenter();
+	max-width: 100%;
+	word-wrap: normal;
 }
