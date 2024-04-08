@@ -52,60 +52,6 @@ app.get("/userTest", (req, res) => {
   ]);
 });
 
-//POSTS
-/**
- * @swagger
- * /user:
- *   post:
- *     description: Create a new user
- *     parameters:
- *       - name: userName
- *         description: user's Username
- *         in: formData
- *         required: true
- *         type: string
- *
- *       - name: Name
- *         description: users name
- *         in: formData
- *         required: true
- *         type: string
- *
- *       - name: Bio
- *         description: Fun Information user wants to share
- *         in: formData
- *         required: true
- *         type: string
- *
- *       - name: password
- *         description: Salted + Hashed Password
- *         in: formData
- *         required: true
- *         type: string
- *
- *       - name: profilePicture
- *         description: URL to profile picture
- *         in: formData
- *         required: true
- *         type: string
- *
- *       - name: caughtPokemon
- *         description: All pokemon objects user caught
- *         in: formData
- *         required: true
- *         type: array
- *
- *       - name: featuredPokemon
- *         description: up to 6 Pokemon user wants to share
- *         in: formData
- *         required: true
- *         type: array
- *
- *     responses:
- *       201:
- *         description: Created
- */
-
 app.listen(5000, () => {
   console.log("App listening on port 5000");
 });
