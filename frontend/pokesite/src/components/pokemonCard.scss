@@ -1,67 +1,66 @@
-@import '../index.scss';
+@import "../index.scss";
 
-.pokemonCard{
-    width: 150px;
-    margin: 10%;
-    border-radius: 250px;
-    max-height: 225px;
-    display:block;
+.pokemonCard {
+	width: 150px;
+	margin: 10%;
+	border-radius: 250px;
+	max-height: 225px;
+	display: block;
 }
 
-.pokemonCard > a{
-    text-decoration: none;
-    color: $light-grey;
-    &:hover{
-        color: $teal2;
-    }
-    &:active{
-        color: #256571;
-    }
-    &:visited{
-        color: $teal;
-    }
-        
+.pokemonCard > a {
+	text-decoration: none !important;
+	color: $light-grey;
+	&:hover {
+		color: darken($color: $light-grey, $amount: 30);
+	}
+	&:active {
+		color: $light-grey;
+	}
+	&:visited {
+		color: $light-grey;
+	}
 }
 
-.cardName{
-    margin-top: 10%;
+.cardName {
+	margin-top: 10%;
 }
 
-.cardNameContainer{
-    text-align: center;
-    background-color: $red;
-    width: 100%;
-    border-radius: 25px 25px 0px 0px;
-    display: inline-block;
-    height: 25%;
-    margin-bottom: 10%;
-    vertical-align:top;
+.cardNameContainer {
+	text-align: center;
+	background-color: $red;
+	width: 100%;
+	border-radius: 25px 25px 0px 0px;
+	display: inline-block;
+	height: 25%;
+	margin-bottom: 10%;
+	vertical-align: top;
 }
 
-.pokemonCardTypes{
-    background-color: $light-grey;
-    height: 25%;
-    border-radius: 0 0 25px 25px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    vertical-align: bottom;
-    margin-top: 5%;
+.pokemonCardTypes {
+	background-color: $light-grey;
+	height: 25%;
+	border-radius: 0 0 25px 25px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	vertical-align: bottom;
+	margin-top: 5%;
 }
 
-.pokemonCardType{
-    padding: 6px;
-    color: lighten($light-grey, 20%);
-    border-radius: 10px;
-    margin-top: 10%;
+.pokemonCardType {
+	padding: 6px;
+	color: lighten($light-grey, 20%);
+	border-radius: 10px;
+	margin-top: 10%;
 }
 
-.pokemonCardImage{
-    margin: auto;
-    display: block;
+.pokemonCardImage {
+	margin: auto;
+	display: block;
 }
 
-.pokemonCardImageContainer{
-    align-items: center;
-    text-align: center;
+.pokemonCardImageContainer {
+	align-items: center;
+	text-align: center;
 }
