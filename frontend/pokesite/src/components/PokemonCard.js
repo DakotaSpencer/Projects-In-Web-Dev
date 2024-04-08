@@ -16,7 +16,7 @@ const PokemonCard = (props) => {
             fetchPokemonData();
         }
         else{
-            console.log(pokemonData)
+            //console.log(pokemonData)
         }
     },[props.pokemon, pokemonData])
     
@@ -50,7 +50,7 @@ const PokemonCard = (props) => {
         <>
             {pokemonData !==null && pokemonData!==undefined?
                 <div className='pokemonCard'>
-                    <a href={`/pokemon?pokemon=${pokemonData.id}`}>
+                    <a href={`/pokemon?pokemon=${pokemonData.name}`}>
                         <section className='cardNameContainer'>
                             <p className='cardName'>
                                 {
@@ -67,13 +67,13 @@ const PokemonCard = (props) => {
                     </section>
                     
                     <section className=''>
-                        <p className='pokemonCardTypes'>
+                        <div className='pokemonCardTypes'>
                             {
                                 pokemonData.types?.map(type => (
-                                    <p className='pokemonCardType' style={{backgroundColor:getTypeColor(type.type.name)}}>{" " + type.type.name?.charAt(0).toUpperCase() + type.type.name?.slice(1)}</p>
+                                    <p className='pokemonCardType' key={type.type.name} style={{backgroundColor:getTypeColor(type.type.name)}}>{" " + type.type.name?.charAt(0).toUpperCase() + type.type.name?.slice(1)}</p>
                                 ))
                             }
-                        </p>
+                        </div>
                     </section>
                     
                 </div>

@@ -73,3 +73,18 @@
 	max-width: 100%;
 	word-wrap: normal;
 }
+
+.movesContainer{
+	// display: grid;
+    // grid-template-columns: repeat(5, 10rem);
+    // justify-content: space-evenly;
+    // grid-template-rows: min-content 1fr;
+}
+
+.abilitiesContainer{
+	width: inherit;
+	max-width: inherit;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}

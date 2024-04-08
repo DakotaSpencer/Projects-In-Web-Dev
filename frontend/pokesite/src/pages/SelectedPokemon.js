@@ -3,6 +3,9 @@ import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import PokemonCard from "../components/PokemonCard";
 import "./pokemonPage.scss";
+import PokemonAbility from "../components/PokemonAbility";
+import PokemonMachineMove from "../components/PokemonMachineMove";
+import PokemonLevelUpMove from "../components/PokemonLevelUpMove";
 
 const SelectedPokemon = () => {
 	const [queryParameters] = useSearchParams();
@@ -12,6 +15,8 @@ const SelectedPokemon = () => {
 	const [flavorText, setFlavorText] = useState("");
 	const [evolutionChain, setEvolutionChain] = useState();
 	const [isLoading, setLoading] = useState(true);
+	const [levelUpMoves, setLevelUpMoves] = useState([])
+	const [learnedMoves, setLearnedMoves] = useState([]);
 
 	useEffect(() => {
 		setSelectedPokemon(queryParameters.get("pokemon"));
@@ -19,9 +24,9 @@ const SelectedPokemon = () => {
 		const fetchPokemonData = async () => {
 			axios
 				.all([
-					axios.get(`https://pokeapi.co/api/v2/pokemon/${selectedPokemon}`),
+					axios.get(`https://pokeapi.co/api/v2/pokemon/${selectedPokemon?selectedPokemon:queryParameters.get("pokemon")}`),
 					axios.get(
-						`https://pokeapi.co/api/v2/pokemon-species/${selectedPokemon}`
+						`https://pokeapi.co/api/v2/pokemon-species/${selectedPokemon?selectedPokemon:queryParameters.get("pokemon")}`
 					),
 				])
 				.then(
@@ -35,30 +40,58 @@ const SelectedPokemon = () => {
 		if (pokemonData === null || pokemonData === undefined) {
 			fetchPokemonData();
 		}
-	}, [queryParameters, selectedPokemon, pokemonData, speciesData]);
+	}, []);
 
 	useEffect(() => {
-		if (speciesData) {
-			//If species data exists, then we can find evolution chain. For each item in evolution chain
-			// get that pokemons data and display it in the Evolution Chain section
-			axios.all([axios.get(speciesData?.data?.evolution_chain?.url)]).then(
-				axios.spread((evolutionChainData) => {
-					setEvolutionChain(evolutionChainData);
-					setLoading(false);
-					//First evolution: evolutionChainData.data.chain.species.name;
-					//Second Evolution: evolutionChainData.data.chain.species.evolves_to.species.name;
-					//Third Evolution: evolutionChainData.data.chain.species.evolves_to.evolves_to.species.name
-				})
-			);
-			var tempArr = [];
-			speciesData?.data?.flavor_text_entries?.forEach((element) => {
-				if (element?.language?.name === "en") {
-					tempArr.push(element);
+		async function fetchData() {
+			await speciesData;
+			if (speciesData) {
+				console.log("Pokemon Data: ", pokemonData);
+				console.log("Species Data: ", speciesData);
+				//If species data exists, then we can find evolution chain. For each item in evolution chain
+				// get that pokemons data and display it in the Evolution Chain section
+				axios.all([axios.get(speciesData?.data?.evolution_chain?.url)]).then(
+					axios.spread((evolutionChainData) => {
+						setEvolutionChain(evolutionChainData);
+						setLoading(false);
+						//First evolution: evolutionChainData.data.chain.species.name;
+						//Second Evolution: evolutionChainData.data.chain.species.evolves_to.species.name;
+						//Third Evolution: evolutionChainData.data.chain.species.evolves_to.evolves_to.species.name
+					})
+				);
+				var tempArr = [];
+				speciesData?.data?.flavor_text_entries?.forEach((element) => {
+					if (element?.language?.name === "en") {
+						tempArr.push(element);
+					}
+				});
+				setFlavorText(tempArr[Math.floor(Math.random() * tempArr.length)]);
+			}
+		}
+		function getMoves(){
+			let levelUpMovesArray=[];
+			let nonLevelUpMovesArray = [];
+			pokemonData?.moves.forEach(move => {
+				//console.log("MOVE: ", move)
+				
+				if(move.version_group_details[0].move_learn_method.name==="level-up"){
+					levelUpMovesArray.push(move)
+				}else{
+					nonLevelUpMovesArray.push(move)
 				}
 			});
-			setFlavorText(tempArr[Math.floor(Math.random() * tempArr.length)]);
+			setLevelUpMoves(levelUpMovesArray)
+			setLearnedMoves(nonLevelUpMovesArray)
+			levelUpMovesArray.sort((a, b) => a.version_group_details[0]?.level_learned_at > b.version_group_details[0]?.level_learned_at  ? 1 : -1)
+			nonLevelUpMovesArray.sort((a, b) => a.move.name > b.move.name? 1: -1);
+			{/* foreach item in pokemonData.moves
+				if item.version_group_details.move_learn_method.name === "level-up"
+					then add item to temp array;
+					Then map through temp array and pass object through to pokemonMove component like normal */}
 		}
-	}, [speciesData, flavorText]);
+		fetchData()
+		getMoves()
+	}, [speciesData]);
 
 	const getTypeColor = (type) => {
 		switch (type) {
@@ -124,6 +157,7 @@ const SelectedPokemon = () => {
 								<div className="pokemonTypes">
 									{pokemonData.types?.map((type) => (
 										<p
+											key={type.type.name}
 											className="pokemonType"
 											style={{
 												backgroundColor: getTypeColor(type.type.name),
@@ -199,9 +233,46 @@ const SelectedPokemon = () => {
 								<p>Loading Evolution Chain...</p>
 							)}
 						</section>
+						<section className="pokemonAbilities">
+							
+							{pokemonData?
+								
+								<>
+									<h3>Abilities ({pokemonData?.abilities.length})</h3>
+									<div className="abilitiesContainer">
+										{pokemonData?pokemonData?.abilities?.map((ability) => (
+											<PokemonAbility ability={ability.ability} key={ability.ability.name}/>
+										)):""}
+									</div>
+								</>
+							:<></>}
+						</section>
 						<section className="pokemonMoves">
-							Pokemon Moves: This requires getting the type URL from
-							speciesData. This should show the pokemons starting moves.
+						{
+								levelUpMoves?
+								<>
+									<h3>Moves Learned through Level Ups ({levelUpMoves.length})</h3>
+									<div className="movesContainer">
+										{levelUpMoves?levelUpMoves?.map((move) => (
+											<PokemonLevelUpMove move={move} key={move.move.name}></PokemonLevelUpMove>
+										)):""}
+									</div>
+								</>
+								:<></>
+							}
+						</section>
+						<section className="pokemonMoves">
+							{learnedMoves?
+								<>
+									<h3>Moves Learnable Through Machines ({learnedMoves.length})</h3>
+									<div className="movesContainer">
+										{learnedMoves?learnedMoves?.map((move) => (
+											<PokemonMachineMove move={move} key={move.move.name}></PokemonMachineMove>
+										)):""}
+									</div>
+								</>
+							:<></>}
+							
 						</section>
 					</div>
 				) : (

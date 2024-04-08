@@ -44,6 +44,7 @@ const Landing = () => {
       .then(axios.spread((pokemonURLData) => {
           tempArray.push(pokemonURLData)
           if(tempArray.length % 20 === 0){
+            tempArray.sort((a, b) => a-b)
             setPokemonArray(tempArray)
           }
       }));
