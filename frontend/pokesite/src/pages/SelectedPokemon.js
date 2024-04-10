@@ -145,6 +145,7 @@ const SelectedPokemon = () => {
 			<div className="pokemonContainer">
 				{pokemonData !== null && pokemonData !== undefined ? (
 					<div>
+						<div className="pokeInfo">
 						<div className="mainPokemonInfo">
 							<div className="inline">
 								<h2 className="pokemonName">
@@ -174,7 +175,7 @@ const SelectedPokemon = () => {
 									<h3>Generation: {speciesData?.data.generation.name}</h3>
 								</section>
 							</div>
-							<div className="pokemoninfo">
+							<div className="pokemonInfo">
 								<section className="pokemonImage">
 									{
 										<img
@@ -195,21 +196,15 @@ const SelectedPokemon = () => {
 						</div>
 						<section className="evolutionChainContainer">
 							{evolutionChain ? (
-								<div>
-									<h3>Evolution Chain: </h3>
-									<div className="evolutionChain">
+									<><h3>Evolution Chain: </h3><div className="evolutionChain">
 										<PokemonCard
-											pokemon={evolutionChain?.data.chain.species.name}
-										/>
+											pokemon={evolutionChain?.data.chain.species.name} />
 										{evolutionChain?.data?.chain?.evolves_to[0]?.species
 											?.name ? (
 											<>
 												<PokemonCard
-													pokemon={
-														evolutionChain?.data?.chain?.evolves_to[0]?.species
-															?.name
-													}
-												/>
+													pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.species
+														?.name} />
 											</>
 										) : (
 											<></>
@@ -218,21 +213,18 @@ const SelectedPokemon = () => {
 											?.species?.name ? (
 											<>
 												<PokemonCard
-													pokemon={
-														evolutionChain?.data?.chain?.evolves_to[0]
-															?.evolves_to[0]?.species?.name
-													}
-												/>
+													pokemon={evolutionChain?.data?.chain?.evolves_to[0]
+														?.evolves_to[0]?.species?.name} />
 											</>
 										) : (
 											<></>
 										)}
-									</div>
-								</div>
+									</div></>
 							) : (
 								<p>Loading Evolution Chain...</p>
 							)}
 						</section>
+						</div>
 						<section className="pokemonAbilities">
 							
 							{pokemonData?
