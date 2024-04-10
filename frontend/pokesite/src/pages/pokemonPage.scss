@@ -31,21 +31,27 @@
 	border-radius: 10px;
 }
 
+.pages{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+}
+
 .pokemonContainer {
-	margin-left: 5vw;
 	width: 90vw;
 	max-width: 90vw !important;
-	// @include flexCenter();
 	margin-bottom: 2%;
-	.pokeInfo{
+	align-self: center;
+	.pokeInfo {
 		display: flex;
-		justify-content: space-evenly;
+		justify-content: space-between;
 		align-content: space-between;
 	}
 	.mainPokemonInfo, .statisticsContainer {
 		@include flexCenter();
 		flex-direction: column;
-		max-width: 45%;
+		max-width: 49%;
 		margin-top: 1%;
 		margin-bottom: 1%;
 		background-color: $container-BG;
@@ -101,7 +107,7 @@
 	padding: 1%;
 }
 
-.pokemonImage > img{
+.pokemonImage > img {
 	margin-left: 15%;
 }
 
@@ -111,14 +117,14 @@
 	word-wrap: normal;
 }
 
-.movesContainer{
+.movesContainer {
 	// display: grid;
-    // grid-template-columns: repeat(5, 10rem);
-    // justify-content: space-evenly;
-    // grid-template-rows: min-content 1fr;
+	// grid-template-columns: repeat(5, 10rem);
+	// justify-content: space-evenly;
+	// grid-template-rows: min-content 1fr;
 }
 
-.abilitiesContainer{
+.abilitiesContainer {
 	width: inherit;
 	max-width: inherit;
 	display: flex;
