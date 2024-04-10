@@ -153,96 +153,127 @@ const SelectedPokemon = () => {
 				{pokemonData !== null && pokemonData !== undefined ? (
 					<div>
 						<div className="pokeInfo">
-						<div className="mainPokemonInfo">
-							<div className="inline">
-								<h2 className="pokemonName">
-									{"#" +
-										pokemonData.id.toString().padStart(4, "0") +
-										" - " +
-										pokemonData.name?.charAt(0).toUpperCase() +
-										pokemonData.name?.slice(1)}
-								</h2>
-								<div className="pokemonTypes">
-									{pokemonData.types?.map((type) => (
-										<p
-											key={type.type.name}
-											className="pokemonType"
-											style={{
-												backgroundColor: getTypeColor(type.type.name),
-											}}
-										>
-											{" " +
-												type.type.name?.charAt(0).toUpperCase() +
-												type.type.name?.slice(1)}
-										</p>
-									))}
-								</div>
+							<div className="mainPokemonInfo">
+								<div className="inline">
+									<h2 className="pokemonName">
+										{"#" +
+											pokemonData.id.toString().padStart(4, "0") +
+											" - " +
+											pokemonData.name?.charAt(0).toUpperCase() +
+											pokemonData.name?.slice(1)}
+									</h2>
+									<div className="pokemonTypes">
+										{pokemonData.types?.map((type) => (
+											<p
+												key={type.type.name}
+												className="pokemonType"
+												style={{
+													backgroundColor: getTypeColor(type.type.name),
+												}}
+											>
+												{" " +
+													type.type.name?.charAt(0).toUpperCase() +
+													type.type.name?.slice(1)}
+											</p>
+										))}
+									</div>
 
-								<section className="pokemonGeneration">
-									<h3>Generation: {speciesData?.data.generation.name}</h3>
-								</section>
+									<section className="pokemonGeneration">
+										<h3>Generation: {speciesData?.data.generation.name}</h3>
+									</section>
+								</div>
+								<div className="pokemonInfo">
+									<section className="pokemonImage">
+										{
+											<img
+												src={
+													pokemonData?.sprites?.other["official-artwork"]
+														.front_default
+												}
+												alt="Default front facing sprite for pokemon"
+												width={360}
+												height={360}
+											/>
+										}
+									</section>
+									<section className="flavorText">
+										{flavorText?.flavor_text}
+									</section>
+								</div>
+								<div className="pokemonStats">
+									<div onClick={() => setUseImperialHeight(useImperialHeight => !useImperialHeight)} className="changeSystem">{
+									useImperialHeight?<p><b>Height</b>: {parseInt(((pokemonData.height * 10)/30.48))} ft {Math.round(((pokemonData.height * 10)/2.54) % 12)} in.</p>
+									:<p><b>Height</b>: {parseInt(((pokemonData.height * 10)))} grams</p>
+									}</div>
+									<div onClick={() => setUseImperialWeight(useImperialWeight => !useImperialWeight)} className="changeSystem">{
+										useImperialWeight===true?
+										<p><b>Weight</b>: {parseInt(((pokemonData.weight * 100)/28.35)/16)} lbs {Math.round(((pokemonData.weight * 100)/28.35)%16)} oz.</p>
+										:<p><b>Weight</b>: {parseInt(((pokemonData.weight / 100)))} kg</p>
+									}</div>
+								</div>
 							</div>
-							<div className="pokemonInfo">
-								<section className="pokemonImage">
-									{
-										<img
-											src={
-												pokemonData?.sprites?.other["official-artwork"]
-													.front_default
-											}
-											alt="Default front facing sprite for pokemon"
-											width={360}
-											height={360}
-										/>
-									}
-								</section>
-								<section className="flavorText">
-									{flavorText?.flavor_text}
-								</section>
-							</div>
-							<div className="pokemonAttributes">
-								<div onClick={() => setUseImperialHeight(useImperialHeight => !useImperialHeight)} className="changeSystem">{
-								useImperialHeight?<p><b>Height</b>: {parseInt(((pokemonData.height * 10)/30.48))} ft {Math.round(((pokemonData.height * 10)/2.54) % 12)} in.</p>
-								:<p><b>Height</b>: {parseInt(((pokemonData.height * 10)))} grams</p>
-								}</div>
-								<div onClick={() => setUseImperialWeight(useImperialWeight => !useImperialWeight)} className="changeSystem">{
-									useImperialWeight===true?
-									<p><b>Weight</b>: {parseInt(((pokemonData.weight * 100)/28.35)/16)} lbs {Math.round(((pokemonData.weight * 100)/28.35)%16)} oz.</p>
-									:<p><b>Weight</b>: {parseInt(((pokemonData.weight / 100)))} kg</p>
-								}</div>
-							</div>
+							<section className="statisticsContainer">
+								<h1>Stats</h1>
+								<div className="pokemonStats">
+									<div onClick={() => setUseImperialHeight(useImperialHeight => !useImperialHeight)} className="changeSystem">
+										{
+											useImperialHeight?
+												<p><b>Height</b>: {parseInt(((pokemonData.height * 10)/30.48))} ft {Math.round(((pokemonData.height * 10)/2.54) % 12)} in.</p>
+												:
+												<p><b>Height</b>: {parseInt(((pokemonData.height * 10)))} grams</p>
+										}
+									</div>
+									<div onClick={() => setUseImperialWeight(useImperialWeight => !useImperialWeight)} className="changeSystem">
+										{
+											useImperialWeight===true?
+												<p><b>Weight</b>: {parseInt(((pokemonData.weight * 100)/28.35)/16)} lbs {Math.round(((pokemonData.weight * 100)/28.35)%16)} oz.</p>
+												:
+												<p><b>Weight</b>: {parseInt(((pokemonData.weight / 100)))} kg</p>
+										}
+									</div>
+									<p>HP:</p>
+									<p>ATK:</p>
+									<p>DEF:</p>
+									<p>Special ATK:</p>
+									<p>Special DEF:</p>
+									<p>SPD (Speed):</p>
+									<h3>In-Battle Stats (may not be needed)</h3>
+									<p>Evasion:</p>
+									<p>Accuracy:</p>
+								</div>
+							</section>
 						</div>
 						<section className="evolutionChainContainer">
-							{evolutionChain ? (
-									<><h3>Evolution Chain: </h3><div className="evolutionChain">
+						{evolutionChain ? (
+							<>
+							<h3>Evolution Chain: </h3><div className="evolutionChain">
+								<PokemonCard
+									pokemon={evolutionChain?.data.chain.species.name} />
+								{evolutionChain?.data?.chain?.evolves_to[0]?.species
+									?.name ? (
+									<>
 										<PokemonCard
-											pokemon={evolutionChain?.data.chain.species.name} />
-										{evolutionChain?.data?.chain?.evolves_to[0]?.species
-											?.name ? (
-											<>
-												<PokemonCard
-													pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.species
-														?.name} />
-											</>
-										) : (
-											<></>
-										)}
-										{evolutionChain?.data?.chain?.evolves_to[0]?.evolves_to[0]
-											?.species?.name ? (
-											<>
-												<PokemonCard
-													pokemon={evolutionChain?.data?.chain?.evolves_to[0]
-														?.evolves_to[0]?.species?.name} />
-											</>
-										) : (
-											<></>
-										)}
-									</div></>
+											pokemon={evolutionChain?.data?.chain?.evolves_to[0]?.species
+												?.name} />
+									</>
+								) : (
+									<></>
+								)}
+								{evolutionChain?.data?.chain?.evolves_to[0]?.evolves_to[0]
+									?.species?.name ? (
+									<>
+										<PokemonCard
+											pokemon={evolutionChain?.data?.chain?.evolves_to[0]
+												?.evolves_to[0]?.species?.name} />
+									</>
+								) : (
+									<></>
+								)}
+							</div></>
 							) : (
 								<p>Loading Evolution Chain...</p>
 							)}
 						</section>
-						</div>
 						<section className="pokemonAbilities">
 							
 							{pokemonData?
