@@ -20,7 +20,7 @@
 }
 
 .pokemonTypes {
-	margin-top: 0;
+	margin-top: -2%;
 	@include flexCenter();
 }
 
@@ -34,14 +34,18 @@
 .pokemonContainer {
 	margin-left: 5vw;
 	width: 90vw;
-	max-width: 90vw;
-	@include flexCenter();
+	max-width: 90vw !important;
+	// @include flexCenter();
 	margin-bottom: 2%;
-	.mainPokemonInfo {
+	.pokeInfo{
+		display: flex;
+		justify-content: space-evenly;
+		align-content: space-between;
+	}
+	.mainPokemonInfo, .evolutionChainContainer {
 		@include flexCenter();
 		flex-direction: column;
-
-		width: 100% !important;
+		max-width: 45%;
 		margin-top: 1%;
 		margin-bottom: 1%;
 		background-color: $container-BG;
@@ -50,26 +54,34 @@
 		border: $container-Border;
 		box-shadow: $container-shadow;
 		.inline {
-			@include flexCenter();
-			justify-content: space-evenly;
-			width: 100%;
-			.pokemonName {
-				display: flex;
-				justify-content: flex-start;
-				align-items: baseline;
-				margin-right: 2%;
-			}
+			display: flex;
+			align-content: space-between !important;
+			justify-content: space-evenly !important;
+			width: 100% !important;
+		}
+	}
+
+	.evolutionChainContainer{
+		width: 50%;
+		h3{
+			margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	color: $light-grey;
 		}
 	}
 }
 
 .mainPokemonInfo > .pokemoninfo {
 	display: flex;
-	justify-self: center;
-	align-self: center;
+	justify-content: center;
+	align-content: center;
 	flex-direction: column;
-	width: 40%;
 	padding: 1%;
+}
+
+.pokemonImage > img{
+	margin-left: 15%;
 }
 
 .flavorText {
