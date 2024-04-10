@@ -20,7 +20,7 @@ $grey-hover: #bdbdbd;
 }
 
 @mixin buttons($bgColor, $txtColor) {
-	padding: 2%;
+	padding: 1%;
 	border-radius: 5px;
 	background-color: $bgColor !important;
 	color: $txtColor !important;

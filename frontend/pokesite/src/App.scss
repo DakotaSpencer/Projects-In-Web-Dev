@@ -102,21 +102,82 @@ a {
 }
 
 .ProfilePage {
+	h1 {
+		margin-left: 2%;
+	}
+	.editProfile {
+		@include buttons($teal, #000);
+		position: absolute;
+		top: 39%;
+		left: 39%;
+	}
+	.imgUsername {
+		display: flex;
+		margin-bottom: 1%;
+		width: 50%;
+		height: 74%;
+		margin-top: 7%;
+		.profileImg {
+			position: absolute;
+			top: 20%;
+			left: 3%;
+			max-width: 243px !important;
+		}
+		.username {
+			position: absolute;
+			top: 31%;
+			left: 35%;
+		}
+	}
 	.flexItems {
+		margin-top: 3%;
+		hr {
+			height: 3px;
+			color: black;
+			background: black;
+			font-size: 0;
+			border: 0;
+		}
 		@include flexCenter();
 		justify-content: space-between;
 		.info,
 		.party {
 			width: 50%;
 			margin: 2%;
-      padding: 1%;
+			padding: 1%;
 			border: 2px #1c1b1b solid;
 			border-radius: 5px;
+			height: 60vh;
 		}
-    .info{
-      input{
-        width: 100%;
-      }
-    }
+		.info {
+			background-color: #222121;
+			box-shadow: 1px 1px 3px #1c1b1b;
+			border: 2px #1c1b1b solid;
+			border-radius: 5px;
+			padding-top: 6%;
+			.form {
+				margin-top: 3%;
+				label {
+					font-size: 1.2em;
+				}
+			}
+			input {
+				width: 100%;
+			}
+		}
+
+		.allPokemonParty {
+			display: flex;
+			flex-wrap: wrap;
+			align-content: space-between;
+		}
+		.pokemonParty {
+			background-color: #222121;
+			box-shadow: 1px 1px 3px #1c1b1b;
+			border: 2px #1c1b1b solid;
+			border-radius: 5px;
+			padding: 0.5%;
+			margin: 1%;
+		}
 	}
 }

@@ -23,7 +23,8 @@ nav {
 	}
 }
 .navLoginSignup{
-	display: inline;
+	display: inline !important;
+	width: 7% !important;
 }
 
 .navbar > .container {
@@ -36,4 +37,13 @@ nav {
 .navbar {
 	margin: 0;
 	padding: 0;
+}
+
+.loginLink{
+	margin-right: 2%;
+}
+
+.space{
+	margin-left: .5%;
+	margin-right: .5% !important;
 }

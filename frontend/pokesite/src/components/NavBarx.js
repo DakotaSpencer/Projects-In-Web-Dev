@@ -22,11 +22,9 @@ const NavBarx = () => {
 							<Button className="button">Search</Button>
 						</Form>
 					</Nav>
-					<Navbar.Text className="navLoginSignup">
 						<Nav.Link href="/signup">Signup </Nav.Link>
-						/
-						<Nav.Link href="/login">Login</Nav.Link>
-					</Navbar.Text>
+						<Navbar.Text className="space">/</Navbar.Text>
+						<Nav.Link href="/login" className="loginLink">Login</Nav.Link>
 				</Navbar.Collapse>
 			</Container>
 		</Navbar>
