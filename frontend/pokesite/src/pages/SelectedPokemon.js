@@ -17,6 +17,8 @@ const SelectedPokemon = () => {
 	const [isLoading, setLoading] = useState(true);
 	const [levelUpMoves, setLevelUpMoves] = useState([])
 	const [learnedMoves, setLearnedMoves] = useState([]);
+	const [useImperialWeight, setUseImperialWeight] = useState(true);
+	const [useImperialHeight, setUseImperialHeight] = useState(true);
 
 	useEffect(() => {
 		setSelectedPokemon(queryParameters.get("pokemon"));
@@ -84,10 +86,6 @@ const SelectedPokemon = () => {
 			setLearnedMoves(nonLevelUpMovesArray)
 			levelUpMovesArray.sort((a, b) => a.version_group_details[0]?.level_learned_at > b.version_group_details[0]?.level_learned_at  ? 1 : -1)
 			nonLevelUpMovesArray.sort((a, b) => a.move.name > b.move.name? 1: -1);
-			{/* foreach item in pokemonData.moves
-				if item.version_group_details.move_learn_method.name === "level-up"
-					then add item to temp array;
-					Then map through temp array and pass object through to pokemonMove component like normal */}
 		}
 		fetchData()
 		getMoves()
@@ -137,6 +135,15 @@ const SelectedPokemon = () => {
 				return "#fff";
 		}
 	};
+
+	const changeWeightSystem =() => {
+		if(useImperialWeight === true){
+			setUseImperialWeight(false);
+		}else{
+			setUseImperialWeight(true);
+		}
+		
+	}
 
 	if (isLoading) {
 		return <div className="loader"></div>;
@@ -191,6 +198,17 @@ const SelectedPokemon = () => {
 								<section className="flavorText">
 									{flavorText?.flavor_text}
 								</section>
+							</div>
+							<div className="pokemonAttributes">
+								<div onClick={() => setUseImperialHeight(useImperialHeight => !useImperialHeight)} className="changeSystem">{
+								useImperialHeight?<p><b>Height</b>: {parseInt(((pokemonData.height * 10)/30.48))} ft {Math.round(((pokemonData.height * 10)/2.54) % 12)} in.</p>
+								:<p><b>Height</b>: {parseInt(((pokemonData.height * 10)))} grams</p>
+								}</div>
+								<div onClick={() => setUseImperialWeight(useImperialWeight => !useImperialWeight)} className="changeSystem">{
+									useImperialWeight===true?
+									<p><b>Weight</b>: {parseInt(((pokemonData.weight * 100)/28.35)/16)} lbs {Math.round(((pokemonData.weight * 100)/28.35)%16)} oz.</p>
+									:<p><b>Weight</b>: {parseInt(((pokemonData.weight / 100)))} kg</p>
+								}</div>
 							</div>
 						</div>
 						<section className="evolutionChainContainer">
@@ -261,7 +279,7 @@ const SelectedPokemon = () => {
 								:<></>
 							}
 						</section>
-						<section className="pokemonMoves">
+						{/* <section className="pokemonMoves">
 							{learnedMoves?
 								<>
 									<h3>Moves Learnable Through Machines ({learnedMoves.length})</h3>
@@ -273,7 +291,7 @@ const SelectedPokemon = () => {
 								</>
 							:<></>}
 							
-						</section>
+						</section> */}
 					</div>
 				) : (
 					<p>
