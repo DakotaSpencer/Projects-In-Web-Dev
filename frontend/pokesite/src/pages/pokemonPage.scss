@@ -42,7 +42,7 @@
 		justify-content: space-evenly;
 		align-content: space-between;
 	}
-	.mainPokemonInfo, .evolutionChainContainer {
+	.mainPokemonInfo, .statisticsContainer {
 		@include flexCenter();
 		flex-direction: column;
 		max-width: 45%;
@@ -61,13 +61,34 @@
 		}
 	}
 
-	.evolutionChainContainer{
+	.statisticsContainer{
 		width: 50%;
 		h3{
 			margin-top: 0;
-	margin-left: 0;
-	margin-right: 0;
-	color: $light-grey;
+			margin-left: 0;
+			margin-right: 0;
+			color: $light-grey;
+		}
+	}
+	.evolutionChainContainer{
+		@include flexCenter();
+		flex-direction: column;
+		max-width: 80%;
+		margin-top: 1%;
+		margin-bottom: 1%;
+		background-color: $container-BG;
+		padding: 1%;
+		border-radius: 5px;
+		border: $container-Border;
+		box-shadow: $container-shadow;
+		justify-self: center;
+		margin: auto;
+		width: 80%;
+		h3{
+			margin-top: 0;
+			margin-left: 0;
+			margin-right: 0;
+			color: $light-grey;
 		}
 	}
 }
