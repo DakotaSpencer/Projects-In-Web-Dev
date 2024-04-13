@@ -69,7 +69,9 @@ const Landing = () => {
       <div className='pokemonArray'>
         {
           pokemonArray?.map(pokemon => (
+            <div style={{margin:'5%'}}>
               <PokemonCard key={pokemon.data.id} pokemon={pokemon.data.name}/>
+            </div>
           ))
         }
       </div>

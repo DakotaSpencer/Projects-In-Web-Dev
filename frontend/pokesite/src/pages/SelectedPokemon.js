@@ -162,8 +162,12 @@ const SelectedPokemon = () => {
 		responsive: true,
 		scales: {
 			y: {
+				ticks: { color: '#e5e5e5ff', beginAtZero: true },
 				suggestedMin: 50,
 				suggestedMax: 225
+			},
+			x:{
+				ticks: { color: '#e5e5e5ff', beginAtZero: true },
 			}
 		}
 	  };
@@ -242,27 +246,20 @@ const SelectedPokemon = () => {
 							<section className="statisticsContainer">
 								<h1>Stats</h1>
 								<div className="pokemonStats">
-								<div onClick={() => setUseImperialHeight(useImperialHeight => !useImperialHeight)} className="changeSystem">{
-									useImperialHeight?
-									<p><b>Height</b>: {parseInt(((pokemonData.height * 10)/30.48))} ft {Math.round(((pokemonData.height * 10)/2.54) % 12)} in.</p>
-									:<p><b>Height</b>: {parseInt(((pokemonData.height / 10)))} meters</p>
-									}</div>
+								<div className="pokemonHW">
+									<div onClick={() => setUseImperialHeight(useImperialHeight => !useImperialHeight)} className="changeSystem">{
+										useImperialHeight?
+										<p><b>Height</b>: {parseInt(((pokemonData.height * 10)/30.48))} ft {Math.round(((pokemonData.height * 10)/2.54) % 12)} in.</p>
+										:<p><b>Height</b>: {parseInt(((pokemonData.height / 10)))} meters</p>
+										}</div>
 
-									<div onClick={() => setUseImperialWeight(useImperialWeight => !useImperialWeight)} className="changeSystem">{
-										useImperialWeight===true?
-										<p><b>Weight</b>: {parseInt(((pokemonData.weight * 100)/28.35)/16)} lbs {Math.round(((pokemonData.weight * 100)/28.35)%16)} oz.</p>
-										:<p><b>Weight</b>: {parseInt(((pokemonData.weight / 100)))} kg</p>
-									}</div>
-									{/* <p>HP: {pokemonData?.stats[0].base_stat}</p>
-									<p>ATK: {pokemonData?.stats[1].base_stat}</p>
-									<p>DEF: {pokemonData?.stats[2].base_stat}</p>
-									<p>Special ATK: {pokemonData?.stats[3].base_stat}</p>
-									<p>Special DEF: {pokemonData?.stats[4].base_stat}</p>
-									<p>SPD (Speed): {pokemonData?.stats[5].base_stat}</p> */}
-									<Bar options={options} data={data}/>
-									<h3>In-Battle Stats (may not be needed)</h3>
-									<p>Evasion:</p>
-									<p>Accuracy:</p>
+										<div onClick={() => setUseImperialWeight(useImperialWeight => !useImperialWeight)} className="changeSystem">{
+											useImperialWeight===true?
+											<p><b>Weight</b>: {parseInt(((pokemonData.weight * 100)/28.35)/16)} lbs {Math.round(((pokemonData.weight * 100)/28.35)%16)} oz.</p>
+											:<p><b>Weight</b>: {parseInt(((pokemonData.weight / 100)))} kg</p>
+										}</div>
+									</div>
+									<Bar options={options} data={data} className="pokemonChart"/>
 								</div>
 							</section>
 						</div>
