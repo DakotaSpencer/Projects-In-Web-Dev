@@ -203,7 +203,11 @@ const SelectedPokemon = () => {
 
 
 	if (isLoading) {
-		return <div className="loader"></div>;
+		return <div>
+			<div className="loader">
+			</div>
+			<h3 style={{marginTop: "10%", textAlign:"center", fontWeight:"lighter"}}>Fetching Pokemon, please wait...</h3>
+		</div>;
 	} else {
 		return (
 			<div className="pokemonContainer">
