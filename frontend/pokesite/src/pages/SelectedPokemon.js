@@ -4,7 +4,6 @@ import axios from "axios";
 import PokemonCard from "../components/PokemonCard";
 import "./pokemonPage.scss";
 import PokemonAbility from "../components/PokemonAbility";
-import PokemonMachineMove from "../components/PokemonMachineMove";
 import PokemonLevelUpMove from "../components/PokemonLevelUpMove";
 import {
 	Chart as ChartJS,
@@ -16,6 +15,7 @@ import {
 	Legend,
   } from 'chart.js';
   import { Bar } from 'react-chartjs-2';
+  import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 const SelectedPokemon = () => {
 	const [queryParameters] = useSearchParams();
@@ -96,18 +96,21 @@ const SelectedPokemon = () => {
 			let levelUpMovesArray=[];
 			let nonLevelUpMovesArray = [];
 			pokemonData?.moves.forEach(move => {
-				//console.log("MOVE: ", move)
-				
 				if(move.version_group_details[0].move_learn_method.name==="level-up"){
 					levelUpMovesArray.push(move)
 				}else{
 					nonLevelUpMovesArray.push(move)
 				}
 			});
-			setLevelUpMoves(levelUpMovesArray)
+
+			const shuffled = levelUpMovesArray.sort(() => 0.5 - Math.random());
+			let selected = shuffled.slice(0, 5);
+
+			setLevelUpMoves(selected)
 			setLearnedMoves(nonLevelUpMovesArray)
 			levelUpMovesArray.sort((a, b) => a.version_group_details[0]?.level_learned_at > b.version_group_details[0]?.level_learned_at  ? 1 : -1)
 			nonLevelUpMovesArray.sort((a, b) => a.move.name > b.move.name? 1: -1);
+			learnedMoves.entries();
 		}
 		fetchData()
 		getMoves()
@@ -158,6 +161,13 @@ const SelectedPokemon = () => {
 		}
 	};
 
+	const getGeneration = (generation) => {
+		const romanNumerals = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 }; // Roman numeral values
+    	const match = generation.match(/generation-([ivxlcdm]+)/i); // Match Roman numerals
+    	if (!match) return null; // If input doesn't match
+		return "Generation: " + match[1].toUpperCase().split('').reduce((acc, curr, i, arr) => acc + (romanNumerals[curr] < romanNumerals[arr[i + 1]] ? -romanNumerals[curr] : romanNumerals[curr]), 0);
+	}
+
 	const options = {
 		responsive: true,
 		scales: {
@@ -170,21 +180,26 @@ const SelectedPokemon = () => {
 				ticks: { color: '#e5e5e5ff', beginAtZero: true },
 			}
 		}
-	  };
-	  
-	  const labels = ['HP', 'ATK', 'DEF', 'Special ATK', 'Special DEF', 'Speed'];
+	};
 	
-	  const data = {
+	const labels = ['HP', 'ATK', 'DEF', 'Special ATK', 'Special DEF', 'Speed'];
+	
+	const data = {
 		labels,
 		datasets: [
-		  {
-			label: `${pokemonData?.name?.charAt(0).toUpperCase() +
-				pokemonData?.name?.slice(1)}'s Stats`,
-			data: [pokemonData?.stats[0].base_stat, pokemonData?.stats[1].base_stat, pokemonData?.stats[2].base_stat, pokemonData?.stats[3].base_stat, pokemonData?.stats[4].base_stat, pokemonData?.stats[5].base_stat],
-			backgroundColor: getTypeColor(pokemonData?.types[0].type.name),
-		  }
+			{
+				label: `${pokemonData?.name?.charAt(0).toUpperCase() +
+					pokemonData?.name?.slice(1)}'s Stats`,
+				data: [pokemonData?.stats[0].base_stat, pokemonData?.stats[1].base_stat, pokemonData?.stats[2].base_stat, pokemonData?.stats[3].base_stat, pokemonData?.stats[4].base_stat, pokemonData?.stats[5].base_stat],
+				backgroundColor: getTypeColor(pokemonData?.types[0].type.name),
+				datalabels: {
+					color: "e5e5e5ff",
+					align: 'start',
+					anchor: 'end'
+				}
+			}
 		]
-	  };
+	};
 
 
 	if (isLoading) {
@@ -221,7 +236,7 @@ const SelectedPokemon = () => {
 									</div>
 
 									<section className="pokemonGeneration">
-										<h3>Generation: {speciesData?.data.generation.name}</h3>
+										<h3>{getGeneration(speciesData?.data.generation.name)}</h3>
 									</section>
 								</div>
 								<div className="pokemonInfo">
@@ -259,7 +274,7 @@ const SelectedPokemon = () => {
 											:<p><b>Weight</b>: {parseInt(((pokemonData.weight / 100)))} kg</p>
 										}</div>
 									</div>
-									<Bar options={options} data={data} className="pokemonChart"/>
+									<Bar options={options} data={data} plugins={[ChartDataLabels]} className="pokemonChart"/>
 								</div>
 							</section>
 						</div>
