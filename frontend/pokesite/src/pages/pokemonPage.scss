@@ -38,6 +38,17 @@
 	align-content: center;
 }
 
+.pokemonHW{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-content: space-evenly;
+}
+
+.pokemonChart{
+	color: $light-grey;
+}
+
 .pokemonContainer {
 	width: 90vw;
 	max-width: 90vw !important;
