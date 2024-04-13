@@ -29,6 +29,8 @@
 	margin: 10px;
 	color: lighten($light-grey, 20%);
 	border-radius: 10px;
+	height: max-content;
+	align-self: center;
 }
 
 .pages{
@@ -129,9 +131,10 @@
 }
 
 .movesContainer {
-	// display: grid;
+	display: flex;
+	flex-direction: row;
 	// grid-template-columns: repeat(5, 10rem);
-	// justify-content: space-evenly;
+	justify-content: space-evenly;
 	// grid-template-rows: min-content 1fr;
 }
 
