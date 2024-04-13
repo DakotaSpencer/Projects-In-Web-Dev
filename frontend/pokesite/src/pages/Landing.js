@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from 'react'
-import axios from 'axios'
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import PokemonCard from '../components/PokemonCard';
-import './landing.scss'
+import './landing.scss';
 
 const Landing = () => {
     const [pokemonData, setPokemonData] = useState();
     const [pokemonArray, setPokemonArray] = useState();
     const [limit, setLimit] = useState(20);
     let tempArray = [];
+    const delay = ms => new Promise(res => setTimeout(res, ms));
     useEffect(() => {
       if (pokemonData === null || pokemonData === undefined) {
           setLimit(40)
@@ -25,7 +26,7 @@ const Landing = () => {
 
   const fetchPokemonData = async () => {
     axios.all([
-        axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}$offset=0`)
+          axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}$offset=0`)
         ])
         .then(axios.spread((pokemonAxiosData) => {
             setPokemonData(pokemonAxiosData.data);
@@ -44,20 +45,24 @@ const Landing = () => {
       .then(axios.spread((pokemonURLData) => {
           tempArray.push(pokemonURLData)
           if(tempArray.length % 20 === 0){
-            tempArray.sort((a, b) => a-b)
-            setPokemonArray(tempArray)
+            console.log("TempArray",tempArray)
+            tempArray.sort((a, b) => a.data.id-b.data.id)
+            setPokemonArray(tempArray.sort((a, b) => a-b))
+            
           }
       }));
+      console.log(pokemonArray)
   }
-    const handleLimitButtonClick = () => {
+    const handleLimitButtonClick = async () => {
       if (limit===20) {
         setLimit(40)
       }else{
         setLimit(limit+20)
+        console.log(limit)
+        await delay(250);
+        fetchPokemonData();
       }
-      // setLimit(limit===20?limit==40:limit+20);
-      console.log(limit)
-      fetchPokemonData();
+      
     }
   return (
     <>
