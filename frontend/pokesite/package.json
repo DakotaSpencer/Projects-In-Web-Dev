@@ -9,12 +9,17 @@
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "chart.js": "^4.4.2",
+    "chartjs": "^0.3.24",
+    "faker": "^6.6.6",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
     "react-scripts": "5.0.1",
     "sass": "^1.72.0",
+    "timers": "^0.1.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
