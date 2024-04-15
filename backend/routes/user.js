@@ -1,63 +1,37 @@
 const express = require("express");
 const router = express.Router();
-const AWS = require("aws-sdk");
-//14:20 video
-AWS.config.update({
-  region: "us-east-1",
-});
+const DynamoDAL = require("../DynamoDAL");
+const DAL = new DynamoDAL();
 
 /**
  * @swagger
- * /user:
+ * /user/1:
  *   get:
  *     description: Gets user
  *     responses:
  *       200:
  *         description: success
  */
-router.get("/", async (req, res) => {
-  const params = {
-    TableName: dynamodbTableName,
-    Key: {
-      userId: req.query.userId,
-    },
-  };
-  await dynamoDb
-    .get(params)
-    .promise()
-    .then(
-      (response) => {
-        res.json();
-      },
-      (error) => {
-        console.error("ERROR: ", error);
-        res.status(500).send(error);
-      }
-    );
+router.get("/:id", async (req, res) => {
+  const userId = req.params.id;
+  const response = await DAL.getTables();
+  const user = await DAL.getById(await response.tables[0], userId);
+  res.send(await user);
 });
 /**
  * @swagger
- * /user/all:
+ * /user:
  *   get:
  *     description: Gets ALL user
  *     responses:
  *       200:
  *         description: success
  */
-router.get("/all", async (req, res) => {
-  const params = {
-    TableName: dynamodbTableName,
-  };
-  try {
-    const allUsers = await scanDynamoRecords(params, []);
-    const body = {
-      users: allUsers,
-    };
-    res.json(body);
-  } catch (error) {
-    console.error("ERROR: ", error);
-    res.status(500).send(error);
-  }
+router.get("/", async (req, res) => {
+  const response = await DAL.getTables();
+  const users = await DAL.get(response.tables[0]);
+  console.log(await users);
+  res.send(await users.Items);
 });
 /**
  * @swagger
@@ -112,27 +86,27 @@ router.get("/all", async (req, res) => {
  *         description: Created
  */
 router.post("/", async (req, res) => {
-  const params = {
-    TableName: dynamodbTableName,
-    Items: req.body,
-  };
-  await dynamodb
-    .put(params)
-    .promise()
-    .then(
-      () => {
-        const body = {
-          Operation: "SAVE",
-          Message: "SUCCESS",
-          Items: req.body,
-        };
-        res.json(body);
-      },
-      (error) => {
-        console.error("ERROR: ", error);
-        res.status(500).send(error);
-      }
-    );
+  // const params = {
+  //   TableName: dynamodbTableName,
+  //   Items: req.body,
+  // };
+  // await dynamodb
+  //   .put(params)
+  //   .promise()
+  //   .then(
+  //     () => {
+  //       const body = {
+  //         Operation: "SAVE",
+  //         Message: "SUCCESS",
+  //         Items: req.body,
+  //       };
+  //       res.json(body);
+  //     },
+  //     (error) => {
+  //       console.error("ERROR: ", error);
+  //       res.status(500).send(error);
+  //     }
+  //   );
 });
 /**
  * @swagger
@@ -194,75 +168,75 @@ router.post("/", async (req, res) => {
  *         description: User not found
  */
 router.patch("/", async (req, res) => {
-  const params = {
-    TableName: dynamodbTableName,
-    Key: {
-      userId: req.query.userId,
-    },
-    UpdateExpression: `set ${req.body.updateKey} = :value`,
-    ExpresstionAttributeValues: {
-      ":value": req.body.updateValue,
-    },
-    ReturnValues: "UPATED_NEW",
-  };
-  await dynamodb
-    .update(params)
-    .promise()
-    .then((response) => {
-      () => {
-        const body = {
-          Operation: "UPDATE",
-          Message: "SUCCESS",
-          UpdatedAttributes: response,
-        };
-        res.json(body);
-      },
-        (error) => {
-          console.error("ERROR: ", error);
-          res.status(500).send(error);
-        };
-    });
+  // const params = {
+  //   TableName: dynamodbTableName,
+  //   Key: {
+  //     userId: req.query.userId,
+  //   },
+  //   UpdateExpression: `set ${req.body.updateKey} = :value`,
+  //   ExpresstionAttributeValues: {
+  //     ":value": req.body.updateValue,
+  //   },
+  //   ReturnValues: "UPATED_NEW",
+  // };
+  // await dynamodb
+  //   .update(params)
+  //   .promise()
+  //   .then((response) => {
+  //     () => {
+  //       const body = {
+  //         Operation: "UPDATE",
+  //         Message: "SUCCESS",
+  //         UpdatedAttributes: response,
+  //       };
+  //       res.json(body);
+  //     },
+  //       (error) => {
+  //         console.error("ERROR: ", error);
+  //         res.status(500).send(error);
+  //       };
+  //   });
 });
 router.delete("/", async (req, res) => {
-  const params = {
-    TableName: dynamodbTableName,
-    Key: {
-      userId: req.query.userId,
-    },
-    ReturnValues: "ALL_OLD",
-  };
-  await dynamodb
-    .update(params)
-    .promise()
-    .then((response) => {
-      () => {
-        const body = {
-          Operation: "DELETE",
-          Message: "SUCCESS",
-          Items: response,
-        };
-        res.json(body);
-      },
-        (error) => {
-          console.error("ERROR: ", error);
-          res.status(500).send(error);
-        };
-    });
+  // const params = {
+  //   TableName: dynamodbTableName,
+  //   Key: {
+  //     userId: req.query.userId,
+  //   },
+  //   ReturnValues: "ALL_OLD",
+  // };
+  // await dynamodb
+  //   .update(params)
+  //   .promise()
+  //   .then((response) => {
+  //     () => {
+  //       const body = {
+  //         Operation: "DELETE",
+  //         Message: "SUCCESS",
+  //         Items: response,
+  //       };
+  //       res.json(body);
+  //     },
+  //       (error) => {
+  //         console.error("ERROR: ", error);
+  //         res.status(500).send(error);
+  //       };
+  //   });
 });
 
 const scanDynamoRecords = async (scanParams, itemsArray) => {
-  try {
-    const dynamoData = await dynamodb.scan(scanParams).promise();
-    itemsArray = itemsArray.concat(dynamoData.Items);
-    if (dynamoData.LastEvaluatedKey) {
-      scanParams.ExclusiveStartKey;
-      //Loop again if there is more data
-      return await scanDynamoRecords(scanParams, itemsArray);
-    }
-    return itemsArray;
-  } catch (error) {
-    throw new Error(error);
-  }
+  // try {
+  //   const dynamoData = await dynamodb.scan(scanParams).promise();
+  //   itemsArray = itemsArray.concat(dynamoData.Items);
+  //   if (dynamoData.LastEvaluatedKey) {
+  //     scanParams.ExclusiveStartKey;
+  //     //Loop again if there is more data
+  //     return await scanDynamoRecords(scanParams, itemsArray);
+  //   }
+  //   return itemsArray;
+  // } catch (error) {
+  //   throw new Error(error);
+  // }
 };
 
 module.exports = router;
