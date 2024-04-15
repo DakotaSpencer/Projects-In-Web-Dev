@@ -37,3 +37,12 @@ $container-shadow: 1px 1px 3px #1c1b1b;
 		background-color: darken($bgColor, 15%) !important;
 	}
 }
+
+@mixin container(){
+	background-color: $container-BG;
+    border: $container-Border;
+    border-radius: 5px;
+    box-shadow: $container-shadow;
+    padding: 1%;
+    margin: 2%;
+}

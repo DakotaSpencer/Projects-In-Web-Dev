@@ -6,7 +6,7 @@ body {
 }
 
 .borderContainer {
-	border: 2px #1c1b1b solid;
+	border: $container-Border;
 	border-radius: 5px;
 }
 
@@ -32,10 +32,9 @@ a {
 		h1 {
 			margin-bottom: 2%;
 		}
+		@include container;
 		padding: 3%;
 		width: 45%;
-		background-color: $container-BG;
-		box-shadow: $container-Border;
 		.form {
 			@include flexCenter;
 			flex-direction: column;
@@ -206,10 +205,7 @@ nav {
 			height: 60vh;
 		}
 		.info {
-			background-color: #222121;
-			box-shadow: 1px 1px 3px #1c1b1b;
-			border: 2px #1c1b1b solid;
-			border-radius: 5px;
+			@include container;
 			padding-top: 6%;
 			.form {
 				margin-top: 3%;
@@ -228,10 +224,7 @@ nav {
 			align-content: space-between;
 		}
 		.pokemonParty {
-			background-color: #222121;
-			box-shadow: 1px 1px 3px #1c1b1b;
-			border: 2px #1c1b1b solid;
-			border-radius: 5px;
+			@include container;
 			padding: 0.5%;
 			margin: 1%;
 		}
