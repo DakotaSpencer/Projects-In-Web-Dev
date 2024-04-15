@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { useNavigate } from "react-router";
 
 const Signup = () => {
 	const [showPassword, setShowPassword] = useState(false);
+	let navigate = useNavigate();
+	const routeChange = () => {
+		let path = `/login`;
+		navigate(path);
+	};
 
 	return (
 		<div className="signup">
@@ -14,7 +20,7 @@ const Signup = () => {
 						<br />
 						<input name="username" type="text" placeholder="Username" />
 						<br />
-            <label htmlFor="email">Email</label>
+						<label htmlFor="email">Email</label>
 						<br />
 						<input name="email" type="text" placeholder="Email" />
 						<br />
@@ -30,7 +36,7 @@ const Signup = () => {
 							onClick={() => setShowPassword(!showPassword)}
 						></i>
 						<br />
-            <label htmlFor="password">Confirm Password</label>
+						<label htmlFor="password">Confirm Password</label>
 						<br />
 						<input
 							name="password"
@@ -44,8 +50,10 @@ const Signup = () => {
 						<br />
 					</div>
 					<div className="buttons">
-						<button className="signup">Login</button>
-            <button className="loginBtn">Signup</button>
+						<button className="signup" onClick={routeChange}>
+							Login
+						</button>
+						<button className="loginBtn">Signup</button>
 					</div>
 				</div>
 			</div>

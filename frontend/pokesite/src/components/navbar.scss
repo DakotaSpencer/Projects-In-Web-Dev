@@ -1,0 +1,49 @@
+@import "../index.scss";
+
+nav {
+	background-color: #1c1b1b !important;
+	height: 8vh;
+	border-bottom: #191919 2px solid;
+	.nav-link {
+		color: $light-grey !important;
+		&:hover {
+			color: $grey-hover !important;
+		}
+	}
+	.navbar-text,
+	.navbar-brand {
+		margin-right: 1%;
+		color: $light-grey;
+		&:hover {
+			color: $grey-hover;
+		}
+	}
+	.button {
+		@include buttons($teal, #000);
+	}
+}
+.navLoginSignup{
+	display: inline !important;
+	width: 7% !important;
+}
+
+.navbar > .container {
+	max-width: 100%;
+	margin: 0;
+	padding: 0;
+	margin-left: 0.5%;
+}
+
+.navbar {
+	margin: 0;
+	padding: 0;
+}
+
+.loginLink{
+	margin-right: 2%;
+}
+
+.space{
+	margin-left: .5%;
+	margin-right: .5% !important;
+}
