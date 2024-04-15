@@ -1,4 +1,5 @@
 import React from 'react'
+import './PokemonAbility.scss';
 
 const PokemonAbility = (props) => {
   console.log("ABILITY: ",props.ability)
