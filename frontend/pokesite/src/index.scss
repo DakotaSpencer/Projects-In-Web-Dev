@@ -46,3 +46,24 @@ $container-shadow: 1px 1px 3px #1c1b1b;
     padding: 1%;
     margin: 2%;
 }
+
+.loader {
+	margin: auto;
+	margin-top: 10%;
+	border: 60px solid $light-grey;
+	border-radius: 50%;
+	border-top: 60px solid $red;
+	border-left: 60px solid $red;
+	width: 200px;
+	height: 200px;
+	animation: spinner 0.5s linear infinite;
+}
+
+@keyframes spinner {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
