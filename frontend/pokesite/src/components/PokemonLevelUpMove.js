@@ -13,7 +13,8 @@ const PokemonLevelUpMove = ({ move }) => {
 				})
 				.catch((err) => console.log(err));
 		}
-
+		// console.log("Move: ",move)
+		//Extend into its own page.
 		getMoveType();
 	}, [move]);
 

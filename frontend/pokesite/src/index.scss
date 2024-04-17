@@ -23,14 +23,14 @@ $container-shadow: 1px 1px 3px #1c1b1b;
 }
 
 @mixin buttons($bgColor, $txtColor) {
-	padding: 1%;
+	padding: 2%;
 	border-radius: 5px;
 	background-color: $bgColor !important;
 	color: $txtColor !important;
 	border: none;
 	text-align: center;
+	align-self: center;
 	text-decoration: none;
-	display: inline-block;
 	font-size: 16px;
 	transition: background-color 0.3s !important;
 	&:hover {
@@ -56,7 +56,7 @@ $container-shadow: 1px 1px 3px #1c1b1b;
 	border-left: 60px solid $red;
 	width: 200px;
 	height: 200px;
-	animation: spinner 0.5s linear infinite;
+	animation: spinner 1s linear infinite;
 }
 
 @keyframes spinner {

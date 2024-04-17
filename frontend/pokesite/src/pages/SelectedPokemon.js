@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
@@ -18,6 +19,7 @@ import { Bar } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 const SelectedPokemon = () => {
+	
 	const [queryParameters] = useSearchParams();
 	const [selectedPokemon, setSelectedPokemon] = useState("");
 	const [pokemonData, setPokemonData] = useState();
@@ -44,7 +46,7 @@ const SelectedPokemon = () => {
 		setSelectedPokemon(queryParameters.get("pokemon"));
 
 		const fetchPokemonData = async () => {
-			await delay(1050);
+			await delay(1500);
 			axios
 				.all([
 					axios.get(
@@ -62,6 +64,7 @@ const SelectedPokemon = () => {
 					axios.spread((pokemonAxiosData, descriptionAxiosResults) => {
 						setPokemonData(pokemonAxiosData.data);
 						setSpeciesData(descriptionAxiosResults);
+						
 						//setSprite(pokemonAxiosData.data.sprites.other.obj["official-artwork"].front_default)
 					})
 				);
@@ -75,8 +78,10 @@ const SelectedPokemon = () => {
 		async function fetchData() {
 			await speciesData;
 			if (speciesData) {
-				console.log("Pokemon Data: ", pokemonData);
-				console.log("Species Data: ", speciesData);
+				// console.log("Pokemon Data: ", pokemonData);
+				document.title = pokemonData?.name?.charAt(0).toUpperCase() +
+				pokemonData?.name?.slice(1) + " - PokeSite" || "Unknown - PokeSite"
+				// console.log("Species Data: ", speciesData);
 				//If species data exists, then we can find evolution chain. For each item in evolution chain
 				// get that pokemons data and display it in the Evolution Chain section
 				axios.all([axios.get(speciesData?.data?.evolution_chain?.url)]).then(
@@ -460,7 +465,6 @@ const SelectedPokemon = () => {
 									</div>
 								</>
 							:<></>}
-							
 						</section> */}
 					</div>
 				) : (
