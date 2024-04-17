@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import PokemonCard from '../components/PokemonCard';
 import './landing.scss';
+import { Button } from 'react-bootstrap';
 
 const Landing = () => {
     const [pokemonData, setPokemonData] = useState();
@@ -26,7 +27,7 @@ const Landing = () => {
 
   const fetchPokemonData = async () => {
     axios.all([
-          axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}$offset=0`)
+          axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit>20?limit:20}$offset=0`)
         ])
         .then(axios.spread((pokemonAxiosData) => {
             setPokemonData(pokemonAxiosData.data);
@@ -54,15 +55,16 @@ const Landing = () => {
       console.log(pokemonArray)
   }
     const handleLimitButtonClick = async () => {
-      if (limit===20) {
-        setLimit(40)
-      }else{
+      await delay(500);
+      if (limit>=20) {
         setLimit(limit+20)
+        await delay(500);
         console.log(limit)
-        await delay(250);
-        fetchPokemonData();
+        if(pokemonArray.length % 20===0){
+          fetchPokemonData();
+        }
+        
       }
-      
     }
   return (
     <>
@@ -75,7 +77,7 @@ const Landing = () => {
           ))
         }
       </div>
-      <button className='loadMoreButton' onClick={handleLimitButtonClick}>Show More</button>
+      <Button className='loadMoreButton' onClick={handleLimitButtonClick}>Show More</Button>
       {/* <div className='pokeball'>
         <div className='pokeballTop'></div>
         <div className='pokeballBottom'></div>

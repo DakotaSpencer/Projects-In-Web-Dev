@@ -8,8 +8,8 @@
 }
 
 .loadMoreButton{
-    width: 25%;
     margin-top: 5%;
     margin-bottom: 2%;
     align-self: center;
+    @include buttons($teal, #000);
 }
