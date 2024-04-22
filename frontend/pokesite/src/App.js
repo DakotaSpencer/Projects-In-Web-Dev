@@ -7,7 +7,7 @@ import Signup from "./pages/Signup";
 import SelectedPokemon from "./pages/SelectedPokemon";
 import Profile from "./pages/Profile";
 import NavBarx from "./components/NavBarx";
-import Move from "./pages/Move";
+import PokemonMove from "./pages/PokemonMove";
 
 function App() {
 	return (
@@ -22,7 +22,7 @@ function App() {
 						<Route path="/signup" element={<Signup />} />
 						<Route path="/pokemon" element={<SelectedPokemon />} />
 						<Route path="/profile" element={<Profile />} />
-						<Route path="/move" element={<Move/>}/>
+						<Route path="/move" element={<PokemonMove/>}/>
 					</Routes>
 				</div>
 			</BrowserRouter>
