@@ -1,9 +1,13 @@
 require("dotenv").config();
+const Utils = require("./util");
+const util = new Utils();
 const {
   DynamoDBClient,
   ListTablesCommand,
   GetItemCommand,
   ScanCommand,
+  PutItemCommand,
+  DeleteItemCommand,
 } = require("@aws-sdk/client-dynamodb");
 
 const client = new DynamoDBClient({
@@ -27,13 +31,11 @@ class DynamoDAL {
   }
   async getById(tableName, id) {
     try {
-      console.log("Table name passed through:", tableName);
       const getItemCommand = new GetItemCommand({
         TableName: tableName,
         Key: { userId: { S: id } },
       });
       const response = await client.send(getItemCommand);
-      await console.log(response);
       return await { Item: response.Item };
     } catch (e) {
       console.log("ERROR: ", e);
@@ -47,6 +49,49 @@ class DynamoDAL {
       return response;
     } catch (e) {
       console.log("ERROR: ", e);
+    }
+  }
+  async createUser(tableName, newUser) {
+    // Prepare the new User to be stored to the database
+    // console.log("NEW USER TO CALL DATABASE: ", newUser);
+    try {
+      const params = {
+        TableName: tableName,
+        Item: {
+          userId: { S: util.generateKey() },
+          userName: { S: newUser.userName },
+          name: { S: newUser.name },
+          bio: { S: newUser.bio },
+          password: {
+            S: await util.hashPassword(util.saltPassword(newUser.password)),
+          },
+          profilePicture: { S: newUser.profilePicture },
+          caughtPokemon: { SS: ["0"] },
+          featuredPokemon: { SS: ["0"] },
+        },
+      };
+      // Put the item into DynamoDB
+      const command = new PutItemCommand(params);
+      const response = await client.send(command);
+      return response;
+    } catch (e) {
+      console.log("ERROR WITH CREATE: ", e);
+    }
+  }
+
+  async deleteUser(tableName, id) {
+    try {
+      const params = {
+        TableName: tableName,
+        Key: {
+          userId: { S: id },
+        },
+      };
+      const command = new DeleteItemCommand(params);
+      const response = await client.send(command);
+      return response;
+    } catch (e) {
+      console.log("ERROR WITH DELETE: ", e);
     }
   }
 }

@@ -5,12 +5,26 @@ const DAL = new DynamoDAL();
 
 /**
  * @swagger
- * /user/1:
+ * /user/{id}:
  *   get:
- *     description: Gets user
+ *     description: Get a user by ID
+ *     tags: [User]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID of the user
+ *         required: true
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
- *         description: success
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '$/components/schemas/User'
+ *       404:
+ *         description: User not found
  */
 router.get("/:id", async (req, res) => {
   const userId = req.params.id;
@@ -22,10 +36,17 @@ router.get("/:id", async (req, res) => {
  * @swagger
  * /user:
  *   get:
- *     description: Gets ALL user
+ *     description: Get all users
+ *     tags: [User]
  *     responses:
  *       200:
- *         description: success
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
  */
 router.get("/", async (req, res) => {
   const response = await DAL.getTables();
@@ -38,127 +59,69 @@ router.get("/", async (req, res) => {
  * /user:
  *   post:
  *     description: Create a new user
- *     parameters:
- *       - name: userName
- *         description: user's Username
- *         in: formData
- *         required: true
- *         type: string
- *
- *       - name: Name
- *         description: users name
- *         in: formData
- *         required: true
- *         type: string
- *
- *       - name: Bio
- *         description: Fun Information user wants to share
- *         in: formData
- *         required: true
- *         type: string
- *
- *       - name: password
- *         description: Salted + Hashed Password
- *         in: formData
- *         required: true
- *         type: string
- *
- *       - name: profilePicture
- *         description: URL to profile picture
- *         in: formData
- *         required: true
- *         type: string
- *
- *       - name: caughtPokemon
- *         description: All pokemon objects user caught
- *         in: formData
- *         required: true
- *         type: array
- *
- *       - name: featuredPokemon
- *         description: up to 6 Pokemon user wants to share
- *         in: formData
- *         required: true
- *         type: array
- *
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *               userName:
+ *                 type: string
+ *               name:
+ *                 type: string
+ *               bio:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               profilePicture:
+ *                 type: string
+ *               caughtPokemon:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               featuredPokemon:
+ *                 type: array
+ *                 items:
+ *                   type: string
  *     responses:
  *       201:
- *         description: Created
+ *         description: User created successfully
+ *       400:
+ *         description: Bad request. Please check your input.
  */
 router.post("/", async (req, res) => {
-  // const params = {
-  //   TableName: dynamodbTableName,
-  //   Items: req.body,
-  // };
-  // await dynamodb
-  //   .put(params)
-  //   .promise()
-  //   .then(
-  //     () => {
-  //       const body = {
-  //         Operation: "SAVE",
-  //         Message: "SUCCESS",
-  //         Items: req.body,
-  //       };
-  //       res.json(body);
-  //     },
-  //     (error) => {
-  //       console.error("ERROR: ", error);
-  //       res.status(500).send(error);
-  //     }
-  //   );
+  // console.log("The request body: ", req.body);
+  try {
+    const response = await DAL.getTables();
+    const create = await DAL.createUser(response.tables[0], req.body);
+    return res.json({ Message: "SUCCESS", Response: create });
+  } catch (e) {
+    return res.json({ Message: "ERROR: " + e });
+  }
 });
 /**
  * @swagger
- * /user:
+ * /user/{id}:
  *   put:
  *     description: Update a user by ID
+ *     tags: [User]
  *     parameters:
- *       - name: userId
+ *       - name: id
  *         in: path
- *         description: ID of the user to update
+ *         description: ID of the user
  *         required: true
  *         schema:
- *           type: integer
- *       - name: userName
- *         in: formData
- *         description: User's updated username
- *         required: false
- *         type: string
- *       - name: name
- *         in: formData
- *         description: User's updated name
- *         required: false
- *         type: string
- *       - name: bio
- *         in: formData
- *         description: Updated fun information user wants to share
- *         required: false
- *         type: string
- *       - name: password
- *         in: formData
- *         description: Updated salted + hashed password
- *         required: false
- *         type: string
- *       - name: profilePicture
- *         in: formData
- *         description: Updated URL to profile picture
- *         required: false
- *         type: string
- *       - name: caughtPokemon
- *         in: formData
- *         description: Updated array of all pokemon objects user caught
- *         required: false
- *         type: array
- *         items:
- *           type: object
- *       - name: featuredPokemon
- *         in: formData
- *         description: Updated array of up to 6 Pokemon user wants to share
- *         required: false
- *         type: array
- *         items:
- *           type: object
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UpdateUser'
  *     responses:
  *       200:
  *         description: User updated successfully
@@ -197,46 +160,37 @@ router.patch("/", async (req, res) => {
   //       };
   //   });
 });
-router.delete("/", async (req, res) => {
-  // const params = {
-  //   TableName: dynamodbTableName,
-  //   Key: {
-  //     userId: req.query.userId,
-  //   },
-  //   ReturnValues: "ALL_OLD",
-  // };
-  // await dynamodb
-  //   .update(params)
-  //   .promise()
-  //   .then((response) => {
-  //     () => {
-  //       const body = {
-  //         Operation: "DELETE",
-  //         Message: "SUCCESS",
-  //         Items: response,
-  //       };
-  //       res.json(body);
-  //     },
-  //       (error) => {
-  //         console.error("ERROR: ", error);
-  //         res.status(500).send(error);
-  //       };
-  //   });
+/**
+ * @swagger
+ * /user/remove/{id}:
+ *   delete:
+ *     description: Delete a user by ID
+ *     tags: [User]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID of the user
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: User deleted successfully
+ *       404:
+ *         description: User not found
+ */
+router.delete("/remove/:id", async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const response = await DAL.getTables();
+    const delResponse = await DAL.deleteUser(response.tables[0], userId);
+    res.json({
+      Message: `OBJECT ${userId} DELETED SUCCESSFULLY`,
+      API: delResponse,
+    });
+  } catch (e) {
+    res.json({ Message: e });
+  }
 });
-
-const scanDynamoRecords = async (scanParams, itemsArray) => {
-  // try {
-  //   const dynamoData = await dynamodb.scan(scanParams).promise();
-  //   itemsArray = itemsArray.concat(dynamoData.Items);
-  //   if (dynamoData.LastEvaluatedKey) {
-  //     scanParams.ExclusiveStartKey;
-  //     //Loop again if there is more data
-  //     return await scanDynamoRecords(scanParams, itemsArray);
-  //   }
-  //   return itemsArray;
-  // } catch (error) {
-  //   throw new Error(error);
-  // }
-};
 
 module.exports = router;
