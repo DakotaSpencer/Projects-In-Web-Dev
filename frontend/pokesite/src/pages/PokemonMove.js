@@ -6,7 +6,7 @@ const PokemonMove = () => {
 	const [queryParameters] = useSearchParams();
 	const [selectedMove, setSelectedMove] = useState("");
 	const [pokemonMoveData, setPokemonMoveData] = useState();
-	const [flavorText, setFlavorText] = useState("no flavor text yet");
+	const [flavorText, setFlavorText] = useState({flavor_text:"no flavor text yet"});
 
 	const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 	useEffect(() => {
@@ -15,7 +15,7 @@ const PokemonMove = () => {
 			fetch(`https://pokeapi.co/api/v2/move/${selectedMove?selectedMove:queryParameters.get("move")}`)
 				.then((data) => data.json())
 				.then(async (data) => {
-					console.log("fetched data",data)
+					//console.log("fetched data",data)
 					setPokemonMoveData(data)
 				})
 				.catch((err) => console.log(err));
@@ -25,13 +25,12 @@ const PokemonMove = () => {
 	}, [])
 
 	useEffect(() =>{
-		console.log("Move Data UEFF2:", pokemonMoveData)
+		console.log("Move Data:", pokemonMoveData)
 		const getFlavorText = () => {
-			console.log(pokemonMoveData?.flavor_text_entries[0].flavor_text)
 			var tempArr = [];
 			pokemonMoveData?.flavor_text_entries.forEach((element) => {
 				if (element?.language?.name === "en") {
-					console.log(element)
+					//console.log(element)
 					tempArr.push(element);
 				}
 			});
@@ -41,9 +40,11 @@ const PokemonMove = () => {
 	}, [pokemonMoveData])
 
 	return (
-		<>
-			<div className="">Move: {pokemonMoveData?.name} : {flavorText?.flavor_text}</div>
-		</>
+		<div className="page">
+			<h3 className={`pokemonMoveType ${pokemonMoveData?.type.name}`}>{pokemonMoveData?.name.charAt(0).toUpperCase() + pokemonMoveData?.name?.slice(1)}</h3>
+			<p className="">{flavorText?.flavor_text}</p>
+			<p>PP: {pokemonMoveData?.pp}/{pokemonMoveData?.pp}</p>
+		</div>
 		
 	)
 }
