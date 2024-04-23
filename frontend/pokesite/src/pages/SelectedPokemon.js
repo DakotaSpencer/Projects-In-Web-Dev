@@ -46,8 +46,12 @@ const SelectedPokemon = () => {
 		setSelectedPokemon(queryParameters.get("pokemon"));
 
 		const fetchPokemonData = async () => {
+			console.log("Selected pokemon: " + selectedPokemon)
+			console.log("Fetch URL: " + `https://pokeapi.co/api/v2/pokemon/${
+				selectedPokemon ? selectedPokemon : queryParameters.get("pokemon")
+			}`)
 			await delay(1500);
-			axios
+			await axios
 				.all([
 					axios.get(
 						`https://pokeapi.co/api/v2/pokemon/${
@@ -78,7 +82,7 @@ const SelectedPokemon = () => {
 		async function fetchData() {
 			await speciesData;
 			if (speciesData) {
-				// console.log("Pokemon Data: ", pokemonData);
+				console.log("Pokemon Data: ", pokemonData);
 				document.title = pokemonData?.name?.charAt(0).toUpperCase() +
 				pokemonData?.name?.slice(1) + " - PokeSite" || "Unknown - PokeSite"
 				// console.log("Species Data: ", speciesData);
@@ -86,6 +90,7 @@ const SelectedPokemon = () => {
 				// get that pokemons data and display it in the Evolution Chain section
 				axios.all([axios.get(speciesData?.data?.evolution_chain?.url)]).then(
 					axios.spread((evolutionChainData) => {
+						console.log("Evolution Chain: ", evolutionChainData)
 						setEvolutionChain(evolutionChainData);
 						setLoading(false);
 						//First evolution: evolutionChainData.data.chain.species.name;
@@ -275,7 +280,7 @@ const SelectedPokemon = () => {
 											pokemonData.id.toString().padStart(4, "0") +
 											" - " +
 											pokemonData.name?.charAt(0).toUpperCase() +
-											pokemonData.name?.slice(1)}
+											pokemonData.name?.slice(1).replace(/-/g, ' ')}
 									</h2>
 									<div className="pokemonTypes">
 										{pokemonData.types?.map((type) => (
@@ -375,7 +380,7 @@ const SelectedPokemon = () => {
 							</section>
 						</section>
 						<section className="evolutionChainContainer">
-							{evolutionChain ? (
+							{evolutionChain.length>0 ? (
 								<>
 									<h3>Evolution Chain: </h3>
 									<div className="evolutionChain">
@@ -411,7 +416,7 @@ const SelectedPokemon = () => {
 									</div>
 								</>
 							) : (
-								<p>Loading Evolution Chain...</p>
+								<div className="evolutionChain">No Evolution Chain</div>
 							)}
 						</section>
 						<section className="pokemonAbilities">
@@ -425,7 +430,7 @@ const SelectedPokemon = () => {
 														ability={ability.ability}
 														key={ability.ability.name}
 													/>
-											  ))
+											))
 											: ""}
 									</div>
 								</>
@@ -446,7 +451,7 @@ const SelectedPokemon = () => {
 														move={move}
 														key={move.move.name}
 													></PokemonLevelUpMove>
-											  ))
+											))
 											: ""}
 									</div>
 								</>

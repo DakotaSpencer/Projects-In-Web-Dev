@@ -69,7 +69,7 @@ const PokemonCard = (props) => {
 	return (
         <>
         {pokemonData !== null && pokemonData !== undefined ? (
-            <a href={`/pokemon?pokemon=${pokemonData.name}`}>
+            <a href={`/pokemon?pokemon=${pokemonData.id}`}>
                 <div className="pokemonCard" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
                     <section className="cardNameContainer">
                         <p className="cardName">
@@ -77,7 +77,7 @@ const PokemonCard = (props) => {
                                 pokemonData.id.toString().padStart(4, "0") +
                                 " - " +
                                 pokemonData.name?.charAt(0).toUpperCase() +
-                                pokemonData.name?.slice(1)}
+                                pokemonData.name?.slice(1).replace(/-/g, ' ')}
                         </p>
                     </section>
 

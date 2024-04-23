@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from 'react-router-dom';
 import './pokemonMovePage.scss'
+import PokemonCard from "../components/PokemonCard";
 
 const PokemonMove = () => {
 	const [queryParameters] = useSearchParams();
@@ -40,10 +41,26 @@ const PokemonMove = () => {
 	}, [pokemonMoveData])
 
 	return (
-		<div className="page">
-			<h3 className={`pokemonMoveType ${pokemonMoveData?.type.name}`}>{pokemonMoveData?.name.charAt(0).toUpperCase() + pokemonMoveData?.name?.slice(1)}</h3>
+		<div className={`page`}>
+			<h3 className={`pokemonMoveType ${pokemonMoveData?.type.name}`}>{pokemonMoveData?.name.charAt(0).toUpperCase() + pokemonMoveData?.name?.slice(1).replace(/-/g, ' ')}</h3>
+			<p>Type: {pokemonMoveData?.type.name.charAt(0).toUpperCase() + pokemonMoveData?.type.name.slice(1)}</p>
 			<p className="">{flavorText?.flavor_text}</p>
+			<p>Category: {pokemonMoveData?.damage_class.name.charAt(0).toUpperCase() + pokemonMoveData?.damage_class.name.slice(1)}</p>
 			<p>PP: {pokemonMoveData?.pp}/{pokemonMoveData?.pp}</p>
+			<p>Accuracy: {pokemonMoveData?.accuracy===null? "—":pokemonMoveData?.accuracy}</p>
+			<p>Power: {pokemonMoveData?.power===null? "—":pokemonMoveData?.power}</p>
+			<p>Effect: {pokemonMoveData?.effect_entries[0].short_effect}</p>
+			<p>Prob %: {pokemonMoveData?.effect_chance===null? "—":pokemonMoveData?.effect_chance}</p>
+			<div>
+				<h2>Learned by Pokemon:</h2>
+				<div className="pokemonArray">{pokemonMoveData?.learned_by_pokemon.map(pokemon => (
+					<div style={{margin:'7%', padding: '5%'}}>
+						<PokemonCard pokemon={pokemon?.name}/>
+					</div>
+					))}
+				</div>
+			</div>
+			
 		</div>
 		
 	)
