@@ -10,11 +10,11 @@ body {
 	border-radius: 5px;
 }
 
-.error{
+.error {
 	color: red;
 }
 
-.required{
+.required {
 	font-size: 1.2em;
 }
 
@@ -49,8 +49,7 @@ a {
 			flex-direction: column;
 			.inputs input {
 				width: 93%;
-				height: 35%;
-				max-height: 35% !important;
+				height: 70px;
 				margin-top: 1%;
 				margin-bottom: 3%;
 				border-radius: 4px;
@@ -74,6 +73,9 @@ a {
 				margin-top: -2.5% !important;
 				margin-right: 7% !important;
 			}
+			label {
+				width: 100%;
+			}
 		}
 		.buttons {
 			margin-top: 10%;
@@ -96,7 +98,7 @@ a {
 .signup {
 	margin-top: 5vh;
 	.inputs input {
-		height: 25% !important;
+		height: 70px !important;
 		border: none;
 		&::placeholder {
 			font-style: italic;

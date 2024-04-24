@@ -20,10 +20,10 @@ const Login = () => {
 		criteriaMode: "all",
 	});
 
-	const onSubmit = (data) =>{
+	const onSubmit = (data) => {
 		// fetch statement for the backend
-		console.log(data)
-	}
+		console.log(data);
+	};
 
 	return (
 		<div className="login">
@@ -31,22 +31,28 @@ const Login = () => {
 				<h1>Login</h1>
 				<form className="form" onSubmit={handleSubmit(onSubmit)}>
 					<div className="inputs">
-						<label htmlFor="username">Username <span className="error required">*</span></label>
+						<label htmlFor="usernameEmail">
+							Username or Email <span className="error required">*</span>
+						</label>
 						<input
-							name="username"
+							name="usernameEmail"
 							type="text"
-							placeholder="Username"
-							{...register("username", {
-								required: "Username is required",
-								pattern: {
-									value: /^[a-zA-Z0-9_-]{3,16}$/i,
-									message: "Username is invalid",
+							placeholder="Username or Email"
+							{...register("usernameEmail", {
+								required: "Username or Email is required",
+								validate: (value) => {
+									const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+									const isUsername = /^[a-zA-Z0-9_-]{3,16}$/.test(value);
+
+									if (!isEmail && !isUsername) {
+										return "Invalid username or email";
+									}
 								},
 							})}
 						/>
 						<ErrorMessage
 							errors={errors}
-							name="email"
+							name="usernameEmail"
 							render={({ messages }) =>
 								messages
 									? Object.entries(messages).map(([type, message]) => (
@@ -57,13 +63,15 @@ const Login = () => {
 									: null
 							}
 						/>
-						<label htmlFor="password">Password <span className="error required">*</span></label>
+						<label htmlFor="password">
+							Password <span className="error required">*</span>
+						</label>
 						<input
 							name="password"
 							type={showPassword ? "text" : "password"}
 							placeholder="Password"
 							{...register("password", {
-								required: "Password is required"
+								required: "Password is required",
 							})}
 						/>
 						<i
