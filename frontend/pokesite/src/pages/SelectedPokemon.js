@@ -380,7 +380,7 @@ const SelectedPokemon = () => {
 							</section>
 						</section>
 						<section className="evolutionChainContainer">
-							{evolutionChain.length>0 ? (
+							{evolutionChain ? (
 								<>
 									<h3>Evolution Chain: </h3>
 									<div className="evolutionChain">
