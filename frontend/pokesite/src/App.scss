@@ -10,6 +10,14 @@ body {
 	border-radius: 5px;
 }
 
+.error{
+	color: red;
+}
+
+.required{
+	font-size: 1.2em;
+}
+
 a {
 	color: $teal;
 	&:hover {
@@ -42,6 +50,7 @@ a {
 			.inputs input {
 				width: 93%;
 				height: 35%;
+				max-height: 35% !important;
 				margin-top: 1%;
 				margin-bottom: 3%;
 				border-radius: 4px;
