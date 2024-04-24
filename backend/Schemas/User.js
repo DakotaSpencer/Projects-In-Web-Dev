@@ -8,6 +8,9 @@ const User = {
     userName: {
       type: "string",
     },
+    email: {
+      type: "string",
+    },
     name: {
       type: "string",
     },
@@ -41,6 +44,9 @@ const NewUser = {
     userName: {
       type: "string",
     },
+    email: {
+      type: "string",
+    },
     name: {
       type: "string",
     },
@@ -72,6 +78,9 @@ const UpdateUser = {
   type: "object",
   properties: {
     userName: {
+      type: "string",
+    },
+    email: {
       type: "string",
     },
     name: {
