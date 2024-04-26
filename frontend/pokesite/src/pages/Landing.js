@@ -22,7 +22,7 @@ const Landing = () => {
           }
         });
       }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
     },[pokemonData])
 
   const fetchPokemonData = async () => {

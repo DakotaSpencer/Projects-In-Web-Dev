@@ -339,7 +339,7 @@ const SelectedPokemon = () => {
 												</p>
 											) : (
 												<p>
-													<b>Height</b>: {parseInt(pokemonData.height / 10)}{" "}
+													<b>Height</b>: {parseFloat(pokemonData.height / 10)}{" "}
 													meters
 												</p>
 											)}
