@@ -12,6 +12,7 @@ const NavBarx = () => {
 				<Navbar.Collapse className="justify-content-end">
 					<Nav className="me-auto">
 						<Nav.Link href="/">Home</Nav.Link>
+						<Nav.Link href="/relations">Damage Relations and Type Advantages</Nav.Link>
 						<Nav.Link href="">Link</Nav.Link>
 						<Form className="d-flex" >
 							<Form.Control

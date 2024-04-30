@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './PokemonAbility.scss';
 
 const PokemonAbility = (props) => {
-  console.log("ABILITY: ",props.ability)
+  	console.log("ABILITY: ",props.ability)
 	const [abilityID, setAbilityID] = useState("");
 
 	useEffect(() => {
@@ -20,7 +20,8 @@ const PokemonAbility = (props) => {
 		getMoveType();
 	}, [props.ability]);
   return (
-    <><div className='ability'>
+    <>
+	<div className='ability'>
       <a href={`/ability?ability=${abilityID}`}>
         {
           props.ability.name?.charAt(0).toUpperCase() +

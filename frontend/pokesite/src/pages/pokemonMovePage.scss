@@ -6,9 +6,10 @@
     width: max-content;
     height: max-content;
     color: lighten($light-grey, 20%);
-    margin: 3% auto;
+    margin: auto;
     padding: 6px;
     border-radius: 10px;
+	text-transform: uppercase;
     &.normal {
         color: #333;
 		background-color: #a8a878;
@@ -136,5 +137,8 @@
 			color: $light-grey;
 			align-self: center;
 		}
+	}
+	.damageRelations{
+		text-align: center;
 	}
 }

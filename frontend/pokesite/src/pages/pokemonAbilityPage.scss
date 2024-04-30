@@ -1,0 +1,57 @@
+@import '../index.scss';
+
+.pokemonAbilityArray{
+    display: grid;
+    grid-template-columns: repeat(3, 10rem);
+    justify-content: space-evenly;
+    grid-template-rows: min-content 1fr;
+}
+
+.abilityContainer{
+	width: 90vw;
+	max-width: 90vw !important;
+	margin-bottom: 2%;
+	align-self: center;
+	.abilityInfo{
+		display: flex;
+		justify-content: space-between;
+		align-content: space-between;
+        flex-direction: column
+	}
+	.mainAbilityInfo, .learnedBy{
+		@include flexCenter();
+		flex-direction: column;
+		max-width: 49%;
+		margin-top: 1%;
+		margin-bottom: 1%;
+		background-color: $container-BG;
+		padding: 1%;
+		border-radius: 5px;
+		border: $container-Border;
+		box-shadow: $container-shadow;
+		.inline {
+			display: flex;
+			align-content: space-between !important;
+			justify-content: space-evenly !important;
+			width: 100% !important;
+		}
+		width: 50%;
+		h3{
+			margin-top: 0;
+			margin-left: 0;
+			margin-right: 0;
+			color: $light-grey;
+			align-self: center;
+		}
+	}
+    .mainAbilityInfo{
+        text-align: center;
+        margin: auto;
+        margin-bottom: 2%;
+        margin-top: 2%;
+    }
+	.learnedBy{
+		text-align: center;
+        margin: auto;
+	}
+}

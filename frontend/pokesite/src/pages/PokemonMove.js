@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from 'react-router-dom';
 import './pokemonMovePage.scss';
@@ -11,7 +12,7 @@ const PokemonMove = () => {
 	const [flavorText, setFlavorText] = useState({flavor_text:"no flavor text yet"});
 	const [damageRelations, setDamageRelations] = useState();
 
-	const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+	//const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 	useEffect(() => {
 		setSelectedMove(queryParameters.get("move"));
 		function getMoves() {
@@ -97,7 +98,7 @@ const PokemonMove = () => {
 				</div>
 			</div>
 			<div className="learnedByPokemon">
-				<h2>Learned by Pokemon:</h2>
+				<h2>Learned by ({pokemonMoveData?.learned_by_pokemon.length}) Pokemon:</h2>
 				<div className="pokemonArray">{pokemonMoveData?.learned_by_pokemon.map(pokemon => (
 					<div style={{margin:'7%', padding: '5%'}}>
 						<PokemonCard pokemon={pokemon?.name}/>
