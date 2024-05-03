@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { UserByEmailGSI } = require("./Schemas/User");
 const Utils = require("./util");
 const util = new Utils();
 const {
@@ -41,6 +42,37 @@ class DynamoDAL {
       console.log("ERROR: ", e);
     }
   }
+  async getByUsername(tableName, username) {
+    try {
+      const getItemCommand = new GetItemCommand({
+        TableName: tableName,
+        Key: { userName: { S: username } },
+      });
+      const response = await client.send(getItemCommand);
+      return await { Item: response.Item };
+    } catch (e) {
+      console.log("ERROR: ", e);
+    }
+  }
+  async getByEmail(tableName, email) {
+    try {
+      console.log("email:", email);
+      const queryCommand = new ScanCommand({
+        TableName: tableName,
+        FilterExpression: "#email = :emailValue",
+        ExpressionAttributeNames: {
+          "#email": "email",
+        },
+        ExpressionAttributeValues: {
+          ":emailValue": { S: email },
+        },
+      });
+      const response = await client.send(queryCommand);
+      return await { Item: response.Items[0] };
+    } catch (e) {
+      console.log("ERROR: ", e);
+    }
+  }
   async get(tableName) {
     try {
       const scan = new ScanCommand({ TableName: tableName });
@@ -60,6 +92,7 @@ class DynamoDAL {
         Item: {
           userId: { S: util.generateKey() },
           userName: { S: newUser.userName },
+          email: { S: newUser.email },
           name: { S: newUser.name },
           bio: { S: newUser.bio },
           password: {
