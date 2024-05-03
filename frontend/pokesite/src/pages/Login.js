@@ -78,6 +78,9 @@ const Login = () => {
 							className={`bi bi-eye${showPassword ? "-slash-fill" : "-fill"}`}
 							onClick={() => setShowPassword(!showPassword)}
 						></i>
+						<p className="forgot">
+							<a href="/home">Forgot Password</a>
+						</p>
 						<ErrorMessage
 							errors={errors}
 							name="password"
@@ -95,9 +98,7 @@ const Login = () => {
 									: null
 							}
 						/>
-						<p className="forgot">
-							<a href="/home">Forgot Password</a>
-						</p>
+						
 					</div>
 					<div className="buttons">
 						<button className="signup" onClick={routeChange}>

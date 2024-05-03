@@ -78,7 +78,7 @@ a {
 			}
 		}
 		.buttons {
-			margin-top: 10%;
+			margin-top: 3%;
 			width: 100%;
 			@include flexCenter;
 			.loginBtn {
@@ -96,7 +96,8 @@ a {
 }
 
 .signup {
-	margin-top: 5vh;
+	margin-top: 3vh;
+	margin-bottom: 6%;
 	.inputs input {
 		height: 70px !important;
 		border: none;
@@ -107,7 +108,7 @@ a {
 
 	.borderContainer {
 		.buttons {
-			margin-top: 30%;
+			margin-top: 6%;
 		}
 	}
 }
