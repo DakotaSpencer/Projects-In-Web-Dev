@@ -30,6 +30,36 @@ class DynamoDAL {
       console.log("ERROR with connecting to AWS tables. ERROR: ", e);
     }
   }
+  //CREATE
+  async createUser(tableName, newUser) {
+    // Prepare the new User to be stored to the database
+    // console.log("NEW USER TO CALL DATABASE: ", newUser);
+    try {
+      const params = {
+        TableName: tableName,
+        Item: {
+          userId: { S: util.generateKey() },
+          userName: { S: newUser.userName },
+          email: { S: newUser.email },
+          name: { S: newUser.name },
+          bio: { S: newUser.bio },
+          password: {
+            S: await util.hashPassword(util.saltPassword(newUser.password)),
+          },
+          profilePicture: { S: newUser.profilePicture },
+          caughtPokemon: { SS: ["0"] },
+          featuredPokemon: { SS: ["0"] },
+        },
+      };
+      // Put the item into DynamoDB
+      const command = new PutItemCommand(params);
+      const response = await client.send(command);
+      return response;
+    } catch (e) {
+      console.log("ERROR WITH CREATE: ", e);
+    }
+  }
+  //READ
   async getById(tableName, id) {
     try {
       const getItemCommand = new GetItemCommand({
@@ -102,35 +132,9 @@ class DynamoDAL {
       console.log("ERROR: ", e);
     }
   }
-  async createUser(tableName, newUser) {
-    // Prepare the new User to be stored to the database
-    // console.log("NEW USER TO CALL DATABASE: ", newUser);
-    try {
-      const params = {
-        TableName: tableName,
-        Item: {
-          userId: { S: util.generateKey() },
-          userName: { S: newUser.userName },
-          email: { S: newUser.email },
-          name: { S: newUser.name },
-          bio: { S: newUser.bio },
-          password: {
-            S: await util.hashPassword(util.saltPassword(newUser.password)),
-          },
-          profilePicture: { S: newUser.profilePicture },
-          caughtPokemon: { SS: ["0"] },
-          featuredPokemon: { SS: ["0"] },
-        },
-      };
-      // Put the item into DynamoDB
-      const command = new PutItemCommand(params);
-      const response = await client.send(command);
-      return response;
-    } catch (e) {
-      console.log("ERROR WITH CREATE: ", e);
-    }
-  }
-
+  //UPDATE
+  //PUT
+  //DELETE
   async deleteUser(tableName, id) {
     try {
       const params = {

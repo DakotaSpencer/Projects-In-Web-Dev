@@ -2,6 +2,8 @@ const express = require("express");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
 const { User, NewUser, UpdateUser } = require("./Schemas/User");
+const cors = require("cors");
+
 //Swagger setup go... https://www.youtube.com/watch?v=eiSem0cqaN0
 //AWS setup go...https://www.youtube.com/watch?v=YJvXHr69AHg
 
@@ -12,6 +14,7 @@ const util = new Utils();
 const app = express();
 app.use(express.json());
 app.use("/user", userRouter);
+app.use(cors());
 
 const swaggerOptions = {
   swaggerDefinition: {
