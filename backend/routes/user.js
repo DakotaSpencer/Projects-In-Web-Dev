@@ -39,7 +39,7 @@ router.get("/email/get", async (req, res) => {
   res.send(await user);
 });
 router.get("/username/get", async (req, res) => {
-  const username = req.params.username;
+  const username = req.body.username;
   const response = await DAL.getTables();
   const user = await DAL.getByUsername(await response.tables[0], username);
   res.send(await user);

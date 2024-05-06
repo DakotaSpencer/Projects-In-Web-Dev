@@ -44,20 +44,32 @@ class DynamoDAL {
   }
   async getByUsername(tableName, username) {
     try {
-      const getItemCommand = new GetItemCommand({
+      const scanCommand = new ScanCommand({
         TableName: tableName,
-        Key: { userName: { S: username } },
+        FilterExpression: "#userName = :userNameValue",
+        ExpressionAttributeNames: {
+          "#userName": "userName",
+        },
+        ExpressionAttributeValues: {
+          ":userNameValue": { S: username },
+        },
       });
-      const response = await client.send(getItemCommand);
-      return await { Item: response.Item };
+
+      const response = await client.send(scanCommand);
+
+      if (response.Items.length > 0) {
+        return { Item: response.Items[0] };
+      } else {
+        return null;
+      }
     } catch (e) {
-      console.log("ERROR: ", e);
+      console.error("ERROR: ", e);
+      throw e;
     }
   }
   async getByEmail(tableName, email) {
     try {
-      console.log("email:", email);
-      const queryCommand = new ScanCommand({
+      const scanCommand = new ScanCommand({
         TableName: tableName,
         FilterExpression: "#email = :emailValue",
         ExpressionAttributeNames: {
@@ -67,10 +79,17 @@ class DynamoDAL {
           ":emailValue": { S: email },
         },
       });
-      const response = await client.send(queryCommand);
-      return await { Item: response.Items[0] };
+
+      const response = await client.send(scanCommand);
+
+      if (response.Items.length > 0) {
+        return { Item: response.Items[0] };
+      } else {
+        return null;
+      }
     } catch (e) {
-      console.log("ERROR: ", e);
+      console.error("ERROR: ", e);
+      throw e;
     }
   }
   async get(tableName) {
