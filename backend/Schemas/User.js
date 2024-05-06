@@ -110,4 +110,13 @@ const UpdateUser = {
   },
 };
 
-module.exports = { User, NewUser, UpdateUser };
+const UserByEmailGSI = {
+  type: "object",
+  properties: {
+    email: {
+      type: "string",
+    },
+  },
+};
+
+module.exports = { User, NewUser, UpdateUser, UserByEmailGSI };
