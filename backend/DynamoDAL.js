@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { UserByEmailGSI } = require("./Schemas/User");
 const Utils = require("./util");
 const util = new Utils();
 const {
@@ -29,28 +30,7 @@ class DynamoDAL {
       console.log("ERROR with connecting to AWS tables. ERROR: ", e);
     }
   }
-  async getById(tableName, id) {
-    try {
-      const getItemCommand = new GetItemCommand({
-        TableName: tableName,
-        Key: { userId: { S: id } },
-      });
-      const response = await client.send(getItemCommand);
-      return await { Item: response.Item };
-    } catch (e) {
-      console.log("ERROR: ", e);
-    }
-  }
-  async get(tableName) {
-    try {
-      const scan = new ScanCommand({ TableName: tableName });
-      const response = await client.send(scan);
-      console.log("Scan response:", response);
-      return response;
-    } catch (e) {
-      console.log("ERROR: ", e);
-    }
-  }
+  //CREATE
   async createUser(tableName, newUser) {
     // Prepare the new User to be stored to the database
     // console.log("NEW USER TO CALL DATABASE: ", newUser);
@@ -79,7 +59,82 @@ class DynamoDAL {
       console.log("ERROR WITH CREATE: ", e);
     }
   }
+  //READ
+  async getById(tableName, id) {
+    try {
+      const getItemCommand = new GetItemCommand({
+        TableName: tableName,
+        Key: { userId: { S: id } },
+      });
+      const response = await client.send(getItemCommand);
+      return await { Item: response.Item };
+    } catch (e) {
+      console.log("ERROR: ", e);
+    }
+  }
+  async getByUsername(tableName, username) {
+    try {
+      const scanCommand = new ScanCommand({
+        TableName: tableName,
+        FilterExpression: "#userName = :userNameValue",
+        ExpressionAttributeNames: {
+          "#userName": "userName",
+        },
+        ExpressionAttributeValues: {
+          ":userNameValue": { S: username },
+        },
+      });
 
+      const response = await client.send(scanCommand);
+
+      if (response.Items.length > 0) {
+        return { Item: response.Items[0] };
+      } else {
+        return null;
+      }
+    } catch (e) {
+      console.error("ERROR: ", e);
+      throw e;
+    }
+  }
+  async getByEmail(tableName, email) {
+    try {
+      const scanCommand = new ScanCommand({
+        TableName: tableName,
+        FilterExpression: "#email = :emailValue",
+        ExpressionAttributeNames: {
+          "#email": "email",
+        },
+        ExpressionAttributeValues: {
+          ":emailValue": { S: email },
+        },
+      });
+
+      const response = await client.send(scanCommand);
+
+      if (response.Items.length > 0) {
+        return { Item: response.Items[0] };
+      } else {
+        return null;
+      }
+    } catch (e) {
+      console.error("ERROR: ", e);
+      throw e;
+    }
+  }
+  async get(tableName) {
+    try {
+      const scan = new ScanCommand({ TableName: tableName });
+      const response = await client.send(scan);
+      console.log("Scan response:", response);
+      return response;
+    } catch (e) {
+      console.log("ERROR: ", e);
+    }
+  }
+  //UPDATE
+  //PUT
+  //DELETE
   async deleteUser(tableName, id) {
     try {
       const params = {
