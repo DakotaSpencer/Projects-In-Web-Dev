@@ -60,6 +60,7 @@ class DynamoDAL {
         Item: {
           userId: { S: util.generateKey() },
           userName: { S: newUser.userName },
+          email: { S: newUser.email },
           name: { S: newUser.name },
           bio: { S: newUser.bio },
           password: {
