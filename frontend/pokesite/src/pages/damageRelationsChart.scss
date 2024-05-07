@@ -33,3 +33,140 @@ td{
     text-wrap: wrap;
     word-wrap: break-word;
 }
+.perfectSquare {
+    width: 40px; /* Set the width and height to create a square */
+    height: 40px;
+    border: 1px solid black; /* Add border for better visualization */
+    display: flex;
+    justify-content: center; /* Center the text horizontally */
+    align-items: center; /* Center the text vertically */
+    &.double{
+        background-color: green;
+        color: white;
+        border: 1px solid white;
+    }
+    &.normal{
+        background-color: white;
+        color: black;
+        border: 1px solid white;
+    }
+    &.half{
+        background-color: red;
+        color: white;
+        border: 1px solid white;
+    }
+    &.none{
+        background-color: black;
+        color: white;
+        border: 1px solid white;
+    }
+}
+
+.double{
+    font-size: 20px;
+    background-color: green;
+    color: white;
+    border: 1px solid white;
+}
+.normaldmg{
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    border: 1px solid white;
+}
+.half{
+    font-size: 20px;
+    background-color: darken(red, 10%);
+    color: white;
+    border: 1px solid white;
+}
+.quarter{
+    font-size: 20px;
+    background-color: darken(red, 20%);
+    color: white;
+    border: 1px solid white;
+}
+.none{
+    font-size: 20px;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+}
+
+.centeredText {
+margin: 0; /* Remove default margin for better centering */
+}
+
+.howToUse{
+    padding: 5%;
+}
+
+.dropShadow{
+    &.normal {
+        color: #333;
+		filter: drop-shadow(0 1mm 2mm #a8a878);
+	}
+	&.fire {
+        color: #333;
+		filter: drop-shadow(0 1mm 2mm #f08030);
+	}
+	&.water {
+        filter: drop-shadow(0 1mm 2mm #6890f0);
+	}
+	&.electric {
+        color: #333;
+        filter: drop-shadow(0 1mm 2mm #f8d030);
+	}
+	&.grass {
+        color: #333;
+        filter: drop-shadow(0 1mm 2mm #78c850);
+	}
+	&.ice {
+        color: #333;
+        filter: drop-shadow(0 1mm 2mm #98d8d8);
+	}
+	&.fighting {
+        filter: drop-shadow(0 1mm 2mm #c03028);
+	}
+	&.poison {
+        filter: drop-shadow(0 1mm 2mm #a040a0);
+	}
+	&.ground {
+        color: #333;
+        filter: drop-shadow(0 1mm 2mm #e0c068);
+	}
+	&.flying {
+        color: #333;
+        filter: drop-shadow(0 1mm 2mm #a890f0);
+	}
+	&.psychic {
+        filter: drop-shadow(0 1mm 2mm #f85888);
+	}
+	&.bug {
+        color: #333;
+        filter: drop-shadow(0 1mm 2mm #a8b820);
+	}
+	&.rock {
+        filter: drop-shadow(0 1mm 2mm #b8a038);
+	}
+	&.ghost {
+        filter: drop-shadow(0 1mm 2mm #705898);
+	}
+	&.dragon {
+        filter: drop-shadow(0 1mm 2mm #7038f8);
+	}
+	&.dark {
+        filter: drop-shadow(0 1mm 2mm #705848);
+	}
+	&.steel {
+        color: #333;
+        filter: drop-shadow(0 1mm 2mm #b8b8d0);
+	}
+	&.fairy {
+        color: #333;
+        filter: drop-shadow(0 1mm 2mm #f0b6bc);
+	}
+	&.stellar {
+        filter: drop-shadow(0 1mm 2mm #35ace7);
+	}
+}
