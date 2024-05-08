@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const DynamoDAL = require("../DynamoDAL");
 const Utils = require("../util");
+const { profileEnums } = require("../enums/profileEnums");
 const DAL = new DynamoDAL();
 const util = new Utils();
 
@@ -181,7 +182,7 @@ router.put("/email/put", async (req, res) => {
       const create = await DAL.putUser(
         response.tables[0],
         req.body.userId,
-        "email",
+        profileEnums.email,
         req.body.email
       );
       return res.json({ Message: "SUCCESS", Response: create });
@@ -201,7 +202,7 @@ router.put("/username/put", async (req, res) => {
       const create = await DAL.putUser(
         response.tables[0],
         req.body.userId,
-        "userName",
+        profileEnums.username,
         req.body.username
       );
       return res.json({ Message: "SUCCESS", Response: create });
@@ -225,7 +226,7 @@ router.put("/password/put", async (req, res) => {
       const create = await DAL.putUser(
         response.tables[0],
         req.body.userId,
-        "password",
+        profileEnums.password,
         secretPassword
       );
       return res.json({ Message: "SUCCESS", Response: create });
@@ -245,7 +246,7 @@ router.put("/profilePicture/put", async (req, res) => {
       const create = await DAL.putUser(
         response.tables[0],
         req.body.userId,
-        "profilePicture",
+        profileEnums.profilePicture,
         req.body.profilePicture
       );
       return res.json({ Message: "SUCCESS", Response: create });
@@ -266,7 +267,7 @@ router.put("/bio/put", async (req, res) => {
       const create = await DAL.putUser(
         response.tables[0],
         req.body.userId,
-        "bio",
+        profileEnums.bio,
         req.body.bio
       );
       return res.json({ Message: "SUCCESS", Response: create });
@@ -286,7 +287,7 @@ router.put("/name/put", async (req, res) => {
       const create = await DAL.putUser(
         response.tables[0],
         req.body.userId,
-        "name",
+        profileEnums.name,
         req.body.name
       );
       return res.json({ Message: "SUCCESS", Response: create });
