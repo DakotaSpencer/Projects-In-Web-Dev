@@ -9,6 +9,7 @@ const {
   ScanCommand,
   PutItemCommand,
   DeleteItemCommand,
+  UpdateItemCommand,
 } = require("@aws-sdk/client-dynamodb");
 
 const client = new DynamoDBClient({
@@ -134,6 +135,32 @@ class DynamoDAL {
   }
   //UPDATE
   //PUT
+  async putUser(tableName, id, key, value) {
+    try {
+      const updateCommand = new UpdateItemCommand({
+        TableName: tableName,
+        Key: {
+          userId: { S: id },
+        },
+        UpdateExpression: `SET #attr = :val`,
+        ExpressionAttributeNames: {
+          "#attr": key,
+        },
+        ExpressionAttributeValues: {
+          ":val": { S: value },
+        },
+        ReturnValues: "ALL_NEW",
+      });
+
+      const response = await client.send(updateCommand);
+
+      console.log(`UserId <${id}> ${key} updated successfully.`);
+      return response.Attributes;
+    } catch (error) {
+      console.error("ERROR: ", error);
+      throw error;
+    }
+  }
   //DELETE
   async deleteUser(tableName, id) {
     try {
