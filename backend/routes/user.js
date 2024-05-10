@@ -36,6 +36,7 @@ router.get("/email/get", async (req, res) => {
   const email = req.body.email;
   const response = await DAL.getTables();
   const user = await DAL.getByEmail(await response.tables[0], email);
+  console.log(user)
   res.send(await user);
 });
 router.get("/username/get", async (req, res) => {

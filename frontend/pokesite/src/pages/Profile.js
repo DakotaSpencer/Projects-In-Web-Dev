@@ -23,7 +23,7 @@ const Profile = () => {
 	}
 
 	function getUserInfo() {
-		fetch(`http://localhost:5000/user/0495bda8-33c0-4014-af42-5c74ba38646e`, {
+		fetch(`http://localhost:5000/user/ca1ac63c-cbb9-486a-913a-87c2900b5f64`, {
 			method: "GET",
 		})
 			.then((r) => r.json())
@@ -70,7 +70,7 @@ const Profile = () => {
 							</form>
 						) : (
 							<div>
-								<h3>Email: [email]</h3>
+								<h3>Email: {user.email.S}</h3>
 								<h3>Bio: {user.bio.S}</h3>
 								<h3>Extra Things: [extra]</h3>
 							</div>
@@ -80,7 +80,7 @@ const Profile = () => {
 				<div className="party">
 					<h1>Party</h1>
 					<div className="allPokemonParty">
-						{pokemon?.length !== 0 ? (
+						{pokemon?.length > 0 ? (
 							pokemon?.map((item) => (
 								// change later to a component?
 								<div className="pokemonParty">

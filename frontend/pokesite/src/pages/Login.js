@@ -21,7 +21,7 @@ const Login = () => {
 	});
 
 	const onSubmit = (data) => {
-		// fetch statement for the backend
+		
 		console.log(data);
 	};
 
