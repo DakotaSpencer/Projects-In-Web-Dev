@@ -60,9 +60,9 @@ const DamageRelations = () => {
             <div className='howToUse'>
                 <h3>
                     How to use these charts:
-                </h3>
+                </h3><p>For the default chart, look down the left hand side to find the attacking type, then move across to see how effective it is against each type!</p>
                 <p>For Dual Type charts, look across the top to find the attacking type, then move down to see how effective it is against each type!</p>
-                <p>For the default chart, look down the left hand side to find the attacking type, then move across to see how effective it is against each type!</p>
+                
             </div>
             <div style={{padding:"2%",display:"flex", justifyContent: "space-evenly", flexDirection:"row"}}>
                 <div style={{padding:"1%"}} className='perfectSquare double'><p className='centeredText'>x2</p></div> Super Effective (Double Damage)
@@ -72,7 +72,7 @@ const DamageRelations = () => {
             </div>
             <div className='typeChart' style={{padding:"2%"}}>
                 {
-                    typeChart==="default" || typeChart==="Default"?<DefaultTC/>:
+                    typeChart.toLowerCase()==="default"?<DefaultTC/>:
                     <TypeChartComponent type={typeChart}/>
                 }
                 
