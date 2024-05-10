@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react'
 import { useSearchParams } from 'react-router-dom';
 import PokemonCard from '../components/PokemonCard';

@@ -32,15 +32,15 @@ router.get("/:id", async (req, res) => {
   const user = await DAL.getById(await response.tables[0], userId);
   res.send(await user);
 });
-router.get("/email/get", async (req, res) => {
-  const email = req.body.email;
+router.get("/email/get/:email", async (req, res) => {
+  const email = req.params.email;
   const response = await DAL.getTables();
   const user = await DAL.getByEmail(await response.tables[0], email);
   console.log(user)
   res.send(await user);
 });
-router.get("/username/get", async (req, res) => {
-  const username = req.body.username;
+router.get("/username/get/:username", async (req, res) => {
+  const username = req.params.username;
   const response = await DAL.getTables();
   const user = await DAL.getByUsername(await response.tables[0], username);
   res.send(await user);
@@ -203,6 +203,28 @@ router.delete("/remove/:id", async (req, res) => {
     });
   } catch (e) {
     res.json({ Message: e });
+  }
+});
+
+router.get("/validate/password", async (req, res) => {
+  const inputPassword = req.body.inputPassword;
+  const hashedPassword = req.body.hashedPassword;
+
+  console.log(inputPassword, hashedPassword);
+  if (inputPassword && hashedPassword) {
+    const message = await util.comparePasswords(
+      util.saltPassword(inputPassword),
+      hashedPassword
+    );
+    res.send({
+      status: 200,
+      Message: message,
+    });
+  } else {
+    res.send({
+      stats: 403,
+      Message: "Please send over the inputPassword and the hashedPassword",
+    });
   }
 });
 
