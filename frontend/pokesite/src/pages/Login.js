@@ -21,8 +21,32 @@ const Login = () => {
 	});
 
 	const onSubmit = (data) => {
-		
-		console.log(data);
+		const { usernameEmail, password } = data;
+		const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(usernameEmail);
+		let loginRoute
+		const formData = {
+			[isEmail ? "email" : "username"]: usernameEmail,
+			password: password
+		};
+	
+		if (isEmail) {
+			loginRoute = `http://localhost:5000/user/email/get`;
+			
+			console.log("Logging in with email:", usernameEmail);
+		} else {
+			loginRoute = `http://localhost:5000/user/username/get`;
+			console.log("Logging in with username:", usernameEmail);
+		}
+
+		fetch(loginRoute, {
+			method: "GET",
+			body: formData
+		})
+			.then((r) => r.json())
+			.then((data) => {
+				console.log(data)
+			})
+			.catch((err) => console.log(err));
 	};
 
 	return (
