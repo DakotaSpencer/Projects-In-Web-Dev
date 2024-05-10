@@ -1,0 +1,167 @@
+@import "../index.scss";
+
+.pokemonCard {
+	width: 150px;
+	margin: 5%;
+	border-radius: 250px;
+	max-height: 225px;
+	display: block;
+	position: relative;
+}
+
+a {
+	text-decoration: none !important;
+	color: $light-grey !important;
+	&:active {
+		color: $light-grey !important;
+	}
+	&:visited {
+		color: $light-grey !important;
+	}
+}
+
+.overlay {
+	border-radius: 25px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 111%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.cardName {
+	margin-top: 10%;
+}
+
+.cardNameContainer {
+	text-align: center;
+	background-color: $red;
+	width: 100%;
+	border-radius: 25px 25px 0px 0px;
+	display: inline-block;
+	height: 25%;
+	margin-bottom: 10%;
+	vertical-align: top;
+}
+
+.pokemonCardTypes {
+	background-color: $light-grey;
+	height: 25%;
+	border-radius: 0 0 25px 25px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	vertical-align: bottom;
+	margin-top: 5%;
+}
+
+.pokemonCardType {
+	padding: 6px;
+	color: lighten($light-grey, 20%);
+	border-radius: 10px;
+	margin-top: 10%;
+	&.normal {
+        color: #333;
+		background-color: #a8a878;
+        border: 2px darken($color: #a8a878, $amount: 20) solid;
+	}
+	&.fire {
+        color: #333;
+		background-color: #f08030;
+        border: 2px darken($color: #f08030, $amount: 20) solid;
+	}
+	&.water {
+		background-color: #6890f0;
+        border: 2px darken($color: #6890f0, $amount: 20) solid;
+	}
+	&.electric {
+        color: #333;
+		background-color: #f8d030;
+        border: 2px darken($color: #f8d030, $amount: 20) solid;
+	}
+	&.grass {
+        color: #333;
+		background-color: #78c850;
+        border: 2px darken($color: #78c850, $amount: 20) solid;
+	}
+	&.ice {
+        color: #333;
+		background-color: #98d8d8;
+        border: 2px darken($color: #98d8d8, $amount: 20) solid;
+	}
+	&.fighting {
+		background-color: #c03028;
+        border: 2px darken($color: #c03028, $amount: 20) solid;
+	}
+	&.poison {
+		background-color: #a040a0;
+        border: 2px darken($color: #a040a0, $amount: 20) solid;
+	}
+	&.ground {
+        color: #333;
+		background-color: #e0c068;
+        border: 2px darken($color: #e0c068, $amount: 20) solid;
+	}
+	&.flying {
+        color: #333;
+		background-color: #a890f0;
+        border: 2px darken($color: #a890f0, $amount: 20) solid;
+	}
+	&.psychic {
+		background-color: #f85888;
+        border: 2px darken($color: #f85888, $amount: 20) solid;
+	}
+	&.bug {
+        color: #333;
+		background-color: #a8b820;
+        border: 2px darken($color: #a8b820, $amount: 20) solid;
+	}
+	&.rock {
+		background-color: #b8a038;
+        border: 2px darken($color: #b8a038, $amount: 20) solid;
+	}
+	&.ghost {
+		background-color: #705898;
+        border: 2px darken($color: #705898, $amount: 20) solid;
+	}
+	&.dragon {
+		background-color: #7038f8;
+        border: 2px darken($color: #7038f8, $amount: 20) solid;
+	}
+	&.dark {
+		background-color: #705848;
+        border: 2px darken($color: #705848, $amount: 20) solid;
+	}
+	&.steel {
+        color: #333;
+		background-color: #b8b8d0;
+        border: 2px darken($color: #b8b8d0, $amount: 20) solid;
+	}
+	&.fairy {
+        color: #333;
+		background-color: #f0b6bc;
+        border: 2px darken($color: #f0b6bc, $amount: 20) solid;
+	}
+	&.stellar {
+		background-color: #35ace7;
+        border: 2px darken($color: #35ace7, $amount: 20) solid;
+	}
+	&.stellar {
+		background-color: #35ace7;
+        border: 2px darken($color: #35ace7, $amount: 20) solid;
+	}
+}
+
+.pokemonCardImage {
+	margin: auto;
+	align-self: center;
+	display: block;
+}
+
+.pokemonCardImageContainer {
+	align-items: center;
+	text-align: center;
+}

@@ -1,0 +1,242 @@
+@import "../index.scss";
+
+.pokemonName {
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	color: $light-grey;
+}
+
+.changeSystem{
+	cursor: pointer;
+}
+
+.evolutionChain {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-content: start;
+}
+
+.pokemonTypes {
+	margin-top: -2%;
+	@include flexCenter();
+}
+
+.pokemonType {
+	padding: 6px;
+	margin: 10px;
+	color: lighten($light-grey, 20%);
+	border-radius: 10px;
+	height: max-content;
+	align-self: center;
+	&.normal {
+        color: #333;
+		background-color: #a8a878;
+        border: 2px darken($color: #a8a878, $amount: 30) solid;
+	}
+	&.fire {
+        color: #333;
+		background-color: #f08030;
+        border: 2px darken($color: #f08030, $amount: 30) solid;
+	}
+	&.water {
+		background-color: #6890f0;
+        border: 2px darken($color: #6890f0, $amount: 30) solid;
+	}
+	&.electric {
+        color: #333;
+		background-color: #f8d030;
+        border: 2px darken($color: #f8d030, $amount: 30) solid;
+	}
+	&.grass {
+        color: #333;
+		background-color: #78c850;
+        border: 2px darken($color: #78c850, $amount: 30) solid;
+	}
+	&.ice {
+        color: #333;
+		background-color: #98d8d8;
+        border: 2px darken($color: #98d8d8, $amount: 30) solid;
+	}
+	&.fighting {
+		background-color: #c03028;
+        border: 2px darken($color: #c03028, $amount: 30) solid;
+	}
+	&.poison {
+		background-color: #a040a0;
+        border: 2px darken($color: #a040a0, $amount: 30) solid;
+	}
+	&.ground {
+        color: #333;
+		background-color: #e0c068;
+        border: 2px darken($color: #e0c068, $amount: 30) solid;
+	}
+	&.flying {
+        color: #333;
+		background-color: #a890f0;
+        border: 2px darken($color: #a890f0, $amount: 30) solid;
+	}
+	&.psychic {
+		background-color: #f85888;
+        border: 2px darken($color: #f85888, $amount: 30) solid;
+	}
+	&.bug {
+        color: #333;
+		background-color: #a8b820;
+        border: 2px darken($color: #a8b820, $amount: 30) solid;
+	}
+	&.rock {
+		background-color: #b8a038;
+        border: 2px darken($color: #b8a038, $amount: 30) solid;
+	}
+	&.ghost {
+		background-color: #705898;
+        border: 2px darken($color: #705898, $amount: 30) solid;
+	}
+	&.dragon {
+		background-color: #7038f8;
+        border: 2px darken($color: #7038f8, $amount: 30) solid;
+	}
+	&.dark {
+		background-color: #705848;
+        border: 2px darken($color: #705848, $amount: 30) solid;
+	}
+	&.steel {
+        color: #333;
+		background-color: #b8b8d0;
+        border: 2px darken($color: #b8b8d0, $amount: 30) solid;
+	}
+	&.fairy {
+        color: #333;
+		background-color: #f0b6bc;
+        border: 2px darken($color: #f0b6bc, $amount: 30) solid;
+	}
+	&.stellar {
+		background-color: #35ace7;
+        border: 2px darken($color: #35ace7, $amount: 30) solid;
+	}
+	&.stellar {
+		background-color: #35ace7;
+        border: 2px darken($color: #35ace7, $amount: 30) solid;
+	}
+}
+
+.pages{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+}
+
+.pokemonHW{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-content: space-evenly;
+}
+
+.pokemonChart{
+	color: $light-grey;
+}
+
+.pokemonContainer {
+	width: 90vw;
+	max-width: 90vw !important;
+	margin-bottom: 2%;
+	align-self: center;
+	.pokeInfo {
+		display: flex;
+		justify-content: space-between;
+		align-content: space-between;
+	}
+	.mainPokemonInfo, .statisticsContainer {
+		@include flexCenter();
+		flex-direction: column;
+		max-width: 49%;
+		margin-top: 1%;
+		margin-bottom: 1%;
+		background-color: $container-BG;
+		padding: 1%;
+		border-radius: 5px;
+		border: $container-Border;
+		box-shadow: $container-shadow;
+		.inline {
+			display: flex;
+			align-content: space-between !important;
+			justify-content: space-evenly !important;
+			width: 100% !important;
+		}
+	}
+
+	.statisticsContainer{
+		width: 50%;
+		h3{
+			margin-top: 0;
+			margin-left: 0;
+			margin-right: 0;
+			color: $light-grey;
+		}
+	}
+	.evolutionChainContainer{
+		@include flexCenter();
+		flex-direction: column;
+		max-width: 80%;
+		margin-top: 1%;
+		margin-bottom: 1%;
+		background-color: $container-BG;
+		padding: 1%;
+		padding-bottom: 3%;
+		border-radius: 5px;
+		border: $container-Border;
+		box-shadow: $container-shadow;
+		justify-self: center;
+		margin: auto;
+		width: 80%;
+		h3{
+			margin-top: 0;
+			margin-left: 0;
+			margin-right: 0;
+			color: $light-grey;
+		}
+	}
+}
+
+.mainPokemonInfo > .pokemoninfo {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	flex-direction: column;
+	padding: 1%;
+}
+
+.pokemonImage > img {
+	margin-left: 15%;
+}
+
+.flavorText {
+	@include flexCenter();
+	max-width: 100%;
+	word-wrap: normal;
+}
+
+.movesContainer {
+	display: flex;
+	flex-direction: row;
+	// grid-template-columns: repeat(5, 10rem);
+	justify-content: space-evenly;
+	// grid-template-rows: min-content 1fr;
+}
+
+.abilitiesContainer {
+	width: inherit;
+	max-width: inherit;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+.pokeInfo, .evolutionChainContainer, .pokemonAbilities, .pokemonMoves{
+	margin-top: 1% !important;
+}
