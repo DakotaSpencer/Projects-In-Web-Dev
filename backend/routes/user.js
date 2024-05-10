@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const DynamoDAL = require("../DynamoDAL");
+const Utils = require("../util");
+const { profileEnums } = require("../enums/profileEnums");
 const DAL = new DynamoDAL();
+const util = new Utils();
 
 /**
  * @swagger
@@ -171,6 +174,131 @@ router.patch("/", async (req, res) => {
   //         res.status(500).send(error);
   //       };
   //   });
+});
+router.put("/email/put", async (req, res) => {
+  try {
+    const response = await DAL.getTables();
+    if (req.body.email && req.body.userId) {
+      const create = await DAL.putUser(
+        response.tables[0],
+        req.body.userId,
+        profileEnums.email,
+        req.body.email
+      );
+      return res.json({ Message: "SUCCESS", Response: create });
+    } else {
+      return res.json({
+        Message: "Need to have an email or userId value in request body",
+      });
+    }
+  } catch (e) {
+    return res.json({ Message: "ERROR: " + e });
+  }
+});
+router.put("/username/put", async (req, res) => {
+  try {
+    const response = await DAL.getTables();
+    if (req.body.username && req.body.userId) {
+      const create = await DAL.putUser(
+        response.tables[0],
+        req.body.userId,
+        profileEnums.username,
+        req.body.username
+      );
+      return res.json({ Message: "SUCCESS", Response: create });
+    } else {
+      return res.json({
+        Message: "Need to have an username or userId value in request body",
+      });
+    }
+  } catch (e) {
+    return res.json({ Message: "ERROR: " + e });
+  }
+});
+router.put("/password/put", async (req, res) => {
+  try {
+    const response = await DAL.getTables();
+    if (req.body.password && req.body.userId) {
+      const secretPassword = await util.hashPassword(
+        util.saltPassword(req.body.password)
+      );
+
+      const create = await DAL.putUser(
+        response.tables[0],
+        req.body.userId,
+        profileEnums.password,
+        secretPassword
+      );
+      return res.json({ Message: "SUCCESS", Response: create });
+    } else {
+      return res.json({
+        Message: "Need to have a password or userId value in request body",
+      });
+    }
+  } catch (e) {
+    return res.json({ Message: "ERROR: " + e });
+  }
+});
+router.put("/profilePicture/put", async (req, res) => {
+  try {
+    const response = await DAL.getTables();
+    if (req.body.profilePicture && req.body.userId) {
+      const create = await DAL.putUser(
+        response.tables[0],
+        req.body.userId,
+        profileEnums.profilePicture,
+        req.body.profilePicture
+      );
+      return res.json({ Message: "SUCCESS", Response: create });
+    } else {
+      return res.json({
+        Message:
+          "Need to have a profilePicture or userId value in request body",
+      });
+    }
+  } catch (e) {
+    return res.json({ Message: "ERROR: " + e });
+  }
+});
+router.put("/bio/put", async (req, res) => {
+  try {
+    const response = await DAL.getTables();
+    if (req.body.bio && req.body.userId) {
+      const create = await DAL.putUser(
+        response.tables[0],
+        req.body.userId,
+        profileEnums.bio,
+        req.body.bio
+      );
+      return res.json({ Message: "SUCCESS", Response: create });
+    } else {
+      return res.json({
+        Message: "Need to have a bio or userId value in request body",
+      });
+    }
+  } catch (e) {
+    return res.json({ Message: "ERROR: " + e });
+  }
+});
+router.put("/name/put", async (req, res) => {
+  try {
+    const response = await DAL.getTables();
+    if (req.body.name && req.body.userId) {
+      const create = await DAL.putUser(
+        response.tables[0],
+        req.body.userId,
+        profileEnums.name,
+        req.body.name
+      );
+      return res.json({ Message: "SUCCESS", Response: create });
+    } else {
+      return res.json({
+        Message: "Need to have a name or userId value in request body",
+      });
+    }
+  } catch (e) {
+    return res.json({ Message: "ERROR: " + e });
+  }
 });
 /**
  * @swagger
