@@ -205,4 +205,26 @@ router.delete("/remove/:id", async (req, res) => {
   }
 });
 
+router.get("/validate/password", async (req, res) => {
+  const inputPassword = req.body.inputPassword;
+  const hashedPassword = req.body.hashedPassword;
+
+  console.log(inputPassword, hashedPassword);
+  if (inputPassword && hashedPassword) {
+    const message = await util.comparePasswords(
+      util.saltPassword(inputPassword),
+      hashedPassword
+    );
+    res.send({
+      status: 200,
+      Message: message,
+    });
+  } else {
+    res.send({
+      stats: 403,
+      Message: "Please send over the inputPassword and the hashedPassword",
+    });
+  }
+});
+
 module.exports = router;
