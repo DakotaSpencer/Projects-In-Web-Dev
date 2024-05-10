@@ -334,7 +334,7 @@ router.delete("/remove/:id", async (req, res) => {
   }
 });
 
-router.get("/validate/password", async (req, res) => {
+router.post("/validate/password", async (req, res) => {
   const inputPassword = req.body.inputPassword;
   const hashedPassword = req.body.hashedPassword;
 
