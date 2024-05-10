@@ -6,6 +6,9 @@ $teal: #43b2c8ff;
 $teal2: #296f7c;
 $light-grey: #e5e5e5ff;
 $grey-hover: #bdbdbd;
+$container-BG: #222121;
+$container-Border: 2px #1c1b1b solid;
+$container-shadow: 1px 1px 3px #1c1b1b;
 
 // Other vars
 
@@ -20,17 +23,47 @@ $grey-hover: #bdbdbd;
 }
 
 @mixin buttons($bgColor, $txtColor) {
-	padding: 1%;
+	padding: 2%;
 	border-radius: 5px;
 	background-color: $bgColor !important;
 	color: $txtColor !important;
 	border: none;
 	text-align: center;
+	align-self: center;
 	text-decoration: none;
-	display: inline-block;
 	font-size: 16px;
 	transition: background-color 0.3s !important;
 	&:hover {
 		background-color: darken($bgColor, 15%) !important;
+	}
+}
+
+@mixin container(){
+	background-color: $container-BG;
+    border: $container-Border;
+    border-radius: 5px;
+    box-shadow: $container-shadow;
+    padding: 1%;
+    margin: 2%;
+}
+
+.loader {
+	margin: auto;
+	margin-top: 10%;
+	border: 60px solid $light-grey;
+	border-radius: 50%;
+	border-top: 60px solid $red;
+	border-left: 60px solid $red;
+	width: 200px;
+	height: 200px;
+	animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
 	}
 }

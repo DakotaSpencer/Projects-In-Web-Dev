@@ -6,7 +6,7 @@ body {
 }
 
 .borderContainer {
-	border: 2px #1c1b1b solid;
+	border: $container-Border;
 	border-radius: 5px;
 }
 
@@ -40,10 +40,9 @@ a {
 		h1 {
 			margin-bottom: 2%;
 		}
+		@include container;
 		padding: 3%;
 		width: 45%;
-		background-color: #222121;
-		box-shadow: 1px 1px 3px #1c1b1b;
 		.form {
 			@include flexCenter;
 			flex-direction: column;
@@ -113,6 +112,62 @@ a {
 	}
 }
 
+nav {
+	background-color: #1c1b1b !important;
+	height: 8vh;
+	border-bottom: #191919 2px solid;
+	.nav-link {
+		color: $light-grey !important;
+		&:hover {
+			color: $grey-hover !important;
+		}
+	}
+	.navbar-text,
+	.navbar-brand {
+		margin-right: 1%;
+		color: $light-grey;
+		&:hover {
+			color: $grey-hover;
+		}
+	}
+	.button {
+		@include buttons($teal, #000);
+	}
+}
+
+.navbar > .container {
+	max-width: 100%;
+	margin: 0;
+	padding: 0;
+	margin-left: 0.5%;
+}
+
+.navbar {
+	margin: 0;
+	padding: 0;
+	
+	.loader {
+		margin: auto;
+		margin-top: 10%;
+		border: 60px solid $light-grey;
+		border-radius: 50%;
+		border-top: 60px solid $red;
+		border-left: 60px solid $red;
+		width: 200px;
+		height: 200px;
+		animation: spinner 1s linear infinite;
+	}
+
+	@keyframes spinner {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+}
+
 .ProfilePage {
 	h1 {
 		margin-left: 2%;
@@ -162,10 +217,7 @@ a {
 			height: 60vh;
 		}
 		.info {
-			background-color: #222121;
-			box-shadow: 1px 1px 3px #1c1b1b;
-			border: 2px #1c1b1b solid;
-			border-radius: 5px;
+			@include container;
 			padding-top: 6%;
 			.form {
 				margin-top: 3%;
@@ -177,17 +229,13 @@ a {
 				width: 100%;
 			}
 		}
-
 		.allPokemonParty {
 			display: flex;
 			flex-wrap: wrap;
 			align-content: space-between;
 		}
 		.pokemonParty {
-			background-color: #222121;
-			box-shadow: 1px 1px 3px #1c1b1b;
-			border: 2px #1c1b1b solid;
-			border-radius: 5px;
+			@include container;
 			padding: 0.5%;
 			margin: 1%;
 		}
