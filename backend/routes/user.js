@@ -349,7 +349,7 @@ router.post("/validate/password", async (req, res) => {
     });
   } else {
     res.send({
-      stats: 403,
+      stats: 400,
       Message: "Please send over the inputPassword and the hashedPassword",
     });
   }
