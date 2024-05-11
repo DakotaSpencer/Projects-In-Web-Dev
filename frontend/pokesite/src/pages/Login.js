@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ErrorMessage } from "@hookform/error-message";
 import { useForm } from "react-hook-form";
@@ -6,6 +6,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 const Login = () => {
 	const [showPassword, setShowPassword] = useState(false);
+	const [loggedIn, setLoggedIn] = useState();
 	let navigate = useNavigate();
 	const routeChange = () => {
 		let path = `/signup`;
@@ -23,30 +24,50 @@ const Login = () => {
 	const onSubmit = (data) => {
 		const { usernameEmail, password } = data;
 		const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(usernameEmail);
-		let loginRoute
-		const formData = {
-			[isEmail ? "email" : "username"]: usernameEmail,
-			password: password
-		};
-	
+		let loginRoute;
+
 		if (isEmail) {
-			loginRoute = `http://localhost:5000/user/email/get`;
-			
+			loginRoute = `http://localhost:5000/user/email/get/${usernameEmail}`;
 			console.log("Logging in with email:", usernameEmail);
 		} else {
-			loginRoute = `http://localhost:5000/user/username/get`;
+			loginRoute = `http://localhost:5000/user/username/get/${usernameEmail}`;
 			console.log("Logging in with username:", usernameEmail);
 		}
 
 		fetch(loginRoute, {
 			method: "GET",
-			body: formData
 		})
 			.then((r) => r.json())
 			.then((data) => {
-				console.log(data)
+				if (data) {
+					const email = data.Item.email.S
+					fetch("http://localhost:5000/user/validate/password", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							inputPassword: password,
+							hashedPassword: data.Item.password.S,
+						}),
+					})
+						.then((r) => r.json())
+						.then((data) => {
+							if (data.Message === true) {
+								setLoggedIn(true);
+								localStorage.setItem("email", email);
+								window.location.reload();
+							} else {
+								setLoggedIn(false);
+							}
+						})
+						.catch((err) => console.log(err));
+				} else {
+					setLoggedIn(false);
+				}
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => {
+				console.log(err);
+				setLoggedIn(false);
+			});
 	};
 
 	return (
@@ -122,8 +143,8 @@ const Login = () => {
 									: null
 							}
 						/>
-						
 					</div>
+					{loggedIn === false ? (<><div><p className="error">Invalid data, please try again</p></div></>):(<></>)}
 					<div className="buttons">
 						<button className="signup" onClick={routeChange}>
 							Signup

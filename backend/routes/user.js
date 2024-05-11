@@ -110,7 +110,7 @@ router.get("/", async (req, res) => {
  *         description: Bad request. Please check your input.
  */
 router.post("/", async (req, res) => {
-  // console.log("The request body: ", req.body);
+  console.log("The request body: ", req.body);
   try {
     const response = await DAL.getTables();
     const create = await DAL.createUser(response.tables[0], req.body);

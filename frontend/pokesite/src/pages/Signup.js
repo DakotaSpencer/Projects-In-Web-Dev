@@ -24,8 +24,17 @@ const Signup = () => {
 	});
 
 	const onSubmit = (data) => {
-		// fetch statement for the backend
-		console.log(data);
+		fetch(`http://localhost:5000/user/`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(data),
+		})
+			.then((r) => r.json)
+			.then((data) => {
+				console.log(data);
+				console.log(data);
+			})
+			.catch((err) => console.log(err));
 	};
 
 	const passwordPattern =
@@ -243,6 +252,70 @@ const Signup = () => {
 						<ErrorMessage
 							errors={errors}
 							name="confirmPassword"
+							render={({ messages }) =>
+								messages
+									? Object.entries(messages).map(([type, message]) => (
+											<p key={type} className="error">
+												{message}
+											</p>
+									  ))
+									: null
+							}
+						/>
+						<label htmlFor="bio">
+							bio<span className="error required">*</span>
+						</label>
+						<input
+							name="bio"
+							type="text"
+							placeholder="bio"
+							{...register("bio", {
+								required: "bio is required",
+								minLength: {
+									value: 2,
+									message: "bio can't be shorter than 2 characters",
+								},
+								maxLength: {
+									value: 100,
+									message: "bio cannot exceed 100 characters",
+								},
+							})}
+						/>
+						<ErrorMessage
+							errors={errors}
+							name="bio"
+							render={({ messages }) =>
+								messages
+									? Object.entries(messages).map(([type, message]) => (
+											<p key={type} className="error">
+												{message}
+											</p>
+									  ))
+									: null
+							}
+						/>
+						<label htmlFor="profilePicture">
+							profilePicture<span className="error required">*</span>
+						</label>
+						<input
+							name="profilePicture"
+							type="text"
+							placeholder="profilePicture"
+							{...register("profilePicture", {
+								required: "profilePicture is required",
+								minLength: {
+									value: 2,
+									message: "profilePicture can't be shorter than 2 characters",
+								},
+								maxLength: {
+									value: 100,
+									message: "bio cannot exceed 100 characters",
+								},
+							})}
+						/>
+						<ErrorMessage
+							errors={errors}
+							name="profilePicture"
 							render={({ messages }) =>
 								messages
 									? Object.entries(messages).map(([type, message]) => (

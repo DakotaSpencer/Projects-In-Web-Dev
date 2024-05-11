@@ -5,11 +5,15 @@ const Profile = () => {
 	const [pokemon, setPokemon] = useState([]);
 	const [editInfo, setEditInfo] = useState(false);
 	const [user, setUser] = useState(null);
+	const [loggedInEmail, setLoggedInEmail] = useState();
+	useEffect(() => {
+		setLoggedInEmail(localStorage.getItem("email"));
+	}, []);
 
 	// temp info
 	useEffect(() => {
 		getUserInfo();
-	}, []);
+	}, [loggedInEmail]);
 
 	useEffect(() => {
 		console.log(user);
@@ -23,12 +27,11 @@ const Profile = () => {
 	}
 
 	function getUserInfo() {
-		fetch(`http://localhost:5000/user/ca1ac63c-cbb9-486a-913a-87c2900b5f64`, {
+		fetch(`http://localhost:5000/user/email/get/${loggedInEmail}`, {
 			method: "GET",
 		})
 			.then((r) => r.json())
 			.then((data) => {
-				// console.log(data)
 				setUser(data.Item);
 			})
 			.catch((err) => console.log(err));
