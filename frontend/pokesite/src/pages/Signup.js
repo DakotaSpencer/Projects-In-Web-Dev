@@ -24,15 +24,20 @@ const Signup = () => {
 	});
 
 	const onSubmit = (data) => {
+		const requestData = { ...data };
+    delete requestData.confirmEmail;
+    delete requestData.confirmPassword;
 		fetch(`http://localhost:5000/user/`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(data),
+			body: JSON.stringify(requestData),
 		})
-			.then((r) => r.json)
-			.then((data) => {
-				console.log(data);
-				console.log(data);
+			.then((r) => r.json())
+			.then((returnData) => {
+				if(returnData.Message === 'SUCCESS'){
+					localStorage.setItem("email", requestData.email)
+					window.location.reload();
+				}
 			})
 			.catch((err) => console.log(err));
 	};
@@ -119,14 +124,14 @@ const Signup = () => {
 									: null
 							}
 						/>
-						<label htmlFor="username">
+						<label htmlFor="userName">
 							Username<span className="error required">*</span>
 						</label>
 						<input
-							name="username"
+							name="userName"
 							type="text"
 							placeholder="Username"
-							{...register("username", {
+							{...register("userName", {
 								required: "Username is required",
 								pattern: {
 									value: /^[a-zA-Z0-9_-]{3,16}$/,
@@ -144,7 +149,7 @@ const Signup = () => {
 						/>
 						<ErrorMessage
 							errors={errors}
-							name="username"
+							name="userName"
 							render={({ messages }) =>
 								messages
 									? Object.entries(messages).map(([type, message]) => (

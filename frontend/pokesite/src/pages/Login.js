@@ -54,7 +54,7 @@ const Login = () => {
 							if (data.Message === true) {
 								setLoggedIn(true);
 								localStorage.setItem("email", email);
-								window.location.reload();
+								navigate('/')
 							} else {
 								setLoggedIn(false);
 							}

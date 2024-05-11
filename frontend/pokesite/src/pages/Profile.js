@@ -6,6 +6,8 @@ const Profile = () => {
 	const [editInfo, setEditInfo] = useState(false);
 	const [user, setUser] = useState(null);
 	const [loggedInEmail, setLoggedInEmail] = useState();
+	const [isLoading, setLoading] = useState(true);
+
 	useEffect(() => {
 		setLoggedInEmail(localStorage.getItem("email"));
 	}, []);
@@ -16,7 +18,6 @@ const Profile = () => {
 	}, [loggedInEmail]);
 
 	useEffect(() => {
-		console.log(user);
 		if (user) {
 			setPokemon(user.featuredPokemon.SS);
 		}
@@ -33,11 +34,27 @@ const Profile = () => {
 			.then((r) => r.json())
 			.then((data) => {
 				setUser(data.Item);
+				setLoading(false)
 			})
 			.catch((err) => console.log(err));
 	}
 
-	return user && user?.password ? (
+	if (isLoading) {
+		return (
+			<div>
+				<div className="loader"></div>
+				<h3
+					style={{
+						marginTop: "10%",
+						textAlign: "center",
+						fontWeight: "lighter",
+					}}
+				>
+					Fetching User, please wait...
+				</h3>
+			</div>
+		);
+	} else {return user && user?.password ? (
 		<div className="ProfilePage">
 			<h1>{user.name.S}'s Profile</h1>
 			<div className="imgUsername">
@@ -83,7 +100,7 @@ const Profile = () => {
 				<div className="party">
 					<h1>Party</h1>
 					<div className="allPokemonParty">
-						{pokemon?.length > 0 ? (
+						{pokemon?.length > 0 && pokemon[0] !== "0" ? (
 							pokemon?.map((item) => (
 								// change later to a component?
 								<div className="pokemonParty">
@@ -105,6 +122,7 @@ const Profile = () => {
 			<h1>Loading...</h1>
 		</>
 	);
+}
 };
 
 export default Profile;
