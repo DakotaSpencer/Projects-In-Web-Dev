@@ -10,6 +10,14 @@ body {
 	border-radius: 5px;
 }
 
+.error {
+	color: red;
+}
+
+.required {
+	font-size: 1.2em;
+}
+
 a {
 	color: $teal;
 	&:hover {
@@ -40,7 +48,7 @@ a {
 			flex-direction: column;
 			.inputs input {
 				width: 93%;
-				height: 35%;
+				padding: 1%;
 				margin-top: 1%;
 				margin-bottom: 3%;
 				border-radius: 4px;
@@ -64,9 +72,12 @@ a {
 				margin-top: -2.5% !important;
 				margin-right: 7% !important;
 			}
+			label {
+				width: 100%;
+			}
 		}
 		.buttons {
-			margin-top: 10%;
+			margin-top: 3%;
 			width: 100%;
 			@include flexCenter;
 			.loginBtn {
@@ -84,9 +95,9 @@ a {
 }
 
 .signup {
-	margin-top: 5vh;
+	margin-top: 3vh;
+	margin-bottom: 6%;
 	.inputs input {
-		height: 25% !important;
 		border: none;
 		&::placeholder {
 			font-style: italic;
@@ -95,7 +106,7 @@ a {
 
 	.borderContainer {
 		.buttons {
-			margin-top: 30%;
+			margin-top: 6%;
 		}
 	}
 }

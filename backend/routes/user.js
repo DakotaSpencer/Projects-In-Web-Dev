@@ -66,7 +66,6 @@ router.get("/username/get/:username", async (req, res) => {
 router.get("/", async (req, res) => {
   const response = await DAL.getTables();
   const users = await DAL.get(response.tables[0]);
-  console.log(await users);
   res.send(await users.Items);
 });
 /**

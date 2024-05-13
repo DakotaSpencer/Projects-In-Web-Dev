@@ -68,6 +68,7 @@ const Landing = () => {
     }
   return (
     <>
+    <h1 className='welcome'>Welcome to PocketDex!</h1>
       <div className='pokemonArray'>
         {
           pokemonArray?.map(pokemon => (

@@ -1,15 +1,24 @@
-@import '../index.scss';
+@import "../index.scss";
 
-.pokemonArray{
-    display: grid;
-    grid-template-columns: repeat(5, 10rem);
-    justify-content: space-evenly;
-    grid-template-rows: min-content 1fr;
+.pokemonArray {
+	margin-top: 3%;
+	display: grid;
+	grid-template-columns: repeat(5, 10rem);
+	justify-content: space-evenly;
+	grid-template-rows: min-content 1fr;
 }
 
-.loadMoreButton{
-    margin-top: 5%;
-    margin-bottom: 2%;
-    align-self: center;
-    @include buttons($teal, #000);
+.loadMoreButton {
+	margin-top: 5%;
+	margin-bottom: 2%;
+	align-self: center;
+	@include buttons($teal, #000);
+}
+
+.welcome {
+	text-align: center;
+	font-family: "Pokemon";
+	color: #ffcb03 !important;
+	text-shadow: -5px 4px #3A59A5 !important;
+	font-size: 3em !important;
 }
