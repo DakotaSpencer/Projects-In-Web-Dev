@@ -1,8 +1,7 @@
 @import "../index.scss";
-@import '../PokemonSolidNormal-xyWR.ttf';
 
 .pokemonArray {
-    margin-top: 3%;
+	margin-top: 3%;
 	display: grid;
 	grid-template-columns: repeat(5, 10rem);
 	justify-content: space-evenly;
@@ -16,6 +15,10 @@
 	@include buttons($teal, #000);
 }
 
-h1 {
+.welcome {
 	text-align: center;
+	font-family: "Pokemon";
+	color: #ffcb03 !important;
+	text-shadow: -5px 4px #3A59A5 !important;
+	font-size: 3em !important;
 }

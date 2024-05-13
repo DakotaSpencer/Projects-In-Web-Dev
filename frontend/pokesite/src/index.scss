@@ -16,6 +16,11 @@ $container-shadow: 1px 1px 3px #1c1b1b;
 @import "~bootstrap/scss/bootstrap";
 
 // Mixins
+@font-face {
+	font-family: "Pokemon";
+	src: local("Pokemon"), url('./PokemonSolidNormal-xyWR.ttf') format("truetype");
+}
+
 @mixin flexCenter() {
 	display: flex;
 	align-content: center;
@@ -38,13 +43,13 @@ $container-shadow: 1px 1px 3px #1c1b1b;
 	}
 }
 
-@mixin container(){
+@mixin container() {
 	background-color: $container-BG;
-    border: $container-Border;
-    border-radius: 5px;
-    box-shadow: $container-shadow;
-    padding: 1%;
-    margin: 2%;
+	border: $container-Border;
+	border-radius: 5px;
+	box-shadow: $container-shadow;
+	padding: 1%;
+	margin: 2%;
 }
 
 .loader {

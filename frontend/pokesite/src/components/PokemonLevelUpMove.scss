@@ -6,91 +6,144 @@
         color: #333;
 		background-color: #a8a878;
         border: 2px darken($color: #a8a878, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#a8a878, 15%) !important
+		}
 	}
 	&.fire {
         color: #333;
 		background-color: #f08030;
         border: 2px darken($color: #f08030, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#f08030, 15%) !important
+		}
 	}
 	&.water {
 		background-color: #6890f0;
         border: 2px darken($color: #6890f0, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#6890f0, 15%) !important
+		}
 	}
 	&.electric {
         color: #333;
 		background-color: #f8d030;
         border: 2px darken($color: #f8d030, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#f8d030, 15%) !important
+		}
 	}
 	&.grass {
         color: #333;
 		background-color: #78c850;
         border: 2px darken($color: #78c850, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#78c850, 15%) !important
+		}
 	}
 	&.ice {
         color: #333;
 		background-color: #98d8d8;
         border: 2px darken($color: #98d8d8, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#98d8d8, 15%) !important
+		}
 	}
 	&.fighting {
 		background-color: #c03028;
         border: 2px darken($color: #c03028, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#c03028, 15%) !important
+		}
 	}
 	&.poison {
 		background-color: #a040a0;
         border: 2px darken($color: #a040a0, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#a040a0, 15%) !important
+		}
 	}
 	&.ground {
         color: #333;
 		background-color: #e0c068;
         border: 2px darken($color: #e0c068, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#e0c068, 15%) !important
+		}
 	}
 	&.flying {
         color: #333;
 		background-color: #a890f0;
         border: 2px darken($color: #a890f0, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#a890f0, 15%) !important
+		}
 	}
 	&.psychic {
 		background-color: #f85888;
         border: 2px darken($color: #f85888, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#f85888, 15%) !important
+		}
 	}
 	&.bug {
         color: #333;
 		background-color: #a8b820;
         border: 2px darken($color: #a8b820, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#a8b820, 15%) !important
+		}
 	}
 	&.rock {
 		background-color: #b8a038;
         border: 2px darken($color: #b8a038, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#b8a038, 15%) !important
+		}
 	}
 	&.ghost {
 		background-color: #705898;
         border: 2px darken($color: #705898, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#705898, 15%) !important
+		}
 	}
 	&.dragon {
 		background-color: #7038f8;
         border: 2px darken($color: #7038f8, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#7038f8, 15%) !important
+		}
 	}
 	&.dark {
 		background-color: #705848;
         border: 2px darken($color: #705848, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#705848, 15%) !important
+		}
 	}
 	&.steel {
         color: #333;
 		background-color: #b8b8d0;
         border: 2px darken($color: #b8b8d0, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#b8b8d0, 15%) !important
+		}
 	}
 	&.fairy {
         color: #333;
 		background-color: #f0b6bc;
         border: 2px darken($color: #f0b6bc, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#35ace7, 15%) !important
+		}
 	}
 	&.stellar {
 		background-color: #35ace7;
         border: 2px darken($color: #35ace7, $amount: 30) solid;
-	}
-	&.stellar {
-		background-color: #35ace7;
-        border: 2px darken($color: #35ace7, $amount: 30) solid;
+		&:hover{
+			background-color: darken(#35ace7, 15%) !important
+		}
 	}
 	width: max-content;
 	padding: 10% 10% 1% 10%;
