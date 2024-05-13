@@ -48,7 +48,7 @@ a {
 			flex-direction: column;
 			.inputs input {
 				width: 93%;
-				height: 70px;
+				padding: 1%;
 				margin-top: 1%;
 				margin-bottom: 3%;
 				border-radius: 4px;
@@ -98,7 +98,6 @@ a {
 	margin-top: 3vh;
 	margin-bottom: 6%;
 	.inputs input {
-		height: 70px !important;
 		border: none;
 		&::placeholder {
 			font-style: italic;

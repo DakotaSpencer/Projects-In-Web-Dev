@@ -2,16 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Navbar, Container, Nav, Form, Button } from "react-bootstrap";
 import "./navbar.scss";
 
-const NavBarx = () => {
+const NavBarx = ({ loggedInEmail, onLogout }) => {
 	const [searchTerm, setSearchTerm] = useState();
-	const [loggedInEmail, setLoggedInEmail] = useState();
-	useEffect(() => {
-		setLoggedInEmail(localStorage.getItem("email"));
-	}, []);
 
 	const logout = () => {
-		localStorage.removeItem("email");
-		window.location.reload();
+		onLogout();
 	};
 
 	return (
@@ -25,9 +20,13 @@ const NavBarx = () => {
 						<Nav.Link href="/relations">
 							Damage Relations and Type Advantages
 						</Nav.Link>
-						{
-							loggedInEmail? (<><Nav.Link href="/profile">Profile</Nav.Link></>) : (<></>)
-						}
+						{loggedInEmail ? (
+							<>
+								<Nav.Link href="/profile">Profile</Nav.Link>
+							</>
+						) : (
+							<></>
+						)}
 						<Form className="d-flex">
 							<Form.Control
 								required

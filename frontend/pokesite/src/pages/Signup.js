@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { ErrorMessage } from "@hookform/error-message";
 import { useForm } from "react-hook-form";
 
-const Signup = () => {
+const Signup = ({ onLogin }) => {
 	const [showPassword, setShowPassword] = useState(false);
 	let navigate = useNavigate();
 	const routeChange = () => {
@@ -25,8 +25,9 @@ const Signup = () => {
 
 	const onSubmit = (data) => {
 		const requestData = { ...data };
-    delete requestData.confirmEmail;
-    delete requestData.confirmPassword;
+		delete requestData.confirmEmail;
+		delete requestData.confirmPassword;
+		console.log(requestData)
 		fetch(`http://localhost:5000/user/`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -34,9 +35,10 @@ const Signup = () => {
 		})
 			.then((r) => r.json())
 			.then((returnData) => {
-				if(returnData.Message === 'SUCCESS'){
-					localStorage.setItem("email", requestData.email)
-					window.location.reload();
+				if (returnData.Message === "SUCCESS") {
+					const email = requestData.email;
+					onLogin(email);
+					navigate("/");
 				}
 			})
 			.catch((err) => console.log(err));
@@ -268,21 +270,17 @@ const Signup = () => {
 							}
 						/>
 						<label htmlFor="bio">
-							bio<span className="error required">*</span>
+							Bio
 						</label>
 						<input
 							name="bio"
 							type="text"
 							placeholder="bio"
 							{...register("bio", {
-								required: "bio is required",
-								minLength: {
-									value: 2,
-									message: "bio can't be shorter than 2 characters",
-								},
+								required: false,
 								maxLength: {
 									value: 100,
-									message: "bio cannot exceed 100 characters",
+									message: "Bio cannot exceed 100 characters",
 								},
 							})}
 						/>
@@ -300,22 +298,14 @@ const Signup = () => {
 							}
 						/>
 						<label htmlFor="profilePicture">
-							profilePicture<span className="error required">*</span>
+							Profile Picture
 						</label>
 						<input
 							name="profilePicture"
-							type="text"
-							placeholder="profilePicture"
+							type="url"
+							placeholder="Profile Picture (url)"
 							{...register("profilePicture", {
-								required: "profilePicture is required",
-								minLength: {
-									value: 2,
-									message: "profilePicture can't be shorter than 2 characters",
-								},
-								maxLength: {
-									value: 100,
-									message: "bio cannot exceed 100 characters",
-								},
+								required: false,
 							})}
 						/>
 						<ErrorMessage

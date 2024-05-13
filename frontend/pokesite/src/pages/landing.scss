@@ -1,15 +1,21 @@
-@import '../index.scss';
+@import "../index.scss";
+@import '../PokemonSolidNormal-xyWR.ttf';
 
-.pokemonArray{
-    display: grid;
-    grid-template-columns: repeat(5, 10rem);
-    justify-content: space-evenly;
-    grid-template-rows: min-content 1fr;
+.pokemonArray {
+    margin-top: 3%;
+	display: grid;
+	grid-template-columns: repeat(5, 10rem);
+	justify-content: space-evenly;
+	grid-template-rows: min-content 1fr;
 }
 
-.loadMoreButton{
-    margin-top: 5%;
-    margin-bottom: 2%;
-    align-self: center;
-    @include buttons($teal, #000);
+.loadMoreButton {
+	margin-top: 5%;
+	margin-bottom: 2%;
+	align-self: center;
+	@include buttons($teal, #000);
+}
+
+h1 {
+	text-align: center;
 }

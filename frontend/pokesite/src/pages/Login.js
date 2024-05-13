@@ -4,7 +4,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useForm } from "react-hook-form";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-const Login = () => {
+const Login = ({ onLogin }) => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [loggedIn, setLoggedIn] = useState();
 	let navigate = useNavigate();
@@ -40,7 +40,7 @@ const Login = () => {
 			.then((r) => r.json())
 			.then((data) => {
 				if (data) {
-					const email = data.Item.email.S
+					const email = data.Item.email.S;
 					fetch("http://localhost:5000/user/validate/password", {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
@@ -53,8 +53,8 @@ const Login = () => {
 						.then((data) => {
 							if (data.Message === true) {
 								setLoggedIn(true);
-								localStorage.setItem("email", email);
-								navigate('/')
+								onLogin(email);
+								navigate("/");
 							} else {
 								setLoggedIn(false);
 							}
@@ -144,7 +144,15 @@ const Login = () => {
 							}
 						/>
 					</div>
-					{loggedIn === false ? (<><div><p className="error">Invalid data, please try again</p></div></>):(<></>)}
+					{loggedIn === false ? (
+						<>
+							<div>
+								<p className="error">Invalid data, please try again</p>
+							</div>
+						</>
+					) : (
+						<></>
+					)}
 					<div className="buttons">
 						<button className="signup" onClick={routeChange}>
 							Signup

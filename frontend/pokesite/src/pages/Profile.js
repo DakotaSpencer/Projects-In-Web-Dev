@@ -12,7 +12,6 @@ const Profile = () => {
 		setLoggedInEmail(localStorage.getItem("email"));
 	}, []);
 
-	// temp info
 	useEffect(() => {
 		getUserInfo();
 	}, [loggedInEmail]);
@@ -20,6 +19,7 @@ const Profile = () => {
 	useEffect(() => {
 		if (user) {
 			setPokemon(user.featuredPokemon.SS);
+			console.log(user)
 		}
 	}, [user]);
 
@@ -34,7 +34,7 @@ const Profile = () => {
 			.then((r) => r.json())
 			.then((data) => {
 				setUser(data.Item);
-				setLoading(false)
+				setLoading(false);
 			})
 			.catch((err) => console.log(err));
 	}
@@ -54,75 +54,81 @@ const Profile = () => {
 				</h3>
 			</div>
 		);
-	} else {return user && user?.password ? (
-		<div className="ProfilePage">
-			<h1>{user.name.S}'s Profile</h1>
-			<div className="imgUsername">
-				<Image
-					className="profileImg"
-					src="../assets/defaultImg.jpg"
-					fluid
-					roundedCircle
-				/>
-				<h3 className="username">{user.userName.S}</h3>
-			</div>
+	} else {
+		return user && user?.password ? (
+			<div className="ProfilePage">
+				<h1>{user.name.S}'s Profile</h1>
+				<div className="imgUsername">
+					<Image
+						className="profileImg"
+						src={
+							user.profilePicture
+								? user.profilePicture.S
+								: "../assets/defaultImg.jpg"
+						}
+						fluid
+						roundedCircle
+					/>
 
-			<div className="flexItems">
-				<div className="info">
-					<button className="editProfile" onClick={editProfile}>
-						Edit Profile
-					</button>
-					<div className="form">
-						{editInfo ? (
-							<form>
-								<label>Email</label>
-								<br />
-								<input type="text" />
-								<br />
-								<label>Password</label>
-								<br />
-								<input type="password" />
-								<br />
-								<label>Extra</label>
-								<br />
-								<input type="text" />
-								<br />
-							</form>
-						) : (
-							<div>
-								<h3>Email: {user.email.S}</h3>
-								<h3>Bio: {user.bio.S}</h3>
-								<h3>Extra Things: [extra]</h3>
-							</div>
-						)}
-					</div>
+					<h3 className="username">{user.userName.S}</h3>
 				</div>
-				<div className="party">
-					<h1>Party</h1>
-					<div className="allPokemonParty">
-						{pokemon?.length > 0 && pokemon[0] !== "0" ? (
-							pokemon?.map((item) => (
-								// change later to a component?
-								<div className="pokemonParty">
-									<h3>{item.name}</h3>
-									<p>{item.info}</p>
+
+				<div className="flexItems">
+					<div className="info">
+						<button className="editProfile" onClick={editProfile}>
+							Edit Profile
+						</button>
+						<div className="form">
+							{editInfo ? (
+								<form>
+									<label>Email</label>
+									<br />
+									<input type="text" />
+									<br />
+									<label>Password</label>
+									<br />
+									<input type="password" />
+									<br />
+									<label>Extra</label>
+									<br />
+									<input type="text" />
+									<br />
+								</form>
+							) : (
+								<div>
+									<h3>Email: {user.email.S}</h3>
+									<h3>Bio: {user.bio.S}</h3>
+									<h3>Extra Things: [extra]</h3>
 								</div>
-							))
-						) : (
-							<>
-								<h1>No Pokemon in your party</h1>
-							</>
-						)}
+							)}
+						</div>
+					</div>
+					<div className="party">
+						<h1>Party</h1>
+						<div className="allPokemonParty">
+							{pokemon?.length > 0 && pokemon[0] !== "0" ? (
+								pokemon?.map((item) => (
+									// change later to a component?
+									<div className="pokemonParty">
+										<h3>{item.name}</h3>
+										<p>{item.info}</p>
+									</div>
+								))
+							) : (
+								<>
+									<h1>No Pokemon in your party</h1>
+								</>
+							)}
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	) : (
-		<>
-			<h1>Loading...</h1>
-		</>
-	);
-}
+		) : (
+			<>
+				<h1>Loading...</h1>
+			</>
+		);
+	}
 };
 
 export default Profile;
