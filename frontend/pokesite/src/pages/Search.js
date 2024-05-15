@@ -1,76 +1,157 @@
-import React, { useState, useEffect } from 'react'
-// import { useParams } from 'react-router';
-import { useSearchParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import PokemonCard from '../components/PokemonCard';
 import PokemonSearchResultCard from '../components/PokemonSearchResultCard';
+import PokemonLevelUpMove from '../components/PokemonLevelUpMove';
 
 const Search = () => {
-    const [searchTerm] = useSearchParams()
-    const [searchQuery, setSearchQuery] = useState('')
-    const [pokemonArray, setPokemonArray] = useState();
+    const [searchParams] = useSearchParams();
+    const [searchQuery, setSearchQuery] = useState('');
+    const [pokemonArray, setPokemonArray] = useState(null);
+    const [movesArray, setMovesArray] = useState(null);
     const [searchResults, setSearchResults] = useState([]);
-    
-    
-    useEffect(() => {
-        setSearchQuery(searchTerm.get("query"));
-        if (pokemonArray === null || pokemonArray === undefined) {
-            fetchpokemonArray();
-        }
-        console.log(pokemonArray)
-    },[pokemonArray])
+    const [pokemonSearch, setPokemonSearch] = useState(true);
+    const [moveSearch, setMoveSearch] = useState(false);
 
+    const location = useLocation();
 
     useEffect(() => {
-        let tempPokemonArray = []
-        pokemonArray?.results?.forEach(pokemon => {
-            //console.log(element.name)
-            //console.log("Search Query: ",searchQuery)
-            let tempName = pokemon.name.toLowerCase()
-            console.log("TempName Type: ", typeof tempName)
-            if(tempName.includes(searchQuery)){
-                
-                tempPokemonArray.push(pokemon)
-                //console.log("Pokemon: " + pokemon.name + " matches search term:" + searchQuery)
-            }else{
-                console.log("pokemon does not match")
+        const searchParams = new URLSearchParams(location.search);
+        const query = searchParams.get("query");
+        
+        if (query) {
+            setSearchQuery(query);
+            if (!pokemonArray || pokemonArray?.length<0 && !movesArray || movesArray?.length<0) {
+                fetchPokemonArray();
+                fetchMovesArray();
+            } else {
+                if(pokemonSearch===true && moveSearch===false){
+                    filterPokemonArray(query);
+                }
+                else if (pokemonSearch===false && moveSearch===true){
+                    filterMovesArray(query)
+                }else{
+                    filterPokemonArray(query)
+                }
             }
-            setSearchResults(tempPokemonArray)
-        });
+        }
         
         
-    }, [pokemonArray])
+    }, [location.search, pokemonArray, movesArray, moveSearch, pokemonSearch]);
 
-    const fetchpokemonArray = async () => {
-        axios.all([
-                axios.get(`https://pokeapi.co/api/v2/pokemon?limit=2000$offset=0`)
-            ])
-            .then(axios.spread((pokemonAxiosData) => {
-                setPokemonArray(pokemonAxiosData.data);
-            }));
+    useEffect(() => {
+        if(pokemonSearch===true && moveSearch===false){
+            if (pokemonArray) {
+                filterPokemonArray(searchQuery);
+            }
+        }
+        else if (pokemonSearch===false && moveSearch===true){
+            if (movesArray) {
+                filterMovesArray(searchQuery);
+            }
+        }else{
+            if (pokemonArray) {
+                filterPokemonArray(searchQuery);
+            }
+        }
+        
+    }, [searchQuery]);
+
+    const fetchPokemonArray = async () => {
+        console.log("Fetching pokemon...")
+        try {
+            const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0');
+            setPokemonArray(response.data);
+        } catch (error) {
+            console.error("Error fetching move data:", error);
+        }
+    };
+
+    const filterPokemonArray = (query) => {
+        console.log("Filtering out Pokemon...")
+        setSearchResults([]);  // Clear previous results
+        const filteredResults = pokemonArray?.results.filter(pokemon => 
+            pokemon.name.toLowerCase().includes(query.toLowerCase())
+        );
+        setSearchResults(filteredResults);
+    };
+
+    const fetchMovesArray = async () => {
+        console.log("Hit fetch moves:")
+        try {
+            const response = await axios.get('https://pokeapi.co/api/v2/move?limit=2000&offset=0');
+            setMovesArray(response.data);
+        } catch (error) {
+            console.error("Error fetching move data:", error);
+        }
+        filterMovesArray(searchQuery)
+    };
+
+    const filterMovesArray = (query) => {
+        console.log("Hit moves Filter:", query)
+        console.log("Moves Array:", movesArray)
+        setSearchResults([]);  // Clear previous results
+        console.log("Moves Array:",movesArray)
+        const filteredResults = movesArray?.results.filter(move => 
+            move.name.toLowerCase().includes(query.toLowerCase())
+        );
+        setSearchResults(filteredResults);
+    };
+
+    const swapSearch = () => {
+        console.log("Swapped")
+        setPokemonSearch(!pokemonSearch)
+        setMoveSearch(!moveSearch)
+        fetchMovesArray(searchQuery)
+        console.log("Pokemon Search: ", pokemonSearch)
+        console.log("Move Search: ", moveSearch)
     }
 
-    useEffect(() => {
-        console.log("Search Results:" + searchResults)
-    }, searchResults)
-    
     return (
         <div>
-            <h2>Search results For: {searchQuery}</h2>
+            <section>
+                Search For:
+                <div>
+                    <input type="radio" id="pokemonbtn" name="" value="pokemon" checked={pokemonSearch===true} onClick={swapSearch}/>
+                    <label for="pokemonbtn">Pokemon</label><br></br>
+                    <input type="radio" id="movebtn" name="" value="move" checked={moveSearch===true} onClick={swapSearch}/>
+                    <label for="movebtn">Move</label><br></br>
+                </div>
+            </section>
+            <h2>Search results for: {searchQuery}</h2>
             <section>
                 <div className='searchResults'>
                     {
-                        searchResults.length >=1 ? searchResults?.map(result => (
-                            <div>
-                                <PokemonSearchResultCard pokemon={result.name}/>
-                            </div>
-                        )): <div><h3>No Pokemon Found</h3></div>
-                    }
+                    pokemonSearch===true&&moveSearch===false?
+                            searchResults?.length > 0 ? (
+                                searchResults.map(result => (
+                                    <div key={result?.name}>
+                                        <PokemonSearchResultCard pokemon={result?.name} />
+                                    </div>
+                                ))
+                            ) : (
+                                <div>
+                                    <h3>No Pokemon Found</h3>
+                                </div>
+                            )
+                        :moveSearch===true && pokemonSearch===false ? 
+                            searchResults?.length > 1 ? (
+                                searchResults.map(result => (
+                                    <div key={result?.name}>
+                                        {result?.name}
+                                    </div>
+                                ))
+                            ) : (
+                                <div>
+                                    <h3>No Move Found</h3>
+                                </div>
+                            )
+                        :(<div><h3>No Results</h3></div>)
+                        }
                 </div>
             </section>
-        
         </div>
-    )
-}
+    );
+};
 
-export default Search
+export default Search;
