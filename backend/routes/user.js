@@ -112,7 +112,12 @@ router.post("/", async (req, res) => {
   try {
     const response = await DAL.getTables();
     const create = await DAL.createUser(response.tables[0], req.body);
-    return res.json({ Message: "SUCCESS", Response: create });
+    console.log(create);
+    return res.json({
+      Message: "SUCCESS",
+      Response: create.response,
+      key: create.key,
+    });
   } catch (e) {
     return res.json({ Message: "ERROR: " + e });
   }

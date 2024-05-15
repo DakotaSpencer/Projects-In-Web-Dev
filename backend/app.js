@@ -3,6 +3,7 @@ const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
 const { User, NewUser, UpdateUser } = require("./Schemas/User");
 const cors = require("cors");
+const yaml = require("yamljs");
 
 //Swagger setup go... https://www.youtube.com/watch?v=eiSem0cqaN0
 //AWS setup go...https://www.youtube.com/watch?v=YJvXHr69AHg
@@ -24,18 +25,23 @@ const swaggerOptions = {
       description:
         "An API that will call AWS DynamoDB to get and store user data on a Pokémon website",
     },
-    components: {
-      schemas: {
-        User,
-        NewUser,
-        UpdateUser,
-      },
-    },
+    // components: {
+    //   schemas: {
+    //     User,
+    //     NewUser,
+    //     UpdateUser,
+    //   },
+    // },
   },
   apis: ["app.js", "./routes/user.js"],
 };
 
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
+const swaggerDocument = yaml.load("./users.yaml");
+console.log(swaggerDocument);
+const swaggerDocs = swaggerJsDoc({
+  ...swaggerOptions,
+  definition: swaggerDocument,
+});
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 

@@ -36,10 +36,11 @@ class DynamoDAL {
     // Prepare the new User to be stored to the database
     // console.log("NEW USER TO CALL DATABASE: ", newUser);
     try {
+      const objectKey = util.generateKey();
       const params = {
         TableName: tableName,
         Item: {
-          userId: { S: util.generateKey() },
+          userId: { S: objectKey },
           userName: { S: newUser.userName },
           email: { S: newUser.email },
           name: { S: newUser.name },
@@ -55,7 +56,7 @@ class DynamoDAL {
       // Put the item into DynamoDB
       const command = new PutItemCommand(params);
       const response = await client.send(command);
-      return response;
+      return { response: response, key: objectKey };
     } catch (e) {
       console.log("ERROR WITH CREATE: ", e);
     }
