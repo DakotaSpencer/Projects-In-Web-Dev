@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ErrorMessage } from "@hookform/error-message";
 import { useForm } from "react-hook-form";
@@ -8,10 +8,6 @@ const Login = ({ onLogin }) => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [loggedIn, setLoggedIn] = useState();
 	let navigate = useNavigate();
-	const routeChange = () => {
-		let path = `/signup`;
-		navigate(path);
-	};
 
 	const {
 		register,
@@ -154,10 +150,10 @@ const Login = ({ onLogin }) => {
 						<></>
 					)}
 					<div className="buttons">
-						<button className="signup" onClick={routeChange}>
-							Signup
-						</button>
 						<button className="loginBtn">Login</button>
+						<a className="signup" href="/signup">
+							Signup
+						</a>
 					</div>
 				</form>
 			</div>

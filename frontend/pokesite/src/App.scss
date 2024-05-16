@@ -79,16 +79,16 @@ a {
 		.buttons {
 			margin-top: 3%;
 			width: 100%;
-			@include flexCenter;
 			.loginBtn {
 				@include buttons($teal, #000);
+				width: 93%;
+				font-size: 1.2em;
 			}
 			.signup {
-				@include buttons($teal2, $light-grey);
-			}
-			button {
-				margin: 2%;
-				margin-right: 5%;
+				color: $teal2 !important;
+				text-decoration: underline !important;
+				font-size: 1.2em;
+				width: 93%;
 			}
 		}
 	}
@@ -144,7 +144,7 @@ nav {
 .navbar {
 	margin: 0;
 	padding: 0;
-	
+
 	.loader {
 		margin: auto;
 		margin-top: 10%;
@@ -167,36 +167,43 @@ nav {
 	}
 }
 
+.noAccess {
+	width: 100% !important;
+	text-align: center !important;
+	margin-top: 40vh !important;
+	color: red !important;
+}
+
 .ProfilePage {
 	h1 {
 		margin-left: 2%;
 	}
-	.editProfile {
-		@include buttons($teal, #000);
-		position: absolute;
-		top: 39%;
-		left: 39%;
-	}
-	.imgUsername {
-		display: flex;
-		margin-bottom: 1%;
-		width: 50%;
-		height: 74%;
-		margin-top: 7%;
-		.profileImg {
-			position: absolute;
-			top: 20%;
-			left: 3%;
-			max-width: 243px !important;
-		}
-		.username {
-			position: absolute;
-			top: 31%;
-			left: 35%;
-		}
-	}
+
 	.flexItems {
 		margin-top: 3%;
+		@include flexCenter();
+		justify-content: space-between;
+
+		.imgUsername {
+			margin: 1%;
+			@include flexCenter;
+			justify-content: space-between;
+			.profileImg {
+				max-width: 243px !important;
+			}
+			.profileImgBtn {
+				@include buttons($teal2, $light-grey);
+				align-self: flex-end;
+				margin-left: -27%;
+			}
+			.editProfile {
+				display: grid;
+				@include buttons($teal, #000);
+				padding: 1% !important;
+				align-self: flex-start;
+			}
+		}
+
 		hr {
 			height: 3px;
 			color: black;
@@ -204,8 +211,7 @@ nav {
 			font-size: 0;
 			border: 0;
 		}
-		@include flexCenter();
-		justify-content: space-between;
+
 		.info,
 		.party {
 			width: 50%;
@@ -213,30 +219,41 @@ nav {
 			padding: 1%;
 			border: 2px #1c1b1b solid;
 			border-radius: 5px;
-			height: 60vh;
+			height: 75vh;
 		}
+
 		.info {
 			@include container;
-			padding-top: 6%;
 			.form {
 				margin-top: 3%;
+				margin: 2%;
 				label {
 					font-size: 1.2em;
 				}
 			}
 			input {
 				width: 100%;
+				margin-bottom: 1%;
+			}
+			.color {
+				color: #dcb20d;
+				font-weight: bold;
+			}
+		}
+		.profileInfo {
+			h3 {
+				word-wrap: normal;
 			}
 		}
 		.allPokemonParty {
 			display: flex;
 			flex-wrap: wrap;
-			align-content: space-between;
+			justify-content: space-between;
 		}
 		.pokemonParty {
-			@include container;
-			padding: 0.5%;
+			flex-basis: calc(33.33% - 2%);
 			margin: 1%;
+			box-sizing: border-box;
 		}
 	}
 }

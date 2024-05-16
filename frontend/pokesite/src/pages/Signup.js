@@ -6,13 +6,9 @@ import { useForm } from "react-hook-form";
 
 const Signup = ({ onLogin }) => {
 	const [showPassword, setShowPassword] = useState(false);
-	let navigate = useNavigate();
-	const routeChange = () => {
-		let path = `/login`;
-		navigate(path);
-	};
 	const [passwordMatch, setPasswordMatch] = useState();
 	const [emailMatch, setEmailMatch] = useState();
+	let navigate = useNavigate();
 
 	const {
 		register,
@@ -279,8 +275,8 @@ const Signup = ({ onLogin }) => {
 							{...register("bio", {
 								required: false,
 								maxLength: {
-									value: 100,
-									message: "Bio cannot exceed 100 characters",
+									value: 160 ,
+									message: "Bio cannot exceed 160 characters",
 								},
 							})}
 						/>
@@ -323,10 +319,11 @@ const Signup = ({ onLogin }) => {
 						/>
 					</div>
 					<div className="buttons">
-						<button className="signup" onClick={routeChange}>
-							Login
-						</button>
+						
 						<button className="loginBtn">Signup</button>
+						<a className="signup" href="/login">
+							Already have an account? Login instead!
+						</a>
 					</div>
 				</form>
 			</div>
