@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import './pokemonSearchResult.scss';
 
 const PokemonSearchResultCard = (props) => {
     const [pokemonData, setPokemonData] = useState();
@@ -68,8 +69,9 @@ const PokemonSearchResultCard = (props) => {
   return (
     <>
         {pokemonData !== null && pokemonData !== undefined ? (
+            <div className={`type ${pokemonData?.types[0].type.name}`} style={{width:"49%"}}>
             <a href={`/pokemon?pokemon=${pokemonData.id}`}>
-                <div className="" 
+                <div 
                 // onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
                 >
                     <section className="">
@@ -77,11 +79,29 @@ const PokemonSearchResultCard = (props) => {
                             {"#" +
                                 pokemonData.id.toString().padStart(4, "0") +
                                 " - " +
-                                pokemonData.name?.charAt(0).toUpperCase() +
-                                pokemonData.name?.slice(1).replace(/-/g, ' ')}
+                                pokemonData.name?.replace(/-/g, ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}
                         </p>
                     </section>
 
+
+                    {/* TODO:
+                    
+                        Change options so Pokemon and Moves are check boxes, toggling each. 
+                            If pokemon is checked, width=100%
+                            If Moves is checked, width=100%
+                            if BOTH are checked, width=49%
+                        
+                        Make them into two seperate DIVS
+                        Place those divs inside a container div and give fles properties to it
+                            Should be side-by-side so flex-direction: ROW
+                            Give padding of 5%
+                        
+                        Style Pokemon Search Results so that they look nice
+                            Add flavor text entries for each pokemon as a description
+                            Include TYPE and other relevant data
+
+                        Finish styling Move Search Results
+                    */}
                     <section className="">
                         <div className="">
                             <img
@@ -125,6 +145,7 @@ const PokemonSearchResultCard = (props) => {
                     </section>
                 </div>
             </a>
+            </div>
         ) : (
             <div className="loader"></div>
         )}

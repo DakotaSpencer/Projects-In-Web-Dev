@@ -59,7 +59,7 @@ const PokemonMove = () => {
 		<div className={`moveContainer`}>
 			<div className="moveInfo">
 				<div className="mainMoveInfo">
-					<p style={{fontSize:"24px", fontWeight:"700"}} className={`pokemonMoveType ${pokemonMoveData?.type.name}`}>{pokemonMoveData?.name.charAt(0).toUpperCase() + pokemonMoveData?.name?.slice(1).replace(/-/g, ' ')}</p>
+					<p style={{fontSize:"24px", fontWeight:"700"}} className={`pokemonMoveType ${pokemonMoveData?.type.name}`}>{pokemonMoveData?.name?.replace(/-/g, ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}</p>
 					<p className="">{flavorText?.flavor_text}</p>
 					<p>Type: {pokemonMoveData?.type.name.charAt(0).toUpperCase() + pokemonMoveData?.type.name.slice(1)}</p>
 					<p>Category: {pokemonMoveData?.damage_class.name.charAt(0).toUpperCase() + pokemonMoveData?.damage_class.name.slice(1)}</p>

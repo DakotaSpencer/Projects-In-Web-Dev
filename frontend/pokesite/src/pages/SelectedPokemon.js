@@ -279,8 +279,7 @@ const SelectedPokemon = () => {
 										{"#" +
 											pokemonData.id.toString().padStart(4, "0") +
 											" - " +
-											pokemonData.name?.charAt(0).toUpperCase() +
-											pokemonData.name?.slice(1).replace(/-/g, ' ')}
+											pokemonData.name?.replace(/-/g, ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}
 									</h2>
 									<div className="pokemonTypes">
 										{pokemonData.types?.map((type) => (
