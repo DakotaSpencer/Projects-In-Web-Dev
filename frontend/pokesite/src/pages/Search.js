@@ -70,6 +70,7 @@ const Search = () => {
     }, [searchParams, pokemonArray, movesArray]);
 
     useEffect(() => {
+        document.title = "Searching for: " + searchQuery + " - PokeSite"
         if(searchQuery){
             if(isPokemonSelected && pokemonArray){
                 filterPokemonArray(searchQuery)

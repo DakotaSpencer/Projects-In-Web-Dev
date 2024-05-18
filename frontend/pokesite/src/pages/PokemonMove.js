@@ -30,6 +30,7 @@ const PokemonMove = () => {
 
 	useEffect(() =>{
 		console.log("Move Data:", pokemonMoveData)
+		document.title = pokemonMoveData?.name?.replace(/-/g, ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())+ " - PokeSite" || "Unknown - PokeSite"
 		const getFlavorText = () => {
 			var tempArr = [];
 			pokemonMoveData?.flavor_text_entries.forEach((element) => {
