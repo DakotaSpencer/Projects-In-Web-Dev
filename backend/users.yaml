@@ -137,4 +137,28 @@ paths:
           description: Successful response
           content:
             application/json: {}
-   
+  /user/email/put:
+    put:
+      tags:
+        - Users
+      summary: updateUsersEmail
+      description: Update the user's email
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    example: testEmailPut
+                  userId:
+                    type: string
+                    example: "{{userId}}"
+      responses:
+        '200':
+              description: Successful response
+              content:
+                application/json: {}
+
