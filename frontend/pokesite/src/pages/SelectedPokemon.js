@@ -19,7 +19,6 @@ import { Bar } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 const SelectedPokemon = () => {
-	
 	const [queryParameters] = useSearchParams();
 	const [selectedPokemon, setSelectedPokemon] = useState("");
 	const [pokemonData, setPokemonData] = useState();
@@ -42,78 +41,66 @@ const SelectedPokemon = () => {
 	);
 
 	const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
 	useEffect(() => {
 		setSelectedPokemon(queryParameters.get("pokemon"));
 
 		const fetchPokemonData = async () => {
-			console.log("Selected pokemon: " + selectedPokemon)
-			console.log("Fetch URL: " + `https://pokeapi.co/api/v2/pokemon/${
-				selectedPokemon ? selectedPokemon : queryParameters.get("pokemon")
-			}`)
-			await delay(1500);
-			await axios
-				.all([
-					axios.get(
-						`https://pokeapi.co/api/v2/pokemon/${
-							selectedPokemon ? selectedPokemon : queryParameters.get("pokemon")
-						}`
-					),
-					axios.get(
-						`https://pokeapi.co/api/v2/pokemon-species/${
-							selectedPokemon ? selectedPokemon : queryParameters.get("pokemon")
-						}`
-					),
-				])
-				.then(
-					axios.spread((pokemonAxiosData, descriptionAxiosResults) => {
-						setPokemonData(pokemonAxiosData.data);
-						setSpeciesData(descriptionAxiosResults);
-						
-						//setSprite(pokemonAxiosData.data.sprites.other.obj["official-artwork"].front_default)
-					})
+			try {
+				console.log("Selected pokemon: " + selectedPokemon);
+				console.log("Fetch URL: " + `https://pokeapi.co/api/v2/pokemon/${selectedPokemon ? selectedPokemon : queryParameters.get("pokemon")}`);
+				await delay(1500);
+				const response = await axios.get(
+					`https://pokeapi.co/api/v2/pokemon/${selectedPokemon ? selectedPokemon : queryParameters.get("pokemon")}`
 				);
+				setPokemonData(response.data);
+			} catch (error) {
+				console.error("Error fetching Pokemon data:", error);
+			}
 		};
-		if (pokemonData === null || pokemonData === undefined) {
+
+		if (!pokemonData) {
 			fetchPokemonData();
 		}
-	}, []);
+	}, [selectedPokemon, queryParameters]);
 
 	useEffect(() => {
-		async function fetchData() {
-			await speciesData;
-			if (speciesData) {
-				console.log("Pokemon Data: ", pokemonData);
-				document.title = pokemonData?.name?.charAt(0).toUpperCase() +
-				pokemonData?.name?.slice(1) + " - PokeSite" || "Unknown - PokeSite"
-				// console.log("Species Data: ", speciesData);
-				//If species data exists, then we can find evolution chain. For each item in evolution chain
-				// get that pokemons data and display it in the Evolution Chain section
-				axios.all([axios.get(speciesData?.data?.evolution_chain?.url)]).then(
-					axios.spread((evolutionChainData) => {
-						console.log("Evolution Chain: ", evolutionChainData)
-						setEvolutionChain(evolutionChainData);
-						setLoading(false);
-						//First evolution: evolutionChainData.data.chain.species.name;
-						//Second Evolution: evolutionChainData.data.chain.species.evolves_to.species.name;
-						//Third Evolution: evolutionChainData.data.chain.species.evolves_to.evolves_to.species.name
-					})
-				);
-				var tempArr = [];
-				speciesData?.data?.flavor_text_entries?.forEach((element) => {
-					if (element?.language?.name === "en") {
-						tempArr.push(element);
-					}
-				});
-				setFlavorText(tempArr[Math.floor(Math.random() * tempArr.length)]);
+		const fetchSpeciesData = async () => {
+			if (pokemonData?.species?.url) {
+				try {
+					const speciesResponse = await axios.get(pokemonData.species.url);
+					setSpeciesData(speciesResponse.data);
+				} catch (error) {
+					console.error("Error fetching species data:", error);
+				}
 			}
-		}
-		function getMoves() {
+		};
+		fetchSpeciesData();
+	}, [pokemonData]);
+
+	useEffect(() => {
+		const fetchEvolutionData = async () => {
+			if (speciesData) {
+				try {
+					const evolutionResponse = await axios.get(speciesData.evolution_chain.url);
+					setEvolutionChain(evolutionResponse.data);
+					setLoading(false);
+
+					let flavorTexts = speciesData.flavor_text_entries.filter(
+						(entry) => entry.language.name === "en"
+					);
+					setFlavorText(flavorTexts[Math.floor(Math.random() * flavorTexts.length)]);
+				} catch (error) {
+					console.error("Error fetching evolution chain data:", error);
+				}
+			}
+		};
+
+		const getMoves = () => {
 			let levelUpMovesArray = [];
 			let nonLevelUpMovesArray = [];
 			pokemonData?.moves.forEach((move) => {
-				if (
-					move.version_group_details[0].move_learn_method.name === "level-up"
-				) {
+				if (move.version_group_details[0].move_learn_method.name === "level-up") {
 					levelUpMovesArray.push(move);
 				} else {
 					nonLevelUpMovesArray.push(move);
@@ -125,18 +112,16 @@ const SelectedPokemon = () => {
 
 			setLevelUpMoves(selected);
 			setLearnedMoves(nonLevelUpMovesArray);
+
 			levelUpMovesArray.sort((a, b) =>
-				a.version_group_details[0]?.level_learned_at >
-				b.version_group_details[0]?.level_learned_at
-					? 1
-					: -1
+				a.version_group_details[0]?.level_learned_at > b.version_group_details[0]?.level_learned_at ? 1 : -1
 			);
 			nonLevelUpMovesArray.sort((a, b) => (a.move.name > b.move.name ? 1 : -1));
-			learnedMoves.entries();
-		}
-		fetchData();
+		};
+
+		fetchEvolutionData();
 		getMoves();
-	}, [speciesData]);
+	}, [speciesData, pokemonData]);
 
 	// Still here due to chart
 	const getTypeColor = (type) => {
@@ -270,7 +255,7 @@ const SelectedPokemon = () => {
 	} else {
 		return (
 			<div className="pokemonContainer">
-				{pokemonData !== null && pokemonData !== undefined ? (
+				{pokemonData ? (
 					<div>
 						<section className="pokeInfo">
 							<div className="mainPokemonInfo">
@@ -295,7 +280,7 @@ const SelectedPokemon = () => {
 									</div>
 
 									<section className="pokemonGeneration">
-										<h3>{getGeneration(speciesData?.data.generation.name)}</h3>
+										<h3>{getGeneration(speciesData?.generation?.name)}</h3>
 									</section>
 								</div>
 								<div className="pokemonInfo">
@@ -384,28 +369,24 @@ const SelectedPokemon = () => {
 									<h3>Evolution Chain: </h3>
 									<div className="evolutionChain">
 										<PokemonCard
-											pokemon={evolutionChain?.data.chain.species.name}
+											pokemon={evolutionChain?.chain?.species?.name}
 										/>
-										{evolutionChain?.data?.chain?.evolves_to[0]?.species
-											?.name ? (
+										{evolutionChain?.chain?.evolves_to[0]?.species?.name ? (
 											<>
 												<PokemonCard
 													pokemon={
-														evolutionChain?.data?.chain?.evolves_to[0]?.species
-															?.name
+														evolutionChain?.chain?.evolves_to[0]?.species?.name
 													}
 												/>
 											</>
 										) : (
 											<></>
 										)}
-										{evolutionChain?.data?.chain?.evolves_to[0]?.evolves_to[0]
-											?.species?.name ? (
+										{evolutionChain?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name ? (
 											<>
 												<PokemonCard
 													pokemon={
-														evolutionChain?.data?.chain?.evolves_to[0]
-															?.evolves_to[0]?.species?.name
+														evolutionChain?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name
 													}
 												/>
 											</>
@@ -423,14 +404,12 @@ const SelectedPokemon = () => {
 								<>
 									<h3>Abilities ({pokemonData?.abilities.length})</h3>
 									<div className="abilitiesContainer">
-										{pokemonData
-											? pokemonData?.abilities?.map((ability) => (
-													<PokemonAbility
-														ability={ability.ability}
-														key={ability.ability.name}
-													/>
-											))
-											: ""}
+										{pokemonData?.abilities?.map((ability) => (
+											<PokemonAbility
+												ability={ability.ability}
+												key={ability.ability.name}
+											/>
+										))}
 									</div>
 								</>
 							) : (
@@ -444,14 +423,12 @@ const SelectedPokemon = () => {
 										Moves Learned through Level Ups ({levelUpMoves.length})
 									</h3>
 									<div className="movesContainer">
-										{levelUpMoves
-											? levelUpMoves?.map((move) => (
-													<PokemonLevelUpMove
-														move={move}
-														key={move.move.name}
-													></PokemonLevelUpMove>
-											))
-											: ""}
+										{levelUpMoves?.map((move) => (
+											<PokemonLevelUpMove
+												move={move}
+												key={move.move.name}
+											></PokemonLevelUpMove>
+										))}
 									</div>
 								</>
 							) : (
