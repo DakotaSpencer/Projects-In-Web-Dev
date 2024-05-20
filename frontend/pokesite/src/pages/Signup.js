@@ -271,7 +271,7 @@ const Signup = ({ onLogin }) => {
 						<input
 							name="bio"
 							type="text"
-							placeholder="bio"
+							placeholder="Bio"
 							{...register("bio", {
 								required: false,
 								maxLength: {
