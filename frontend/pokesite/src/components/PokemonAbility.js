@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import './PokemonAbility.scss';
+import React, { useEffect, useState } from "react";
+import "./PokemonAbility.scss";
 
 const PokemonAbility = (props) => {
-  	console.log("ABILITY: ",props.ability)
+	console.log("ABILITY: ", props.ability);
 	const [abilityID, setAbilityID] = useState("");
 
 	useEffect(() => {
@@ -10,7 +10,7 @@ const PokemonAbility = (props) => {
 			fetch(props.ability.url)
 				.then((data) => data.json())
 				.then((data) => {
-					console.log(data)
+					console.log(data);
 					setAbilityID(data.id);
 				})
 				.catch((err) => console.log(err));
@@ -32,4 +32,4 @@ const PokemonAbility = (props) => {
   )
 }
 
-export default PokemonAbility
+export default PokemonAbility;

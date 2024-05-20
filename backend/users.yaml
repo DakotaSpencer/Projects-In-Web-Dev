@@ -1,0 +1,164 @@
+openapi: 3.0.0
+info:
+  title: Pokemon API
+  description: An API that will call AWS DynamoDB to get and store user data on a Pokémon
+  version: 1.0.0
+servers:
+  - url: "http://localhost:5000"
+tags:
+  - name: Users
+    description: Pokemon websites users
+paths:
+  /user:
+    post:
+      tags:
+        - Users
+      summary: Create User
+      description: Create a new user profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userName:
+                  type: string
+                name:
+                  type: string
+                email:
+                  type: string
+                bio:
+                  type: string
+                password:
+                  type: string
+                profilePicture:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Users
+      summary: GetUsers
+      description: Get all the users that are stored on the AWS DynamoDB table
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/validate/password:
+    post:
+      tags:
+        - Users
+      summary: Check password
+      description: Compare the input password and the hashed password to see if they match
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                inputPassword:
+                  type: string
+                  example: SuperSecretP@ssw0rd
+                hashedPassword:
+                  type: string
+                  example: $2b$10$iqFFHTpgcQwx4OVOE4yBpezDkBlALgwJinuj3T5awtGu5sx9JmlUO
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                inputPassword:
+                  type: string
+                  example: SuperSecretP@ssw0rd
+                hashedPassword:
+                  type: string
+                  example: $2b$10$iqFFHTpgcQwx4OVOE4yBpezDkBlALgwJinuj3T5awtGu5sx9JmlUO
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/{id}:
+    get:
+      tags:
+        - Users
+      summary: GetUserById
+      description: Get the user by the userId Key
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "{{userId}}"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/email/get/{email}:
+    get:
+      tags:
+        - Users
+      summary: GetUserByEmail
+      description: Get the user by their email address
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "user@example.com"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/username/get/{username}:
+    get:
+      tags:
+        - Users
+      summary: GetUserByUsername
+      description: Get the user by their username
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "Bla Test"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/email/put:
+    put:
+      tags:
+        - Users
+      summary: updateUsersEmail
+      description: Update the user's email
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    example: testEmailPut
+                  userId:
+                    type: string
+                    example: "{{userId}}"
+      responses:
+        '200':
+              description: Successful response
+              content:
+                application/json: {}
+
