@@ -53,7 +53,7 @@ router.get("/:id", async (req, res) => {
   const userId = req.params.id;
   const response = await DAL.getTables();
   const user = await DAL.getById(await response.tables[0], userId);
-  res.send(await user);
+  res.send({ status: "200", user: await user });
 });
 router.get("/email/get/:email", async (req, res) => {
   const email = req.params.email;
@@ -108,13 +108,31 @@ router.put("/email/put", async (req, res) => {
   try {
     const response = await DAL.getTables();
     if (req.body.email && req.body.userId) {
-      const create = await DAL.putUser(
-        response.tables[0],
-        req.body.userId,
-        profileEnums.email,
-        req.body.email
-      );
-      return res.json({ Message: "SUCCESS", Response: create });
+      fetch(`http://localhost:5000/user/${req.body.userId}`, { method: "GET" })
+        .then((resp) => resp.json())
+        .then(async (data) => {
+          console.log("DATA: ", data);
+          console.log(data.user.Item.userId.S);
+          if (
+            data.status === "200" &&
+            data.user.Item.userId.S === req.body.userId
+          ) {
+            const create = await DAL.putUser(
+              response.tables[0],
+              req.body.userId,
+              profileEnums.email,
+              req.body.email
+            );
+            return res.json({ Message: "SUCCESS", Response: create });
+          } else {
+            return res.json({
+              Message: "Invalid userId",
+            });
+          }
+        })
+        .catch((e) => {
+          return res.json({ Messgae: "Error with getUserId featch", Error: e });
+        });
     } else {
       return res.json({
         Message: "Need to have an email or userId value in request body",
