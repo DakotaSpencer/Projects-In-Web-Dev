@@ -39,6 +39,16 @@ paths:
           description: Successful response
           content:
             application/json: {}
+    get:
+      tags:
+        - Users
+      summary: GetUsers
+      description: Get all the users that are stored on the AWS DynamoDB table
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
   /user/validate/password:
     post:
       tags:
@@ -48,16 +58,83 @@ paths:
       requestBody:
         required: true
         content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                inputPassword:
+                  type: string
+                  example: SuperSecretP@ssw0rd
+                hashedPassword:
+                  type: string
+                  example: $2b$10$iqFFHTpgcQwx4OVOE4yBpezDkBlALgwJinuj3T5awtGu5sx9JmlUO
           multipart/form-data:
             schema:
               type: object
               properties:
                 inputPassword:
                   type: string
+                  example: SuperSecretP@ssw0rd
                 hashedPassword:
                   type: string
+                  example: $2b$10$iqFFHTpgcQwx4OVOE4yBpezDkBlALgwJinuj3T5awtGu5sx9JmlUO
       responses:
         '200':
           description: Successful response
           content:
             application/json: {}
+  /user/{id}:
+    get:
+      tags:
+        - Users
+      summary: GetUserById
+      description: Get the user by the userId Key
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "{{userId}}"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/email/get/{email}:
+    get:
+      tags:
+        - Users
+      summary: GetUserByEmail
+      description: Get the user by their email address
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "user@example.com"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/username/get/{username}:
+    get:
+      tags:
+        - Users
+      summary: GetUserByUsername
+      description: Get the user by their username
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "Bla Test"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+   

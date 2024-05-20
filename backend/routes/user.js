@@ -1,34 +1,54 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
 const DynamoDAL = require("../DynamoDAL");
 const Utils = require("../util");
 const { profileEnums } = require("../enums/profileEnums");
 const DAL = new DynamoDAL();
 const util = new Utils();
+const upload = multer();
 
-/**
- * @swagger
- * /user/{id}:
- *   get:
- *     description: Get a user by ID
- *     tags: [User]
- *     parameters:
- *       - name: id
- *         in: path
- *         description: ID of the user
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Successful operation
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '$/components/schemas/User'
- *       404:
- *         description: User not found
- */
+//CREATE
+router.post("/", async (req, res) => {
+  // console.log("The request body: ", req.body);
+  try {
+    const response = await DAL.getTables();
+    const create = await DAL.createUser(response.tables[0], req.body);
+    console.log(create);
+    return res.json({
+      Message: "SUCCESS",
+      Response: create.response,
+      key: create.key,
+    });
+  } catch (e) {
+    return res.json({ Message: "ERROR: " + e });
+  }
+});
+router.post("/validate/password", upload.none(), async (req, res) => {
+  const inputPassword = req.body.inputPassword;
+  const hashedPassword = req.body.hashedPassword;
+
+  console.log(inputPassword, hashedPassword);
+  if (inputPassword && hashedPassword) {
+    const message = await util.comparePasswords(
+      util.saltPassword(inputPassword),
+      hashedPassword
+    );
+    res.send({
+      status: 200,
+      Message: message,
+    });
+  } else {
+    res.send({
+      status: 400,
+      Message: `Please include ${
+        inputPassword ? "" : "the inputPassword and"
+      } ${hashedPassword ? "" : "the hashedPassword"}`,
+    });
+  }
+});
+
+//READ
 router.get("/:id", async (req, res) => {
   const userId = req.params.id;
   const response = await DAL.getTables();
@@ -47,138 +67,43 @@ router.get("/username/get/:username", async (req, res) => {
   const user = await DAL.getByUsername(await response.tables[0], username);
   res.send(await user);
 });
-/**
- * @swagger
- * /user:
- *   get:
- *     description: Get all users
- *     tags: [User]
- *     responses:
- *       200:
- *         description: Successful operation
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/User'
- */
 router.get("/", async (req, res) => {
   const response = await DAL.getTables();
   const users = await DAL.get(response.tables[0]);
   res.send(await users.Items);
 });
-/**
- * @swagger
- * /user:
- *   post:
- *     description: Create a new user
- *     tags: [User]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               userId:
- *                 type: string
- *               userName:
- *                 type: string
- *               name:
- *                 type: string
- *               bio:
- *                 type: string
- *               password:
- *                 type: string
- *               profilePicture:
- *                 type: string
- *               caughtPokemon:
- *                 type: array
- *                 items:
- *                   type: string
- *               featuredPokemon:
- *                 type: array
- *                 items:
- *                   type: string
- *     responses:
- *       201:
- *         description: User created successfully
- *       400:
- *         description: Bad request. Please check your input.
- */
-router.post("/", async (req, res) => {
-  // console.log("The request body: ", req.body);
-  try {
-    const response = await DAL.getTables();
-    const create = await DAL.createUser(response.tables[0], req.body);
-    console.log(create);
-    return res.json({
-      Message: "SUCCESS",
-      Response: create.response,
-      key: create.key,
-    });
-  } catch (e) {
-    return res.json({ Message: "ERROR: " + e });
-  }
-});
-/**
- * @swagger
- * /user/{id}:
- *   put:
- *     description: Update a user by ID
- *     tags: [User]
- *     parameters:
- *       - name: id
- *         in: path
- *         description: ID of the user
- *         required: true
- *         schema:
- *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/UpdateUser'
- *     responses:
- *       200:
- *         description: User updated successfully
- *       400:
- *         description: Bad request. Please check your input.
- *       404:
- *         description: User not found
- */
-router.patch("/", async (req, res) => {
-  // const params = {
-  //   TableName: dynamodbTableName,
-  //   Key: {
-  //     userId: req.query.userId,
-  //   },
-  //   UpdateExpression: `set ${req.body.updateKey} = :value`,
-  //   ExpresstionAttributeValues: {
-  //     ":value": req.body.updateValue,
-  //   },
-  //   ReturnValues: "UPATED_NEW",
-  // };
-  // await dynamodb
-  //   .update(params)
-  //   .promise()
-  //   .then((response) => {
-  //     () => {
-  //       const body = {
-  //         Operation: "UPDATE",
-  //         Message: "SUCCESS",
-  //         UpdatedAttributes: response,
-  //       };
-  //       res.json(body);
-  //     },
-  //       (error) => {
-  //         console.error("ERROR: ", error);
-  //         res.status(500).send(error);
-  //       };
-  //   });
-});
+
+//UPDATE
+// router.patch("/", async (req, res) => {
+//   // const params = {
+//   //   TableName: dynamodbTableName,
+//   //   Key: {
+//   //     userId: req.query.userId,
+//   //   },
+//   //   UpdateExpression: `set ${req.body.updateKey} = :value`,
+//   //   ExpresstionAttributeValues: {
+//   //     ":value": req.body.updateValue,
+//   //   },
+//   //   ReturnValues: "UPATED_NEW",
+//   // };
+//   // await dynamodb
+//   //   .update(params)
+//   //   .promise()
+//   //   .then((response) => {
+//   //     () => {
+//   //       const body = {
+//   //         Operation: "UPDATE",
+//   //         Message: "SUCCESS",
+//   //         UpdatedAttributes: response,
+//   //       };
+//   //       res.json(body);
+//   //     },
+//   //       (error) => {
+//   //         console.error("ERROR: ", error);
+//   //         res.status(500).send(error);
+//   //       };
+//   //   });
+// });
 router.put("/email/put", async (req, res) => {
   try {
     const response = await DAL.getTables();
@@ -304,25 +229,7 @@ router.put("/name/put", async (req, res) => {
     return res.json({ Message: "ERROR: " + e });
   }
 });
-/**
- * @swagger
- * /user/remove/{id}:
- *   delete:
- *     description: Delete a user by ID
- *     tags: [User]
- *     parameters:
- *       - name: id
- *         in: path
- *         description: ID of the user
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: User deleted successfully
- *       404:
- *         description: User not found
- */
+//DELETE
 router.delete("/remove/:id", async (req, res) => {
   const userId = req.params.id;
   try {
@@ -334,28 +241,6 @@ router.delete("/remove/:id", async (req, res) => {
     });
   } catch (e) {
     res.json({ Message: e });
-  }
-});
-
-router.post("/validate/password", async (req, res) => {
-  const inputPassword = req.body.inputPassword;
-  const hashedPassword = req.body.hashedPassword;
-
-  console.log(inputPassword, hashedPassword);
-  if (inputPassword && hashedPassword) {
-    const message = await util.comparePasswords(
-      util.saltPassword(inputPassword),
-      hashedPassword
-    );
-    res.send({
-      status: 200,
-      Message: message,
-    });
-  } else {
-    res.send({
-      stats: 400,
-      Message: "Please send over the inputPassword and the hashedPassword",
-    });
   }
 });
 
