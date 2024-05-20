@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import './PokemonAbility.scss';
+import React, { useEffect, useState } from "react";
+import "./PokemonAbility.scss";
 
 const PokemonAbility = (props) => {
-  	console.log("ABILITY: ",props.ability)
+	console.log("ABILITY: ", props.ability);
 	const [abilityID, setAbilityID] = useState("");
 
 	useEffect(() => {
@@ -10,7 +10,7 @@ const PokemonAbility = (props) => {
 			fetch(props.ability.url)
 				.then((data) => data.json())
 				.then((data) => {
-					console.log(data)
+					console.log(data);
 					setAbilityID(data.id);
 				})
 				.catch((err) => console.log(err));
@@ -19,18 +19,16 @@ const PokemonAbility = (props) => {
 		//Extend into its own page.
 		getMoveType();
 	}, [props.ability]);
-  return (
-    <>
-	<div className='ability'>
-      <a href={`/ability?ability=${abilityID}`}>
-        {
-          props.ability.name?.charAt(0).toUpperCase() +
-          props.ability.name?.slice(1).replace(/-/g, ' ')
-        }
-      </a>
-      </div>
-    </>
-  )
-}
+	return (
+		<>
+			<a className="ability" href={`/ability?ability=${abilityID}`}>
+				<div >
+					{props.ability.name?.charAt(0).toUpperCase() +
+						props.ability.name?.slice(1).replace(/-/g, " ")}
+				</div>
+			</a>
+		</>
+	);
+};
 
-export default PokemonAbility
+export default PokemonAbility;

@@ -3,6 +3,6 @@
 .ability{
     @include container;
     &:hover{
-        background-color: darken($container-BG, 15%) !important;
+        background-color: darken($container-BG, 5%) !important;
     }
 }
