@@ -4,7 +4,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useForm } from "react-hook-form";
 import PokemonCard from "../components/PokemonCard";
 
-const Profile = () => {
+const Profile = ({ onEmailChange }) => {
 	const [pokemon, setPokemon] = useState([]);
 	const [editInfo, setEditInfo] = useState(false);
 	const [user, setUser] = useState(null);
@@ -26,7 +26,7 @@ const Profile = () => {
 	const passwordPattern =
 		/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{8,}$/;
 	const validatePassword = (value) => {
-		if (passwordPattern.test(value)) {
+		if (passwordPattern.test(value) || value === "") {
 			return true;
 		}
 		return `Password must contain: \n 1 uppercase letter \n1 lowercase letter \n 1 number \n 1 special character`;
@@ -48,8 +48,11 @@ const Profile = () => {
 
 	useEffect(() => {
 		if (user) {
-			setPokemon(user.featuredPokemon.SS);
-			console.log(user);
+			if(user.featuredPokemon.SS[0] === '0'){
+				setPokemon([])
+			}else{
+				setPokemon(user.featuredPokemon.SS);
+			}
 		}
 	}, [user]);
 
@@ -59,6 +62,123 @@ const Profile = () => {
 
 	const onSubmit = (data) => {
 		console.log(data);
+		const url = "http://localhost:5000/user";
+		if (data.name !== "") {
+			fetch(`${url}/name/put`, {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					userId: user.userId.S,
+					name: data.name,
+				}),
+			})
+				.then((r) => r.json())
+				.then((returnData) => {
+					if (returnData.Message === "SUCCESS") {
+						setUser(returnData.Response);
+						setEditInfo(false);
+					} else {
+					}
+				})
+				.catch((err) => console.log(err));
+		}
+		if (data.email !== "") {
+			fetch(`${url}/email/put`, {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					userId: user.userId.S,
+					email: data.email,
+				}),
+			})
+				.then((r) => r.json())
+				.then((returnData) => {
+					if (returnData.Message === "SUCCESS") {
+						setUser(returnData.Response);
+						setEditInfo(false);
+						setLoggedInEmail(returnData.Response.email.s);
+						onEmailChange(returnData.Response.email.s);
+					} else {
+					}
+				})
+				.catch((err) => console.log(err));
+		}
+		if (data.userName !== "") {
+			fetch(`${url}/username/put`, {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					userId: user.userId.S,
+					username: data.userName,
+				}),
+			})
+				.then((r) => r.json())
+				.then((returnData) => {
+					if (returnData.Message === "SUCCESS") {
+						setUser(returnData.Response);
+						setEditInfo(false);
+					} else {
+					}
+				})
+				.catch((err) => console.log(err));
+		}
+		if (data.password !== "") {
+			fetch(`${url}/password/put`, {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					userId: user.userId.S,
+					password: data.password,
+				}),
+			})
+				.then((r) => r.json())
+				.then((returnData) => {
+					if (returnData.Message === "SUCCESS") {
+						setUser(returnData.Response);
+						setEditInfo(false);
+					} else {
+					}
+				})
+				.catch((err) => console.log(err));
+		}
+		if (data.bio !== "") {
+			fetch(`${url}/bio/put`, {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					userId: user.userId.S,
+					bio: data.bio,
+				}),
+			})
+				.then((r) => r.json())
+				.then((returnData) => {
+					if (returnData.Message === "SUCCESS") {
+						setUser(returnData.Response);
+						setEditInfo(false);
+					} else {
+					}
+				})
+				.catch((err) => console.log(err));
+		}
+		if (data.profilePicture !== "") {
+			fetch(`${url}/profilePicture/put`, {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					userId: user.userId.S,
+					profilePicture: data.profilePicture,
+				}),
+			})
+				.then((r) => r.json())
+				.then((returnData) => {
+					if (returnData.Message === "SUCCESS") {
+						setUser(returnData.Response);
+						setEditInfo(false);
+					} else {
+					}
+				})
+				.catch((err) => console.log(err));
+		}
 	};
 
 	if (isLoading && loggedInEmail) {
@@ -90,13 +210,10 @@ const Profile = () => {
 									user.profilePicture.S
 										? user.profilePicture.S
 										: "../assets/defaultImg.jpg"
-									// "../assets/defaultImg.jpg"
 								}
 								fluid
 								roundedCircle
 							/>
-
-							<button className="profileImgBtn">Edit Profile Image</button>
 
 							<button className="editProfile" onClick={editProfile}>
 								Edit Profile
@@ -113,7 +230,7 @@ const Profile = () => {
 										type="email"
 										placeholder="Email"
 										{...register("email", {
-											required: "Email is required",
+											required: false,
 											pattern: {
 												value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
 												message: "Email address is invalid",
@@ -144,7 +261,7 @@ const Profile = () => {
 										type="text"
 										placeholder="Username"
 										{...register("userName", {
-											required: "Username is required",
+											required: false,
 											pattern: {
 												value: /^[a-zA-Z0-9_-]{3,16}$/,
 												message: "Invaild username",
@@ -179,7 +296,7 @@ const Profile = () => {
 										type="text"
 										placeholder="Name"
 										{...register("name", {
-											required: "Name is required",
+											required: false,
 											pattern: {
 												value: /^[A-Za-z\s]+$/,
 												message: "Name can only contain letters",
@@ -214,13 +331,26 @@ const Profile = () => {
 										type="password"
 										placeholder="Password"
 										{...register("password", {
-											required: "Password is required",
+											required: false,
 											validate: validatePassword,
 											minLength: {
 												value: 8,
 												message: "Must be longer than 8 characters",
 											},
 										})}
+									/>
+									<ErrorMessage
+										errors={errors}
+										name="password"
+										render={({ messages }) =>
+											messages
+												? Object.entries(messages).map(([type, message]) => (
+														<p key={type} className="error">
+															{message}
+														</p>
+												  ))
+												: null
+										}
 									/>
 									<label htmlFor="bio">Bio</label>
 									<br />
@@ -249,7 +379,30 @@ const Profile = () => {
 												: null
 										}
 									/>
-									<button type="submit">Confirm</button>
+									<label htmlFor="profilePicture">Profile Picture</label>
+									<br />
+									<input
+										name="profilePicture"
+										type="url"
+										placeholder="Profile Picture (url)"
+										{...register("profilePicture", {
+											required: false,
+										})}
+									/>
+									<ErrorMessage
+										errors={errors}
+										name="profilePicture"
+										render={({ messages }) =>
+											messages
+												? Object.entries(messages).map(([type, message]) => (
+														<p key={type} className="error">
+															{message}
+														</p>
+												  ))
+												: null
+										}
+									/>
+									<button>Confirm</button>
 								</form>
 							) : (
 								<div className="profileInfo">
@@ -261,6 +414,9 @@ const Profile = () => {
 									</h3>
 									<h3>
 										<span className="color">Bio:</span> {user.bio.S}
+									</h3>
+									<h3>
+										<span className="color">Number of Caught Pokemon:</span> {pokemon.length}
 									</h3>
 								</div>
 							)}
