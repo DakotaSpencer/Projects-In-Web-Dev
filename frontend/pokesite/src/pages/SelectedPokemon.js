@@ -30,6 +30,11 @@ const SelectedPokemon = () => {
 	const [learnedMoves, setLearnedMoves] = useState([]);
 	const [useImperialWeight, setUseImperialWeight] = useState(true);
 	const [useImperialHeight, setUseImperialHeight] = useState(true);
+	const [loggedInEmail, setLoggedInEmail] = useState();
+
+	useEffect(() => {
+		setLoggedInEmail(localStorage.getItem("email"));
+	}, []);
 
 	ChartJS.register(
 		CategoryScale,
@@ -48,7 +53,7 @@ const SelectedPokemon = () => {
 		const fetchPokemonData = async () => {
 			try {
 				console.log("Selected pokemon: " + selectedPokemon);
-				console.log("Fetch URL: " + `https://pokeapi.co/api/v2/pokemon/${selectedPokemon ? selectedPokemon : queryParameters.get("pokemon")}`);
+				console.log(`Fetch URL: https://pokeapi.co/api/v2/pokemon/${selectedPokemon ? selectedPokemon : queryParameters.get("pokemon")}`);
 				await delay(1500);
 				const response = await axios.get(
 					`https://pokeapi.co/api/v2/pokemon/${selectedPokemon ? selectedPokemon : queryParameters.get("pokemon")}`
@@ -237,6 +242,15 @@ const SelectedPokemon = () => {
 		],
 	};
 
+	const catchPokemon = (name) => {
+		localStorage.setItem("caughtPokemon", name);
+	};
+
+	const addToParty = (name) => {
+		catchPokemon(name);
+		localStorage.setItem("featuredPokemon", name);
+	};
+
 	if (isLoading) {
 		return (
 			<div>
@@ -300,6 +314,23 @@ const SelectedPokemon = () => {
 									<section className="flavorText">
 										{flavorText?.flavor_text}
 									</section>
+									{loggedInEmail ? (
+										<>
+											<section className="catchPokemon">
+												<button
+													className="catch"
+													onClick={catchPokemon(pokemonData.name)}
+												>
+													Catch Pokemon
+												</button>
+												<button onClick={addToParty(pokemonData.name)}>
+													Add Pokemon to Party
+												</button>
+											</section>
+										</>
+									) : (
+										<></>
+									)}
 								</div>
 							</div>
 							<section className="statisticsContainer">
@@ -423,12 +454,14 @@ const SelectedPokemon = () => {
 										Moves Learned through Level Ups ({levelUpMoves.length})
 									</h3>
 									<div className="movesContainer">
-										{levelUpMoves?.map((move) => (
-											<PokemonLevelUpMove
-												move={move}
-												key={move.move.name}
-											></PokemonLevelUpMove>
-										))}
+										{levelUpMoves
+											? levelUpMoves?.map((move) => (
+													<PokemonLevelUpMove
+														move={move}
+														key={move.move.name}
+													></PokemonLevelUpMove>
+											))
+											: ""}
 									</div>
 								</>
 							) : (

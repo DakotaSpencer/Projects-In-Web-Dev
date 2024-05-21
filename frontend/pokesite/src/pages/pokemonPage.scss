@@ -240,3 +240,18 @@
 .pokeInfo, .evolutionChainContainer, .pokemonAbilities, .pokemonMoves{
 	margin-top: 1% !important;
 }
+
+.catchPokemon{
+	margin: 1%;
+	margin-top: 2%;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	button{
+		@include buttons($teal, #000);
+	}
+	.catch{
+		@include buttons($teal2, #fff);
+	}
+}
