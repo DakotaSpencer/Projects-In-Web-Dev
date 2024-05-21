@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Navbar, Container, Nav, Form, Button } from "react-bootstrap";
-import "./navbar.scss";
+import './navbar.scss';
+import { useNavigate } from "react-router-dom";
 
 const NavBarx = ({ loggedInEmail, onLogout }) => {
-	const [searchTerm, setSearchTerm] = useState();
-
+	const [searchTerm, setSearchTerm] = useState("");
+	const navigate = useNavigate();
+    const searchFunc = async (e) => {
+		e.preventDefault()
+		navigate(`/search?query=${searchTerm}`)
+    }
 	const logout = () => {
 		onLogout();
 	};
@@ -27,7 +32,7 @@ const NavBarx = ({ loggedInEmail, onLogout }) => {
 						) : (
 							<></>
 						)}
-						<Form className="d-flex">
+						<Form onSubmit={searchFunc} className="d-flex">
 							<Form.Control
 								required
 								type="search"
@@ -37,13 +42,9 @@ const NavBarx = ({ loggedInEmail, onLogout }) => {
 								value={searchTerm}
 								onChange={(e) => setSearchTerm(e.target.value)}
 							/>
-							<Button
-								href={`/search?query=${searchTerm}`}
-								className="button loginBtn"
-							>
-								Search
-							</Button>
+							<Button type="submit" className="button loginBtn">Search</Button>
 						</Form>
+						
 					</Nav>
 					{loggedInEmail ? (
 						<>

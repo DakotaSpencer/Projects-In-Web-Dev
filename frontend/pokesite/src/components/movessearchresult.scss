@@ -1,0 +1,125 @@
+@import "../index.scss";
+.move{
+    @include container;
+	&.normal {
+        color: #333;
+		background-color: #a8a878;
+        border: 2px darken($color: #a8a878, $amount: 30) solid;
+	}
+	&.fire {
+        color: #333;
+		background-color: #f08030;
+        border: 2px darken($color: #f08030, $amount: 30) solid;
+	}
+	&.water {
+		background-color: #6890f0;
+        border: 2px darken($color: #6890f0, $amount: 30) solid;
+	}
+	&.electric {
+        color: #333;
+		background-color: #f8d030;
+        border: 2px darken($color: #f8d030, $amount: 30) solid;
+	}
+	&.grass {
+        color: #333;
+		background-color: #78c850;
+        border: 2px darken($color: #78c850, $amount: 30) solid;
+	}
+	&.ice {
+        color: #333;
+		background-color: #98d8d8;
+        border: 2px darken($color: #98d8d8, $amount: 30) solid;
+	}
+	&.fighting {
+		background-color: #c03028;
+        border: 2px darken($color: #c03028, $amount: 30) solid;
+	}
+	&.poison {
+		background-color: #a040a0;
+        border: 2px darken($color: #a040a0, $amount: 30) solid;
+	}
+	&.ground {
+        color: #333;
+		background-color: #e0c068;
+        border: 2px darken($color: #e0c068, $amount: 30) solid;
+	}
+	&.flying {
+        color: #333;
+		background-color: #a890f0;
+        border: 2px darken($color: #a890f0, $amount: 30) solid;
+	}
+	&.psychic {
+		background-color: #f85888;
+        border: 2px darken($color: #f85888, $amount: 30) solid;
+	}
+	&.bug {
+        color: #333;
+		background-color: #a8b820;
+        border: 2px darken($color: #a8b820, $amount: 30) solid;
+	}
+	&.rock {
+		background-color: #b8a038;
+        border: 2px darken($color: #b8a038, $amount: 30) solid;
+	}
+	&.ghost {
+		background-color: #705898;
+        border: 2px darken($color: #705898, $amount: 30) solid;
+	}
+	&.dragon {
+		background-color: #7038f8;
+        border: 2px darken($color: #7038f8, $amount: 30) solid;
+	}
+	&.dark {
+		background-color: #705848;
+        border: 2px darken($color: #705848, $amount: 30) solid;
+	}
+	&.steel {
+        color: #333;
+		background-color: #b8b8d0;
+        border: 2px darken($color: #b8b8d0, $amount: 30) solid;
+	}
+	&.fairy {
+        color: #333;
+		background-color: #f0b6bc;
+        border: 2px darken($color: #f0b6bc, $amount: 30) solid;
+	}
+	&.stellar {
+		background-color: #35ace7;
+        border: 2px darken($color: #35ace7, $amount: 30) solid;
+	}
+	&.stellar {
+		background-color: #35ace7;
+        border: 2px darken($color: #35ace7, $amount: 30) solid;
+	}
+	width: auto;
+	padding: 1% 1% 1% 1%;
+    height: auto;
+}
+
+.moveHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+    align-items: flex-start;
+}
+
+.name{
+
+}
+
+.damageClass{
+
+}
+
+.pp{
+
+}
+
+.power{
+
+}
+
+.effect{
+
+}
