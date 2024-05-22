@@ -9,6 +9,7 @@ tags:
   - name: Users
     description: Pokemon websites users
 paths:
+#Posts Requests
   /user:
     post:
       tags:
@@ -83,11 +84,12 @@ paths:
           description: Successful response
           content:
             application/json: {}
+#Get Requests
   /user/{id}:
     get:
       tags:
         - Users
-      summary: GetUserById
+      summary: Get User By Id
       description: Get the user by the userId Key
       parameters:
         - name: id
@@ -105,7 +107,7 @@ paths:
     get:
       tags:
         - Users
-      summary: GetUserByEmail
+      summary: Get User By Email
       description: Get the user by their email address
       parameters:
         - name: email
@@ -123,7 +125,7 @@ paths:
     get:
       tags:
         - Users
-      summary: GetUserByUsername
+      summary: Get User By Username
       description: Get the user by their username
       parameters:
         - name: username
@@ -137,11 +139,12 @@ paths:
           description: Successful response
           content:
             application/json: {}
+# Put Request
   /user/email/put:
     put:
       tags:
         - Users
-      summary: updateUsersEmail
+      summary: Update Users Email
       description: Update the user's email
       requestBody:
           required: true
@@ -165,7 +168,7 @@ paths:
     put:
       tags:
         - Users
-      summary: updateUsersUserName
+      summary: Update Users UserName
       description: Update the user's username
       requestBody:
           required: true
@@ -185,4 +188,101 @@ paths:
               description: Successful response
               content:
                 application/json: {}
+  /user/password/put:
+    put:
+      tags:
+        - Users
+      summary: Update Users Passowrd
+      description: Update the user's password with the proper salt
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  password:
+                    type: string
+                    example: Password123!
+                  userId:
+                    type: string
+                    example: "{{userId}}"
+      responses:
+        '200':
+              description: Successful response
+              content:
+                application/json: {}
+  /user/profilePicture/put:
+    put:
+      tags:
+        - Users
+      summary: Update Users Profile pictures
+      description: Update the user's profile pictures on the back end
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profilePicture:
+                    type: string
+                    example: https://cdn.7tv.app/emote/64f450db5ed667f92a96a40f/4x.webp
+                  userId:
+                    type: string
+                    example: "{{userId}}"
+      responses:
+        '200':
+              description: Successful response
+              content:
+                application/json: {}
+  /user/bio/put:
+    put:
+      tags:
+        - Users
+      summary: Update Users Bio
+      description: Update the user's bio on the back end
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bio:
+                    type: string
+                    example: Did you know that the critically acclaimed MMORPG Final Fantasy XIV has a free trial, and includes the entirety of A Realm Reborn AND the award-winning Heavensward expansion up to level 60 with no restrictions on playtime? Sign up, and enjoy Eorzea today!
+                  userId:
+                    type: string
+                    example: "{{userId}}"
+      responses:
+        '200':
+              description: Successful response
+              content:
+                application/json: {}
+  /user/name/put:
+    put:
+      tags:
+        - Users
+      summary: Update Users Name
+      description: Update the user's name on the back end
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: Mr.Pritchard
+                  userId:
+                    type: string
+                    example: "{{userId}}"
+      responses:
+        '200':
+              description: Successful response
+              content:
+                application/json: {}
+
 
