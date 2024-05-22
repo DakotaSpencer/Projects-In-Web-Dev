@@ -19,16 +19,17 @@ const PokemonAbility = (props) => {
 		//Extend into its own page.
 		getMoveType();
 	}, [props.ability]);
-	return (
-		<>
-			<a className="ability" href={`/ability?ability=${abilityID}`}>
-				<div >
-					{props.ability.name?.charAt(0).toUpperCase() +
-						props.ability.name?.slice(1).replace(/-/g, " ")}
-				</div>
-			</a>
-		</>
-	);
-};
+  return (
+    <>
+	<div className='ability'>
+      <a href={`/ability?ability=${abilityID}`}>
+        {
+          props.ability.name?.replace(/-/g, ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())
+        }
+      </a>
+      </div>
+    </>
+  )
+}
 
 export default PokemonAbility;

@@ -27,7 +27,7 @@ const PokemonLevelUpMove = ({ move }) => {
 			<a href={`/move?move=${moveID}`}>
 				<div className={`move ${type}`}>
 					<h5>
-						{move.move.name?.charAt(0).toUpperCase() + move.move.name?.slice(1).replace(/-/g, ' ')}
+						{move.move.name?.replace(/-/g, ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}
 					</h5>
 					<p>Learned at level {move.version_group_details[0]?.level_learned_at}</p>
 				</div>
