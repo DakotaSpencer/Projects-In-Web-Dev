@@ -38,7 +38,7 @@ function App() {
 						<Route path="/search" element={<Search />} />
 						<Route path="/login" element={<Login onLogin={handleLogin} />} />
 						<Route path="/signup" element={<Signup onLogin={handleLogin} />} />
-						<Route path="/pokemon" element={<SelectedPokemon />} />
+						<Route path="/pokemon" element={<SelectedPokemon onEmailChange={handleLogin} />} />
 						<Route path="/profile" element={<Profile />} />
 						<Route path="/move" element={<PokemonMove />} />
 						<Route path="/ability" element={<PokemonAbilityPage />} />

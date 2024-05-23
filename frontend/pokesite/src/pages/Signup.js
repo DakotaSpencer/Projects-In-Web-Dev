@@ -23,7 +23,6 @@ const Signup = ({ onLogin }) => {
 		const requestData = { ...data };
 		delete requestData.confirmEmail;
 		delete requestData.confirmPassword;
-		console.log(requestData)
 		fetch(`http://localhost:5000/user/`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
