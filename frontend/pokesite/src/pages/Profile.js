@@ -48,11 +48,16 @@ const Profile = ({ onEmailChange }) => {
 
 	useEffect(() => {
 		if (user) {
-			if(user.featuredPokemon.SS[0] === '0'){
-				setPokemon([])
-			}else{
-				setPokemon(user.featuredPokemon.SS);
-			}
+			// uncomment to see how the pokemon look in the profile page
+			let tempArray = ['eevee', 'flareon', 'leafeon', 'vaporeon', 'jolteon', 'umbreon']
+			setPokemon(tempArray)
+			
+			// if(user.featuredPokemon.SS[0] === '0' || user.featuredPokemon.SS.length === 0 ){
+			// 	setPokemon([])
+			// }else{
+				
+			// 	setPokemon(user.featuredPokemon.SS);
+			// }
 		}
 	}, [user]);
 

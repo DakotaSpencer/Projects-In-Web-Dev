@@ -242,14 +242,14 @@ const SelectedPokemon = () => {
 		],
 	};
 
-	const catchPokemon = (name) => {
-		localStorage.setItem("caughtPokemon", name);
-	};
+	// const catchPokemon = (name) => {
+	// 	localStorage.setItem("caughtPokemon", name);
+	// };
 
-	const addToParty = (name) => {
-		catchPokemon(name);
-		localStorage.setItem("featuredPokemon", name);
-	};
+	// const addToParty = (name) => {
+	// 	catchPokemon(name);
+	// 	localStorage.setItem("featuredPokemon", name);
+	// };
 
 	if (isLoading) {
 		return (
@@ -314,7 +314,7 @@ const SelectedPokemon = () => {
 									<section className="flavorText">
 										{flavorText?.flavor_text}
 									</section>
-									{loggedInEmail ? (
+									{/* {loggedInEmail ? (
 										<>
 											<section className="catchPokemon">
 												<button
@@ -330,7 +330,7 @@ const SelectedPokemon = () => {
 										</>
 									) : (
 										<></>
-									)}
+									)} */}
 								</div>
 							</div>
 							<section className="statisticsContainer">
