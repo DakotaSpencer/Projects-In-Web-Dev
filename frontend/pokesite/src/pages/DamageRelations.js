@@ -65,11 +65,12 @@ const DamageRelations = () => {
                 <p>For Dual Type charts, look across the top to find the attacking type, then move down to see how effective it is against each type!</p>
                 
             </div>
+            <h3>Key:</h3>
             <div style={{padding:"2%",display:"flex", justifyContent: "space-evenly", flexDirection:"row"}}>
-                <div style={{padding:"1%"}} className='perfectSquare double'><p className='centeredText'>x2</p></div> Super Effective (Double Damage)
-                <div style={{padding:"1%"}} className='perfectSquare normaldmg'><p className='centeredText'>x1</p></div> Normal (Normal Damage)
-                <div style={{padding:"1%"}} className='perfectSquare half'><p className='centeredText'>x0.5</p></div><div style={{padding:"1%"}} className='perfectSquare quarter'><p className='centeredText'>x0.25</p></div> Not Very Effective (50% Damage/25% Damage)
-                <div style={{padding:"1%"}} className='perfectSquare none'><p className='centeredText'>x0</p></div> No Effect (No Damage)
+                <div><div style={{display:"flex", flexDirection:"row", justifyContent: "space-evenly"}}><div style={{padding:"1%"}} className='perfectSquare double'><p className='centeredText'>x2</p></div><div style={{padding:"1%"}} className='perfectSquare double'><p className='centeredText'>x4</p></div></div> Super Effective (Double / Quadruple DMG)</div>
+                <div><div style={{display:"flex", flexDirection:"row", justifyContent: "space-evenly"}}><div style={{padding:"1%"}} className='perfectSquare normaldmg'><p className='centeredText'>x1</p></div></div> Normal (Normal Damage)</div>
+                <div><div style={{display:"flex", flexDirection:"row", justifyContent: "space-evenly"}}><div style={{padding:"1%"}} className='perfectSquare half'><p className='centeredText'>x0.5</p></div><div style={{padding:"1%"}} className='perfectSquare quarter'><p className='centeredText'>x0.25</p></div></div> Not Very Effective (50% Damage / 25% Damage)</div>
+                <div><div style={{display:"flex", flexDirection:"row", justifyContent: "space-evenly"}}><div style={{padding:"1%"}} className='perfectSquare none'><p className='centeredText'>x0</p></div></div> No Effect (No Damage)</div>
             </div>
             <div className='typeChart' style={{padding:"2%"}}>
                 {
