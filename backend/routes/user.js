@@ -111,8 +111,6 @@ router.put("/email/put", async (req, res) => {
       fetch(`http://localhost:5000/user/${req.body.userId}`, { method: "GET" })
         .then((resp) => resp.json())
         .then(async (data) => {
-          console.log("DATA: ", data);
-          console.log(data.user.Item.userId.S);
           if (
             data.status === "200" &&
             data.user.Item.userId.S === req.body.userId
@@ -131,7 +129,7 @@ router.put("/email/put", async (req, res) => {
           }
         })
         .catch((e) => {
-          return res.json({ Messgae: "Error with getUserId featch", Error: e });
+          return res.json({ Messgae: "Error with getUserId fetch", Error: e });
         });
     } else {
       return res.json({
@@ -146,13 +144,29 @@ router.put("/username/put", async (req, res) => {
   try {
     const response = await DAL.getTables();
     if (req.body.username && req.body.userId) {
-      const create = await DAL.putUser(
-        response.tables[0],
-        req.body.userId,
-        profileEnums.username,
-        req.body.username
-      );
-      return res.json({ Message: "SUCCESS", Response: create });
+      fetch(`http://localhost:5000/user/${req.body.userId}`, { method: "GET" })
+        .then((resp) => resp.json())
+        .then(async (data) => {
+          if (
+            data.status === "200" &&
+            data.user.Item.userId.S === req.body.userId
+          ) {
+            const create = await DAL.putUser(
+              response.tables[0],
+              req.body.userId,
+              profileEnums.username,
+              req.body.username
+            );
+            return res.json({ Message: "SUCCESS", Response: create });
+          } else {
+            return res.json({
+              Message: "Invalid userId",
+            });
+          }
+        })
+        .catch((e) => {
+          return res.json({ Messgae: "Error with getUserId fetch", Error: e });
+        });
     } else {
       return res.json({
         Message: "Need to have an username or userId value in request body",
