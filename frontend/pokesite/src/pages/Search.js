@@ -90,20 +90,18 @@ const Search = () => {
 
     return (
         <div>
-            <section>
-                Search For:
-                <label class="switch">
-                    <label for="pokemonbtn">Pokemon</label><br></br><input type="checkbox" checked={!isPokemonSelected} onClick={swapSearch}/>
-                <span class="slider round"></span><label for="movebtn">Move</label><br></br>
-                </label>
+            <div className='filterHeader'>
+                <h2>Search For:</h2>
                 <div className='moveHeader' style={{maxWidth:"20%"}}>
-                
-                    <input type="radio" id="pokemonbtn" name="" value="pokemon" checked={isPokemonSelected} onClick={swapSearch}/>
-                    
-                    <input type="radio" id="movebtn" name="" value="move" checked={!isPokemonSelected} onClick={swapSearch}/>
-                    
+                    <h4 id="pokemonLabel" style={{marginLeft: "1px"}} className={isPokemonSelected ? 'glow' : ''}>Pokemon</h4>
+                    <label class="switch">
+                    <input type="checkbox" checked={!isPokemonSelected} onClick={swapSearch}/>
+                    <span class="slider round"></span>
+                    </label>
+                    <h4 id="moveLabel" style={{marginLeft: "1px"}} className={!isPokemonSelected ? 'glow' : ''}>Move</h4>
                 </div>
-            </section>
+                </div>
+
             <h2>Search results for: {searchQuery}</h2>
 
 
