@@ -38,7 +38,6 @@ const PokemonSearchResultCard = (props) => {
         const fetchData = async () => {
             if (speciesData) {
                 console.log("Pokemon Data: ", pokemonData);
-                document.title = pokemonData?.name?.charAt(0).toUpperCase() + pokemonData?.name?.slice(1) + " - PokeSite" || "Unknown - PokeSite";
 
                 const flavorTextEntries = speciesData.flavor_text_entries.filter(entry => entry.language.name === "en");
                 setFlavorText(flavorTextEntries[0]);
@@ -95,60 +94,59 @@ const PokemonSearchResultCard = (props) => {
     return (
         <>
             {pokemonData ? (
-                <div className={`type ${pokemonData.types[0].type.name}`} style={{ width: "49%" }}>
+                <div className={`pokemon searchResult ${pokemonData.types[0].type.name}`}>
                     <a href={`/pokemon?pokemon=${pokemonData.id}`}>
-                        <div>
+                        <div className="pokemonNameandTypes">
                             <section>
-                                <p>
+                                <h4>
                                     {"#" +
                                         pokemonData.id.toString().padStart(4, "0") +
                                         " - " +
                                         pokemonData.name?.replace(/-/g, ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}
-                                </p>
+                                </h4>
                             </section>
-
-                            <section className="">
-                        <div className="">
-                            <img
-                                className=""
-                                style={{
-                                    filter: `drop-shadow(5px 5px 15px ${
-                                        pokemonData
-                                            ? getTypeColor(pokemonData?.types[0].type.name)
-                                            : "white"
-                                    })`,
-                                }}
-                                src={
-                                    pokemonData.sprites?.other.showdown.front_default !== null
-                                        ? pokemonData.sprites?.other.showdown.front_default
-                                        : pokemonData.sprites?.other["official-artwork"]
-                                                .front_default
-                                }
-                                alt="showdown state animation for the pokemon"
-                                width={"100px"}
-                                height={"100px"}
-                            />
-                            {isHovered && (
-                                <div className="overlay"></div>
-                            )}
-                        </div>
-                    </section>
-
                             <section>
-                                <div className="descriptionSection">
-                                    {flavorText?.flavor_text}
-                                </div>
-                            </section>
-
-                            <section>
-                                <div>
+                                <div className="types">
                                     {pokemonData.types?.map((type) => (
-                                        <p className={`${type.type.name}`} key={type.type.name}>
+                                        <p className={`pokemonType ${type.type.name}`} key={type.type.name}>
                                             {" " + type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)}
                                         </p>
                                     ))}
                                 </div>
                             </section>
+                        </div>
+                        <div className="pokemonSearchInfo">
+
+                        
+                            <section className="types">
+                                <div className="pokemonIMG">
+                                    <img
+                                        className=""
+                                        style={{
+                                            filter: `drop-shadow(5px 5px 15px ${
+                                                pokemonData
+                                                    ? getTypeColor(pokemonData?.types[0].type.name)
+                                                    : "white"
+                                            })`,
+                                        }}
+                                        src={pokemonData.sprites?.other["official-artwork"]
+                                                        .front_default
+                                        }
+                                        alt="showdown state animation for the pokemon"
+                                        width={"200px"}
+                                        height={"200px"}
+                                    />
+                                    {isHovered && (
+                                        <div className="overlay"></div>
+                                    )}
+                                </div>
+                            </section>
+                            <section>
+                                <div className="descriptionSection">
+                                    <h5>{flavorText?.flavor_text}</h5>
+                                </div>
+                            </section>
+
                         </div>
                     </a>
                 </div>

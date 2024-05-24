@@ -135,7 +135,7 @@
 		background-color: #f0b6bc;
         border: 2px darken($color: #f0b6bc, $amount: 30) solid;
 		&:hover{
-			background-color: darken(#35ace7, 15%) !important
+			background-color: darken(#f0b6bc, 15%) !important
 		}
 	}
 	&.stellar {

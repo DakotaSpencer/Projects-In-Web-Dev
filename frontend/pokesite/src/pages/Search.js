@@ -92,12 +92,16 @@ const Search = () => {
         <div>
             <section>
                 Search For:
+                <label class="switch">
+                    <label for="pokemonbtn">Pokemon</label><br></br><input type="checkbox" checked={!isPokemonSelected} onClick={swapSearch}/>
+                <span class="slider round"></span><label for="movebtn">Move</label><br></br>
+                </label>
                 <div className='moveHeader' style={{maxWidth:"20%"}}>
                 
                     <input type="radio" id="pokemonbtn" name="" value="pokemon" checked={isPokemonSelected} onClick={swapSearch}/>
-                    <label for="pokemonbtn">Pokemon</label><br></br>
-                    <input type="radio" id="movebtn" name="" value="move" checked={isPokemonSelected} onClick={swapSearch}/>
-                    <label for="movebtn">Move</label><br></br>
+                    
+                    <input type="radio" id="movebtn" name="" value="move" checked={!isPokemonSelected} onClick={swapSearch}/>
+                    
                 </div>
             </section>
             <h2>Search results for: {searchQuery}</h2>
