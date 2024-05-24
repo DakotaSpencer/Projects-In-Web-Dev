@@ -84,6 +84,7 @@ const SelectedPokemon = () => {
 	}, [pokemonData]);
 
 	useEffect(() => {
+		document.title = pokemonData?.name?.replace(/-/g, ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())+ " - PocketDex" || "Unknown - PocketDex"
 		const fetchEvolutionData = async () => {
 			if (speciesData) {
 				try {

@@ -29,7 +29,7 @@ const PokemonAbilityPage = () => {
 
     useEffect(() => {
         console.log(abilityData)
-		document.title = abilityData?.name?.replace(/-/g, ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())+ " - PokeSite" || "Unknown - PokeSite"
+		document.title = abilityData?.name?.replace(/-/g, ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())+ " - PocketDex" || "Unknown - PocketDex"
 		const getFlavorText = () => {
 			var tempArr = [];
 			abilityData?.flavor_text_entries.forEach((element) => {

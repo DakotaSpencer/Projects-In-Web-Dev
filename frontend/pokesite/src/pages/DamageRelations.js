@@ -8,7 +8,7 @@ import DefaultTC from '../components/TypeCharts/DefaultTC';
 import TypeChartComponent from '../components/TypeCharts/TypeChartComponent';
 
 const DamageRelations = () => {
-    document.title = "Damage Relations - PokeSite"
+    document.title = "Damage Relations - PocketDex"
     const [typeChart, setTypeChart] = useState("Default");
 
     const handleTypeSelect=(e)=>{
