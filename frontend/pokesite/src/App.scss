@@ -219,7 +219,7 @@ nav {
 			padding: 1%;
 			border: 2px #1c1b1b solid;
 			border-radius: 5px;
-			height: 75vh;
+			height: 100%;
 		}
 
 		.info {
@@ -230,6 +230,10 @@ nav {
 				label {
 					font-size: 1.2em;
 				}
+				button{
+					@include buttons($teal, #000);
+				}
+				
 			}
 			input {
 				width: 100%;

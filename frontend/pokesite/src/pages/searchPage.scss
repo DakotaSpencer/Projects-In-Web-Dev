@@ -61,3 +61,34 @@
   .slider.round:before {
     border-radius: 50%;
   }
+
+  .searchResults{
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    max-width: 70%;
+  }
+  
+  .switchDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  .moveHeader{
+    align-items: center;
+    margin: auto;
+  }
+
+  .filterHeader{
+    text-align: center;
+  }
+
+  .glow {
+    text-shadow: 
+      0 0 10px lighten($teal, 10%), 
+      0 0 20px lighten($teal, 10%), 
+      0 0 30px lighten($teal, 10%), 
+      0 0 40px lighten($teal, 10%), 
+      0 0 50px lighten($teal, 10%);
+  }

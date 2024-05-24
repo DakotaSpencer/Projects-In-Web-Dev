@@ -24,10 +24,8 @@ const Login = ({ onLogin }) => {
 
 		if (isEmail) {
 			loginRoute = `http://localhost:5000/user/email/get/${usernameEmail}`;
-			console.log("Logging in with email:", usernameEmail);
 		} else {
 			loginRoute = `http://localhost:5000/user/username/get/${usernameEmail}`;
-			console.log("Logging in with username:", usernameEmail);
 		}
 
 		fetch(loginRoute, {

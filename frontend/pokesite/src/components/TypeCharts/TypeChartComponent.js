@@ -16,6 +16,9 @@ const TypeChartComponent = (props) => {
       case 2:
         className = "double";
         break;
+      case 4:
+        className = "quadruple";
+        break;
       default:
         className = "normaldmg";
     }

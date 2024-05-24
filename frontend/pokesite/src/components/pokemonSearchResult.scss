@@ -3,96 +3,95 @@
     @include container;
 	&.normal {
         color: #333;
-		background-color: #a8a878;
+		background-color: darken(#a8a878, 15%);
         border: 2px darken($color: #a8a878, $amount: 30) solid;
 	}
 	&.fire {
         color: #333;
-		background-color: #f08030;
+		background-color: darken(#f08030, 15%);
         border: 2px darken($color: #f08030, $amount: 30) solid;
 	}
 	&.water {
-		background-color: #6890f0;
+		background-color: darken(#6890f0, 15%);
         border: 2px darken($color: #6890f0, $amount: 30) solid;
 	}
 	&.electric {
         color: #333;
-		background-color: #f8d030;
+		background-color: darken(#f8d030, 15%);
         border: 2px darken($color: #f8d030, $amount: 30) solid;
 	}
 	&.grass {
         color: #333;
-		background-color: #78c850;
+		background-color: darken(#78c850, 15%);
         border: 2px darken($color: #78c850, $amount: 30) solid;
 	}
 	&.ice {
         color: #333;
-		background-color: #98d8d8;
+		background-color: darken(#98d8d8, 15%);
         border: 2px darken($color: #98d8d8, $amount: 30) solid;
 	}
 	&.fighting {
-		background-color: #c03028;
+		background-color: darken(#c03028, 15%);
         border: 2px darken($color: #c03028, $amount: 30) solid;
 	}
 	&.poison {
-		background-color: #a040a0;
+		background-color: darken(#a040a0, 15%);
         border: 2px darken($color: #a040a0, $amount: 30) solid;
 	}
 	&.ground {
         color: #333;
-		background-color: #e0c068;
+		background-color: darken(#e0c068, 15%);
         border: 2px darken($color: #e0c068, $amount: 30) solid;
 	}
 	&.flying {
         color: #333;
-		background-color: #a890f0;
+		background-color: darken(#a890f0, 15%);
         border: 2px darken($color: #a890f0, $amount: 30) solid;
 	}
 	&.psychic {
-		background-color: #f85888;
+		background-color: darken(#f85888, 15%);
         border: 2px darken($color: #f85888, $amount: 30) solid;
 	}
 	&.bug {
         color: #333;
-		background-color: #a8b820;
+		background-color: darken(#a8b820, 15%);
         border: 2px darken($color: #a8b820, $amount: 30) solid;
 	}
 	&.rock {
-		background-color: #b8a038;
+		background-color: darken(#b8a038, 15%);
         border: 2px darken($color: #b8a038, $amount: 30) solid;
 	}
 	&.ghost {
-		background-color: #705898;
+		background-color: darken(#705898, 15%);
         border: 2px darken($color: #705898, $amount: 30) solid;
 	}
 	&.dragon {
-		background-color: #7038f8;
+		background-color: darken(#7038f8, 15%);
         border: 2px darken($color: #7038f8, $amount: 30) solid;
 	}
 	&.dark {
-		background-color: #705848;
+		background-color: darken(#705848, 15%);
         border: 2px darken($color: #705848, $amount: 30) solid;
 	}
 	&.steel {
         color: #333;
-		background-color: #b8b8d0;
+		background-color: darken(#b8b8d0, 15%);
         border: 2px darken($color: #b8b8d0, $amount: 30) solid;
 	}
 	&.fairy {
         color: #333;
-		background-color: #f0b6bc;
+		background-color: darken(#f0b6bc, 15%);
         border: 2px darken($color: #f0b6bc, $amount: 30) solid;
 	}
 	&.stellar {
-		background-color: #35ace7;
+		background-color: darken(#35ace7, 15%);
         border: 2px darken($color: #35ace7, $amount: 30) solid;
 	}
 	&.stellar {
-		background-color: #35ace7;
+		background-color: darken(#35ace7, 10%);
         border: 2px darken($color: #35ace7, $amount: 30) solid;
 	}
 	width: auto;
-	padding: 1% 1% 1% 1%;
     height: auto;
 }
 
@@ -122,4 +121,46 @@
 
 .effect{
 
+}
+
+.pokemon{
+	
+}
+
+.pokemonNameandTypes{
+	display: flex;
+	flex-direction: row;
+	justify-self: unset;
+	justify-content: space-between;
+	align-items: center;
+	background-color: $red;
+	margin: 0;
+	border-radius: 22px 22px 0px 0px;
+	padding-left: 2%;
+	padding-right: 2%;
+	z-index: -1;
+}
+
+.pokemon{
+	border: 3px solid white;
+	border-radius: 25px;
+	margin: 3%;
+}
+
+.types{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+.pokemonSearchInfo{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 2%;
+}
+
+.descriptionSection{
+	padding-left: 3%;
+	padding-right: 3%;
 }
