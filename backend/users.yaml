@@ -284,5 +284,23 @@ paths:
               description: Successful response
               content:
                 application/json: {}
+  /user/remove/{id}:
+    delete:
+      tags:
+        - Users
+      summary: Delete user
+      description: Update the user by their ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "{{userId}}"
+      responses:
+        '200':
+              description: Successful response
+              content:
+                application/json: {}
 
 
