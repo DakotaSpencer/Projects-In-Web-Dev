@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.412d5505.css",
+    "main.js": "/static/js/main.cd74dc4f.js",
+    "static/js/453.d5e0fbd1.chunk.js": "/static/js/453.d5e0fbd1.chunk.js",
+    "static/media/bootstrap-icons.woff?": "/static/media/bootstrap-icons.39795c0b4513de014cf8.woff",
+    "static/media/bootstrap-icons.woff2?": "/static/media/bootstrap-icons.b7bcc075b395c14ce8c2.woff2",
+    "static/media/PokemonSolidNormal-xyWR.ttf": "/static/media/PokemonSolidNormal-xyWR.5d60be1f7ff5fcc21fc1.ttf",
+    "index.html": "/index.html",
+    "main.412d5505.css.map": "/static/css/main.412d5505.css.map",
+    "main.cd74dc4f.js.map": "/static/js/main.cd74dc4f.js.map",
+    "453.d5e0fbd1.chunk.js.map": "/static/js/453.d5e0fbd1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.412d5505.css",
+    "static/js/main.cd74dc4f.js"
+  ]
+}
